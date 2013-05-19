@@ -24,19 +24,19 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="FESTA" min="-2" pref="84" max="-2" attributes="0"/>
-                  <Component id="PACOTE" min="-2" pref="84" max="-2" attributes="0"/>
-                  <Component id="CLIENTES" min="-2" pref="84" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Component id="CLIENTES" pref="102" max="32767" attributes="0"/>
+                  <Component id="FESTA" max="32767" attributes="0"/>
+                  <Component id="PACOTE" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="177" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="ITENS" alignment="1" min="-2" pref="84" max="-2" attributes="0"/>
-                  <Component id="jButton5" alignment="1" min="-2" pref="84" max="-2" attributes="0"/>
-                  <Component id="jButton4" alignment="1" min="-2" pref="84" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="ITENS" alignment="1" min="-2" pref="101" max="-2" attributes="0"/>
+                  <Component id="TEMA" alignment="1" min="-2" pref="101" max="-2" attributes="0"/>
+                  <Component id="DATA" alignment="1" min="-2" pref="101" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -44,26 +44,21 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="jButton4" min="-2" pref="68" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="CLIENTES" min="-2" pref="68" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="FESTA" alignment="3" min="-2" pref="68" max="-2" attributes="0"/>
-                          <Component id="ITENS" alignment="3" min="-2" pref="68" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace pref="30" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="PACOTE" alignment="3" min="-2" pref="68" max="-2" attributes="0"/>
-                          <Component id="jButton5" alignment="3" min="-2" pref="68" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
-                  </Group>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="CLIENTES" max="32767" attributes="0"/>
+                  <Component id="DATA" pref="68" max="32767" attributes="0"/>
               </Group>
+              <EmptySpace pref="26" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="FESTA" alignment="3" min="-2" pref="68" max="-2" attributes="0"/>
+                  <Component id="ITENS" alignment="3" min="-2" pref="68" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="30" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="PACOTE" alignment="3" min="-2" pref="68" max="-2" attributes="0"/>
+                  <Component id="TEMA" alignment="3" min="-2" pref="68" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -84,12 +79,15 @@
         <Property name="text" type="java.lang.String" value="FESTA"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton4">
+    <Component class="javax.swing.JButton" name="DATA">
       <Properties>
         <Property name="text" type="java.lang.String" value="DATA"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+      </AuxValues>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton5">
+    <Component class="javax.swing.JButton" name="TEMA">
       <Properties>
         <Property name="text" type="java.lang.String" value="TEMA"/>
       </Properties>
