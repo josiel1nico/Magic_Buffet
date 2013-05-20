@@ -29,7 +29,7 @@ public class PessoaDAO implements IPessoaDAO{
 
     @Override
     public void remover(AbstractPessoa abstractPessoa) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
    
