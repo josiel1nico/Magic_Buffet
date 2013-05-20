@@ -1,0 +1,15 @@
+1) Puxar todo o projeto pela primeira vez:
+
+git clone git@bitbucket.org:drawing/museu-virtual.git
+
+2) Atualizar repositório local a partir do da nuvem:
+
+git pull origin
+
+2) Submeter alterações para repositório na nuvem
+
+git add arquivo/diretorio (em geral, venho utilizando o '.' para submeter tudo que tenha iso alterado. Nesse caso, tem que ser feito no diretório principal do projeto)
+
+git commit -m "descrição das modificações"
+
+git push origin master
