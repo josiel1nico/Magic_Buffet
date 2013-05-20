@@ -11,7 +11,7 @@ package controler;
 public class Festa extends AbstractFesta {
    
     
-    public Festa(int IdFesta, DataFesta DataHorario, AbstractPessoa cpf, 
+    public Festa(int IdFesta, DataFesta DataHorario, Pessoa cpf, 
             Temas tema, Localizações local, Pacotes pacote, boolean externo, 
             int quantidadeConvidados, int numeroLocal, String CEPLocal) {
         

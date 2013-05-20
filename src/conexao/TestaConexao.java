@@ -6,6 +6,7 @@ package conexao;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import pacoteDAO.PessoaDAO;
 
 
 /**
@@ -19,6 +20,12 @@ public class TestaConexao {
         Connection connection = new ConectionFactory().getConnection();
         System.out.println("Conexao aberta");
         //connection.close();
+        
+        //criar um Cliente e salvar no banco
+        
+        
+        
+        
         
     }
 }

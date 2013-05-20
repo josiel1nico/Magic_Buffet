@@ -14,7 +14,7 @@ public abstract class AbstractFesta {
     
     private int IdFesta;
     private DataFesta DataHorario;
-    private AbstractPessoa cpf;
+    private Pessoa cpf;
     private Temas tema;
     private Localizações local;
     private Pacotes pacote;
@@ -42,11 +42,11 @@ public abstract class AbstractFesta {
         this.DataHorario = DataHorario;
     }
 
-    public AbstractPessoa getCpf() {
+    public Pessoa getCpf() {
         return cpf;
     }
 
-    public void setCpf(AbstractPessoa cpf) {
+    public void setCpf(Pessoa cpf) {
         this.cpf = cpf;
     }
 
