@@ -12,62 +12,50 @@ import java.sql.SQLException;
  *
  * @author Josiel
  */
-public class ConexaoMysql {
-
+public class ConectionFactory {
+   
     Connection connection = null;
-
-    public ConexaoMysql() {
-    }
-        
-    public Connection Conectar() {
-        
-        //Carregando o jdbc Driver padrão
-        String drivername = "com.mysql.jdbc.Driver";
+    
+   public Connection getConnection() {
         try {
-            Class.forName(drivername);
-            // Configurando a nossa conexão com um banco de dados//  
-            String serverName = "localhost";    //caminho do servidor do BD  
-            String mydatabase = "projetobd";        //nome do banco de dados  
-            String url = "jdbc:mysql://" + serverName + "/" + mydatabase;  
+            String url = "jdbc:mysql://localhost/projetobd"; //+ serverName + "/" + mydatabase;  
             String username = "root";        //nome do usuario do BD        
             String password = "josiel";      //senha de acesso  
-            
             System.out.println("Conectando ao BD");
-            connection = DriverManager.getConnection(url, username, password);  
-                      
-        } catch (ClassNotFoundException ex) {   //Driver nao encontrado
-            System.err.println("O driver especificado nao foi encontrado");
-            return null;
-        } catch (SQLException ex) {
+            
+            connection =  DriverManager.getConnection(url, username, password);
+            return connection;
+            
+        } catch (SQLException e) {
             System.err.println("Nao foi possivel se conectar ao Banco de Dados");
-            return null;
-        }   
-        return connection; 
-      }
+            throw new RuntimeException(e);
+        }    
+    }
+}
+
+/*    
     
-    
-    
-    //metodo que fecha conexao com o banco de dados
+          
+       //metodo que fecha conexao com o banco de dados
     public boolean Desconectar() {
         try {
             //fecha conexao
             System.out.println("Fechando a conexao...");
-            connection.close();
+            con.close();
+            System.out.println("Conexao fechada");
             return true;
         } catch (SQLException ex) {
             System.err.println("Nao foi possivel fechar a conexao");
             return false;
         }     
     }
-    
-    
-    
+  
     //retorna o Status da conexao
     public String StatusConexao(){  
         
         String status;
             //Testa sua conexão//  
-            if (connection != null) {
+            if (con != null) {
                 status = ("STATUS--->Conectado com sucesso!");
                 System.out.println(status);
             } else {
@@ -78,22 +66,12 @@ public class ConexaoMysql {
         return status;
     }
     
-  
     //Metodo reiniciar conexao
     public Connection ReiniciarConexao() {
         Desconectar();
         System.out.println("Reinicializando a conexao...");
-        return Conectar();
+        return getConnection();
     }
-
     
-     public static void main(String[] args) {
-        ConexaoMysql con = new ConexaoMysql();
-        con.Conectar();
-        con.StatusConexao();
-        //con.Desconectar();
-        
-    }
 
-}
-
+*/

@@ -9,7 +9,7 @@ package controler;
  * @author Josiel
  */
 public abstract class AbstractPessoa {
-    
+
     private String cpf;
     private String Pnome;
     private int rg;
@@ -89,6 +89,20 @@ public abstract class AbstractPessoa {
     }
 
     public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public AbstractPessoa(String cpf, String Pnome, int rg, String rua, int numero,
+            String bairro, String tipoPessoa, String cep, String telefone) {
+
+        this.cpf = cpf;
+        this.Pnome = Pnome;
+        this.rg = rg;
+        this.rua = rua;
+        this.numero = numero;
+        this.bairro = bairro;
+        this.tipoPessoa = tipoPessoa;
+        this.cep = cep;
         this.telefone = telefone;
     }
 }
