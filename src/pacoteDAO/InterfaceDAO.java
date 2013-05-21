@@ -13,10 +13,10 @@ import java.util.List;
 public interface InterfaceDAO {
     
     public void criar(Object object);
-    public Object selecionar(String id);
+    public Object buscarPessoa(String id);
     public void atualizar(int id, Object object);
     public void remover(String id);
-    public List<Object> listar();
+    
     
 }
 

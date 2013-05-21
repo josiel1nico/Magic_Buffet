@@ -10,71 +10,50 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  *
- * @author Josiel
+ * @author Josiel e Andreza
  */
 public class PessoaDAO implements InterfaceDAO {
-
+    private Connection conn;
+    private PreparedStatement pstm;
+    
     @Override
     public void criar(Object object) {
         Pessoa pessoa = (Pessoa) object;
-        String sql = "INSERT INTO Pessoa (cpf,pnome,rg,rua,numero,bairro,cep,tipoPessoa,telefone)"
-                + "VALUES(?,?,?,?,?,?,?,?,?)";
+        String sql;
+        sql = "INSERT INTO Pessoa (cpf,pnome,rg,rua,numero,bairro,cep,tipoPessoa,telefone)"
+             + "VALUES(?,?,?,?,?,?,?,?,?)";
+        try {                        
+                conectar(sql);
+                pstm.setString(1, pessoa.getCpf());
+                pstm.setString(2, pessoa.getPnome());
+                pstm.setInt(3, pessoa.getRg());
+                pstm.setString(4, pessoa.getRua());
+                pstm.setInt(5, pessoa.getNumero());
+                pstm.setString(6, pessoa.getBairro());
+                pstm.setString(7, pessoa.getCep());
+                pstm.setString(8, pessoa.getTipoPessoa());
+                pstm.setString(9, pessoa.getTelefone());
 
-
-        PreparedStatement pstm = null;
-        Connection con = null;
-
-        try {
-            con = new ConectionFactory().getConnection();
-            pstm = con.prepareStatement(sql);
-
-            pstm.setString(1, pessoa.getCpf());
-            pstm.setString(2, pessoa.getPnome());
-            pstm.setInt(3, pessoa.getRg());
-            pstm.setString(4, pessoa.getRua());
-            pstm.setInt(5, pessoa.getNumero());
-            pstm.setString(6, pessoa.getBairro());
-            pstm.setString(7, pessoa.getCep());
-            pstm.setString(8, pessoa.getTipoPessoa());
-            pstm.setString(9, pessoa.getTelefone());
-
-            pstm.execute();
-
+                pstm.execute();
         } catch (SQLException ex) {
-            ex.printStackTrace();
-
-        } finally {
-            try {
-                if (pstm != null) {
-                    pstm.close();
-                }
-                if (con != null) {
-                    con.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+            Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }                       
     }
 
     @Override
-    public Object selecionar(String id) {
-        String sql = "SELECT * FROM Pessoa WHERE id = CPF";
-        Connection conn = null;
-        PreparedStatement pstm = null;
-        ResultSet rset = null;
-        Pessoa pessoa = new Pessoa();
-        try {
-            conn = new ConectionFactory().getConnection();
-            pstm = conn.prepareStatement(sql);
+    public Pessoa buscarPessoa(String id) {
+       
+        String sql = "SELECT * FROM Pessoa WHERE id = CPF";              
+        ResultSet rset;
+        Pessoa pessoa = new Pessoa();              
+        try {           
+            conectar(sql);
             rset = pstm.executeQuery();
-            
             while(rset.next()){
                 pessoa.setCpf(rset.getString("CPF"));
                 pessoa.setRg(rset.getInt("RG"));
@@ -87,29 +66,32 @@ public class PessoaDAO implements InterfaceDAO {
                 pessoa.setTipoPessoa(rset.getString("TipoPessoa"));
                 
             }
-            
+ 
         } catch (SQLException ex) {
             Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
+        }              
+        fechar();
+        return pessoa;                
+    }
+    
+    public void conectar(String sql) throws SQLException{
+            conn = new ConectionFactory().getConnection();
+            pstm = conn.prepareStatement(sql);
+    }
+    
+    public void fechar(){
+        try {
                 if (pstm != null) {
                     pstm.close();
                 }
                 if (conn != null) {
                     conn.close();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("erro ao fechar conexao");
             }
-        }
- 
-        
-        
-        return pessoa;
-        
-        
     }
-
+    
     @Override
     public void atualizar(int id, Object object) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -119,9 +101,6 @@ public class PessoaDAO implements InterfaceDAO {
     public void remover(String id) {
     }
 
-    @Override
-    public List<Object> listar() {
-
-        return null;
-    }
+  
 }
+
