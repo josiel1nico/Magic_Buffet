@@ -16,6 +16,7 @@ public class Pessoa {
           
 
     private String cpf;
+    private String gerenteLogin;
     private String Pnome;
     private int rg;
     private String rua;
@@ -25,6 +26,8 @@ public class Pessoa {
     private String cep;
     private String telefone;
 
+    
+    
     public String getCpf() {
         return cpf;
     }
@@ -33,6 +36,14 @@ public class Pessoa {
         this.cpf = cpf;
     }
 
+    public String getGerenteLogin() {
+        return gerenteLogin;
+    }
+
+    public void setGerenteLogin(String gerenteLogin) {
+        this.gerenteLogin = gerenteLogin;
+    }
+       
     public String getPnome() {
         return Pnome;
     }
