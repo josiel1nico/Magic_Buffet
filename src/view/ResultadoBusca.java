@@ -4,12 +4,15 @@
  */
 package view;
 
+import controler.Pessoa;
+
 /**
  *
  * @author andreza
  */
 public class ResultadoBusca extends javax.swing.JFrame {
 
+    Pessoa p = new Pessoa();
     /**
      * Creates new form ResultadoBusca
      */
@@ -29,6 +32,8 @@ public class ResultadoBusca extends javax.swing.JFrame {
         textoNome = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        textoNome.setText(p.getPnome());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -53,6 +58,7 @@ public class ResultadoBusca extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -85,6 +91,6 @@ public class ResultadoBusca extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField textoNome;
+    public javax.swing.JTextField textoNome;
     // End of variables declaration//GEN-END:variables
 }

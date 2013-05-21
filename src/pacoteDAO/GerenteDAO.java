@@ -6,11 +6,9 @@ package pacoteDAO;
 
 import conexao.ConectionFactory;
 import controler.Gerente;
-import controler.Pessoa;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.List;
 
 /**
  *
