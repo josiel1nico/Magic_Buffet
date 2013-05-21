@@ -5,6 +5,12 @@
 package view;
 
 import controler.Pessoa;
+import controler.ResultadoPesquisa;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 import pacoteDAO.PessoaDAO;
 
 /**
@@ -16,7 +22,7 @@ public class TelaBuscar extends javax.swing.JFrame {
     /**
      * Creates new form TelaBuscar
      */
-    public Pessoa p;
+      
 
     public TelaBuscar() {
         initComponents();
@@ -150,16 +156,21 @@ public class TelaBuscar extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void botaoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoBuscarActionPerformed
+                    
         if (ClienteRB.isSelected()) {
             PessoaDAO pessoa = new PessoaDAO();
-            ResultadoBusca resultado = new ResultadoBusca();
-            System.out.println("TESTE 1");
-            resultado.p = pessoa.buscarPessoa(cpfText.getText());
-            System.out.println("TESTE 2");
-            System.out.println("" + p.getPnome());
-            this.dispose();
-            resultado.setVisible(true);
-            //resultado.p = p;
+            Pessoa p = pessoa.buscarPessoa(cpfText.getText());
+            ResultadoCliente result = new ResultadoCliente();
+            result.setNome(p.getPnome());
+            result.setCpf(p.getCpf());
+            result.setBairro(p.getBairro());
+            result.setTelefone(p.getTelefone());
+            result.setRua(p.getRua());
+            result.setRG(String.valueOf(p.getRg()));
+            result.setVisible(true);
+            
+        
+
         }
 
 
