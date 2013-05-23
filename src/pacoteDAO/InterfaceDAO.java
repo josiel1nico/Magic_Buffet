@@ -13,9 +13,9 @@ import java.util.List;
 public interface InterfaceDAO {
     
     public void criar(Object object);
-    public Object buscarPessoa(String id);
-    public List<Object> buscarPessoas(String nome);
-    public void atualizar(String id, Object object);
+    public Object buscar(String id);
+    public List<Object> buscarObjects(String nome);
+    public void atualizar(Object object);
     public void remover(Object object);
     
     

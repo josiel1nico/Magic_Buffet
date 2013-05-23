@@ -5,6 +5,7 @@
 package pacoteDAO;
 
 import conexao.ConectionFactory;
+import controler.Gerente;
 import controler.Pessoa;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 /**
- *
+ *  
  * @author Josiel e Andreza
  */
 public class PessoaDAO implements InterfaceDAO {
@@ -23,20 +24,21 @@ public class PessoaDAO implements InterfaceDAO {
     @Override
     public void criar(Object object) {
         Pessoa pessoa = (Pessoa) object;
-        String sql;
-        sql = "INSERT INTO Pessoa (cpf,pnome,rg,rua,numero,bairro,cep,tipoPessoa,telefone)"
-                + "VALUES(?,?,?,?,?,?,?,?,?)";
+        String SQL;
+        SQL = "INSERT INTO Pessoa (cpf,gerente_Login,pnome,rg,rua,numero,bairro,cep,tipoPessoa,telefone)"
+                + "VALUES(?,?,?,?,?,?,?,?,?,?)";
         try {
-            conectar(sql);
+            conectar(SQL);
             pstm.setString(1, pessoa.getCpf());
-            pstm.setString(2, pessoa.getPnome());
-            pstm.setInt(3, pessoa.getRg());
-            pstm.setString(4, pessoa.getRua());
-            pstm.setInt(5, pessoa.getNumero());
-            pstm.setString(6, pessoa.getBairro());
-            pstm.setString(7, pessoa.getCep());
-            pstm.setString(8, pessoa.getTipoPessoa());
-            pstm.setString(9, pessoa.getTelefone());
+            pstm.setString(2, pessoa.getGerenteLogin());
+            pstm.setString(3, pessoa.getPnome());
+            pstm.setInt(4, pessoa.getRg());
+            pstm.setString(5, pessoa.getRua());
+            pstm.setInt(6, pessoa.getNumero());
+            pstm.setString(7, pessoa.getBairro());
+            pstm.setString(8, pessoa.getCep());
+            pstm.setString(9, pessoa.getTipoPessoa());
+            pstm.setString(10, pessoa.getTelefone());
             pstm.execute();
             pstm.close();
 
@@ -46,17 +48,18 @@ public class PessoaDAO implements InterfaceDAO {
     }
 
     @Override
-    public Pessoa buscarPessoa(String id) {
+    public Pessoa buscar(String id) {
 
-        String sql = "SELECT * FROM Pessoa WHERE cpf LIKE " + id; //busca apenas uma pessoa pelo CPF
+        String buscarPessoa = "SELECT * FROM Pessoa WHERE cpf LIKE " + id; //busca apenas uma pessoa pelo CPF
         ResultSet rset;
         Pessoa pessoa = new Pessoa();
         try {
-            conectar(sql);
+            conectar(buscarPessoa);
             rset = pstm.executeQuery();
             while (rset.next()) {
                 pessoa.setCpf(rset.getString("CPF"));
                 pessoa.setRg(rset.getInt("RG"));
+                pessoa.setGerenteLogin(rset.getString("Gerente_login"));
                 pessoa.setCep(rset.getString("CEP"));
                 pessoa.setRua(rset.getString("Rua"));
                 pessoa.setBairro(rset.getString("Bairro"));
@@ -67,45 +70,35 @@ public class PessoaDAO implements InterfaceDAO {
             }
         } catch (SQLException ex) {
             System.err.println("CPF De Pessoa nao confere com dados do banco");
-        }
+        }   
         fechar();
         return pessoa;
     }
 
     //Atualiza uma determinada pessoa
     @Override
-    public void atualizar(String id,Object object) {
+    public void atualizar(Object object) {
         Pessoa pessoa = (Pessoa) object;
-        String sql;
-        if(!pessoa.getGerenteLogin().equals(""))
-        { 
-            sql = "UPDATE Pessoa "
-               + "SET cpf = ?" + pessoa.getCpf() +
-                "gerenteLogin = ?" + pessoa.getGerenteLogin()  +
-                "nome = ?" + pessoa.getPnome() +
-                "rg = ?" + pessoa.getRg() +
-                "rua = ?" + pessoa.getRua()+
-                "numero = ?" + pessoa.getNumero() +
-                "bairro = ?" + pessoa.getBairro() +
-                "sep = ?" + pessoa.getCep() +
-                "tipoPessoa = ?" + pessoa.getTipoPessoa() +
-                "telefone = ?" + pessoa.getTelefone();
-        }else 
-        {
-            
-            sql = "UPDATE Pessoa "
-               + "SET cpf = ?" + pessoa.getCpf() +
-                "gerenteLogin = ?" + null  +
-                "nome = ?" + pessoa.getPnome() +
-                "rg = ?" + pessoa.getRg() +
-                "rua = ?" + pessoa.getRua()+
-                "numero = ?" + pessoa.getNumero() +
-                "bairro = ?" + pessoa.getBairro() +
-                "sep = ?" + pessoa.getCep() +
-                "tipoPessoa = ?" + pessoa.getTipoPessoa() +
-                "telefone = ?" + pessoa.getTelefone();
-        }
+        String atualizar;
         
+        atualizar = "UPDATE pessoa SET (gerenteLogin,pnome,rg,rua,numero,bairro,cep,tipoPessoa,telefone)"
+                + "VALUES(?,?,?,?,?,?,?,?,?) WHERE cpf = ?";
+        try {
+            conectar(atualizar);
+            pstm.setString(1, pessoa.getCpf());
+            pstm.setString(2, pessoa.getGerenteLogin());
+            pstm.setString(3, pessoa.getPnome());
+            pstm.setInt(4, pessoa.getRg());
+            pstm.setString(5, pessoa.getRua());
+            pstm.setInt(6, pessoa.getNumero());
+            pstm.setString(7, pessoa.getBairro());
+            pstm.setString(8, pessoa.getCep());
+            pstm.setString(9, pessoa.getTipoPessoa());
+            pstm.setString(10, pessoa.getTelefone());
+            
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
    }
 
     //REMOVE UMA PESSOA DO BANCO DE DADOS
@@ -124,12 +117,7 @@ public class PessoaDAO implements InterfaceDAO {
         }
     }
 
-    @Override
-    public List<Object> buscarPessoas(String nome) {
-        
-        return null;
-    }
-    
+   
     
     
     
@@ -153,5 +141,12 @@ public class PessoaDAO implements InterfaceDAO {
         } catch (Exception e) {
             System.err.println("erro ao fechar conexao");
         }
+    }
+
+    @Override
+    public List<Object> buscarObjects(String nome) {
+        
+        
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

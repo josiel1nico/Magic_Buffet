@@ -16,42 +16,46 @@ import java.sql.SQLException;
  */
 public class GerenteDAO extends PessoaDAO {
     
+      PreparedStatement pstm = null;
+      Connection con = null;
+    
     public void criarGerente(Object object){
         Gerente gerente = (Gerente) object;
         //String sql2 = "INSERT INTO Pessoa(gerente_Login)" + "VALUES(?)";
         
         String sql = "INSERT INTO Gerente(Login, Senha)" + "VALUES(?,?)";
-        PreparedStatement pstm = null;
-        Connection con = null;
-
         try {
-            con = new ConectionFactory().getConnection();
-            pstm = con.prepareStatement(sql);           
+            conectar(sql);
 
             pstm.setString(1, gerente.getLogin());
             pstm.setString(2, gerente.getSenha());
-         
-
             pstm.execute();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
 
-        } finally {
-            try {
-                if (pstm != null) {
-                    pstm.close();
-                }
-                if (con != null) {
-                    con.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        fechar();
         }
         
     }
 
-  
+       public void conectar(String sql) throws SQLException {
+        con = new ConectionFactory().getConnection();
+        pstm = con.prepareStatement(sql);
+    }
+
+    public void fechar() {
+        try {
+            if (pstm != null) {
+                pstm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+            System.out.println("Conexão Fechada");
+        } catch (Exception e) {
+            System.err.println("erro ao fechar conexao");
+        }
+    }
     
 }

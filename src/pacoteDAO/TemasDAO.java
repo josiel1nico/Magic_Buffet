@@ -18,17 +18,17 @@ public class TemasDAO implements InterfaceDAO {
     }
 
     @Override
-    public Object buscarPessoa(String id) {
+    public Object buscar(String id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Object> buscarPessoas(String nome) {
+    public List<Object> buscarObjects(String nome) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void atualizar(String id, Object object) {
+    public void atualizar(Object object) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -8,14 +8,22 @@ package controler;
  *
  * @author Josiel
  */
-public class Localizações {
+public class Localizacao {
     
+    private int idLocalizacao;
     private String CEP;
     private int numero;
     private String rua;
     private String bairro;
 
-    
+    public int getIdLocalizacao() {
+        return idLocalizacao;
+    }
+
+    public void setIdLocalizacao(int idLocalizacao) {
+        this.idLocalizacao = idLocalizacao;
+    }
+
     public String getCEP() {
         return CEP;
     }
@@ -47,8 +55,5 @@ public class Localizações {
     public void setBairro(String bairro) {
         this.bairro = bairro;
     }
-    
-    
-    
-    
+
 }
