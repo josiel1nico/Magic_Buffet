@@ -159,7 +159,7 @@ public class TelaBuscar extends javax.swing.JFrame {
                     
         if (ClienteRB.isSelected()) {
             PessoaDAO pessoa = new PessoaDAO();
-            Pessoa p = pessoa.buscarPessoa(cpfText.getText());
+            Pessoa p = pessoa.buscar(cpfText.getText());
             ResultadoCliente result = new ResultadoCliente();
             result.setNome(p.getPnome());
             result.setCpf(p.getCpf());

@@ -25,6 +25,7 @@ public class Pessoa {
     private String tipoPessoa;
     private String cep;
     private String telefone;
+    private String cidade;
 
     
     
@@ -107,4 +108,14 @@ public class Pessoa {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+    
+    
 }

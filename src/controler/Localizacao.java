@@ -10,17 +10,18 @@ package controler;
  */
 public class Localizacao {
     
-    private int idLocalizacao;
+    private String idLocalizacao;
     private String CEP;
     private int numero;
     private String rua;
     private String bairro;
+    private String Cidade;
 
-    public int getIdLocalizacao() {
+    public String getIdLocalizacao() {
         return idLocalizacao;
     }
 
-    public void setIdLocalizacao(int idLocalizacao) {
+    public void setIdLocalizacao(String idLocalizacao) {
         this.idLocalizacao = idLocalizacao;
     }
 
@@ -54,6 +55,14 @@ public class Localizacao {
 
     public void setBairro(String bairro) {
         this.bairro = bairro;
+    }
+
+    public String getCidade() {
+        return Cidade;
+    }
+
+    public void setCidade(String Cidade) {
+        this.Cidade = Cidade;
     }
 
 }

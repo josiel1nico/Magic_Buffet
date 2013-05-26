@@ -10,17 +10,16 @@ package controler;
  */
 public class Itens {
     
-    private int idItem;
+    private String idItem;
     private String NomeItem;
     private int quantidadeTotal;
     private double preco_unidade;
 
-    
-    public int getIdItem() {
+    public String getIdItem() {
         return idItem;
     }
 
-    public void setIdItem(int idItem) {
+    public void setIdItem(String idItem) {
         this.idItem = idItem;
     }
 

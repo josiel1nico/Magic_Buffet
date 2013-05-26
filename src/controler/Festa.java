@@ -8,27 +8,26 @@ package controler;
  *
  * @author Josiel
  */
-public abstract class Festa {
+public class Festa {
     
-    private int IdFesta;
+    private String IdFesta;
     private DataFesta DataHorario;
     private Pessoa cpf;
-    private Temas tema;
+    private Tema tema;
     private Localizacao local;
-    private Pacotes pacote;
+    private Pacote pacote;
     private boolean externo;
     private int quantidadeConvidados; //tres campos separando as idades
     private int numeroLocal;
     private String CEPLocal;
 
     
-
-     
-    public int getIdFesta() {
+    
+    public String getIdFesta() {
         return IdFesta;
     }
 
-    public void setIdFesta(int IdFesta) {
+    public void setIdFesta(String IdFesta) {
         this.IdFesta = IdFesta;
     }
 
@@ -48,11 +47,11 @@ public abstract class Festa {
         this.cpf = cpf;
     }
 
-    public Temas getTema() {
+    public Tema getTema() {
         return tema;
     }
 
-    public void setTema(Temas tema) {
+    public void setTema(Tema tema) {
         this.tema = tema;
     }
 
@@ -64,11 +63,11 @@ public abstract class Festa {
         this.local = local;
     }
 
-    public Pacotes getPacote() {
+    public Pacote getPacote() {
         return pacote;
     }
 
-    public void setPacote(Pacotes pacote) {
+    public void setPacote(Pacote pacote) {
         this.pacote = pacote;
     }
 

@@ -8,22 +8,21 @@ package controler;
  *
  * @author Josiel
  */
-public class Pacotes {
+public class Pacote {
     
-    private int idPacote;
+    private String idPacote;
     private int pacote_idPacote; //pode ser null
     private String PacoteNome;
     private double preco;
 
-    
-    
-    public int getIdPacote() {
+    public String getIdPacote() {
         return idPacote;
     }
 
-    public void setIdPacote(int idPacote) {
+    public void setIdPacote(String idPacote) {
         this.idPacote = idPacote;
     }
+
 
     public int getPacote_idPacote() {
         return pacote_idPacote;

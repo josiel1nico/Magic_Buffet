@@ -4,36 +4,40 @@
  */
 package pacoteDAO;
 
-import java.util.List;
+
+import InterfaceDAO.InterfaceTemaDAO;
+import controler.Tema;
+import java.util.ArrayList;
+
 
 /**
  *
  * @author Josiel
  */
-public class TemasDAO implements InterfaceDAO {
+public class TemaDAO implements InterfaceTemaDAO {
 
     @Override
-    public void criar(Object object) {
+    public void criar(Tema tema) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Object buscar(String id) {
+    public Tema buscar(String idTema) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Object> buscarObjects(String nome) {
+    public void atualizar(Tema tema) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void atualizar(Object object) {
+    public void remover(Tema tema) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void remover(Object object) {
+    public ArrayList<Tema> buscarTema() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

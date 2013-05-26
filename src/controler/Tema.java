@@ -8,20 +8,20 @@ package controler;
  *
  * @author Josiel
  */
-public class Temas {
+public class Tema {
     
     private static final String PROVENCAL = "PROVENCAL";
     private static final String NORMAL = "NORMAL";
     
     
-    private int idTema;
+    private String idTema;
     private String Tnome;
 
-    public int getIdTema() {
+    public String getIdTema() {
         return idTema;
     }
 
-    public void setIdTema(int idTema) {
+    public void setIdTema(String idTema) {
         this.idTema = idTema;
     }
 

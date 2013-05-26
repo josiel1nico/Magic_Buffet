@@ -21,7 +21,7 @@ public class ConectionFactory {
             String url = "jdbc:mysql://localhost/projetobd"; //+ serverName + "/" + mydatabase;  
             String username = "root";        //nome do usuario do BD        
             String password = "josiel";      //senha de acesso  
-            System.out.println("Conectando ao BD");
+            //System.out.println("Conectando ao BD");
             
             connection =  DriverManager.getConnection(url, username, password);
             return connection;
@@ -30,6 +30,12 @@ public class ConectionFactory {
             System.err.println("Nao foi possivel se conectar ao Banco de Dados");
             throw new RuntimeException(e);
         }    
+    }
+   
+    public static void main(String[] args) {
+        
+        Connection connection = new ConectionFactory().getConnection();
+        System.out.println("Conexao aberta");
     }
 }
 
