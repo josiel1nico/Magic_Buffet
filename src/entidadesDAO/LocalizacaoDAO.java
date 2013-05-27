@@ -80,7 +80,7 @@ public class LocalizacaoDAO implements InterfaceLocalizacaoDAO {
     @Override
     public void atualizar(Localizacao localizacao) {
 
-        String atualiza = "UPDATE Localizacao SET"
+        String atualiza = "UPDATE Localizacao SET " 
                 + "CEP = ?,"
                 + "Numero = ?,"
                 + "Rua = ?,"
@@ -148,7 +148,7 @@ public class LocalizacaoDAO implements InterfaceLocalizacaoDAO {
                 locais.add(localizacao);
             }
         } catch (SQLException ex) {
-            imprimeErro("Erro ao apagar Localizacao", ex.getMessage());
+            imprimeErro("Erro ao Buscar todas as Localizacoes", ex.getMessage());
         }
         return locais;
     }
@@ -171,7 +171,6 @@ public class LocalizacaoDAO implements InterfaceLocalizacaoDAO {
             if (conn != null) {
                 conn.close();
             }
-            System.out.println("Conexão Fechada");
         } catch (Exception e) {
             imprimeErro("Erro ao fechar conexão", e.getMessage());
             //System.err.println("erro ao fechar conexao");

@@ -29,24 +29,40 @@ public class TesteLocalizacao {
          ldao.criar(l);
          ldao.remover(l);
         
+         *  System.out.println("Numero: " + l2.getNumero());
          */
-        Localizacao l2 = ldao.buscar("450");
+        Localizacao l2 = ldao.buscar("327");
         
+        System.out.println("\n");
+        
+        System.out.println("ID Localizacao: " + l2.getIdLocalizacao());
+        System.out.println("Rua: " + l2.getRua());
         System.out.println("Numero: " + l2.getNumero());
 
-        l2.setNumero(90);
+        l2.setCEP("59600000");
+        l2.setBairro("Centro");
+        l2.setCidade("Natal");
+        l2.setNumero(60);
+        
+        ldao.atualizar(l2);
 
-        //ldao.atualizar(l);
-        
-        //A FUNCAO DE ATUALIZAR LOCALIZAÇÃO TÁ COM PROBLEMAS
-        
+        System.out.println("\n");
+
+        System.out.println("ID Localizacao: " + l2.getIdLocalizacao());
+        System.out.println("Rua: " + l2.getRua());
+        System.out.println("Numero: " + l2.getNumero());
+
+
         ArrayList<Localizacao> resultado = ldao.buscarLocalizacoes();
+        
+        System.out.println("\nID E NOME DE TODAS AS LOCALIZACOES\n");
         
         for (Iterator<Localizacao> iterator = resultado.iterator(); iterator.hasNext();) {
             Localizacao localizacao = iterator.next();
-
-            System.out.println("Localizacao: " + localizacao.getIdLocalizacao());
-
+            System.out.println("Identificador da Localizacao: " + localizacao.getIdLocalizacao());
+            System.out.println("Nome da Rua: " + localizacao.getRua());
+            System.out.println("");
+            
         }
     }
 }
