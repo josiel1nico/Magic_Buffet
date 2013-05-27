@@ -11,7 +11,7 @@ import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import pacoteDAO.PessoaDAO;
+import entidadesDAO.PessoaDAO;
 
 /**
  *

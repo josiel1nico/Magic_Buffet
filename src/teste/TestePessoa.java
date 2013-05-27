@@ -8,7 +8,7 @@ import controler.Pessoa;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import pacoteDAO.PessoaDAO;
+import entidadesDAO.PessoaDAO;
 
 /**
  *

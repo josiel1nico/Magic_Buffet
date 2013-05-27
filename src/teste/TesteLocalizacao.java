@@ -7,7 +7,7 @@ package teste;
 import controler.Localizacao;
 import java.util.ArrayList;
 import java.util.Iterator;
-import pacoteDAO.LocalizacaoDAO;
+import entidadesDAO.LocalizacaoDAO;
 
 /**
  *
@@ -41,14 +41,12 @@ public class TesteLocalizacao {
         //A FUNCAO DE ATUALIZAR LOCALIZAÇÃO TÁ COM PROBLEMAS
         
         ArrayList<Localizacao> resultado = ldao.buscarLocalizacoes();
+        
         for (Iterator<Localizacao> iterator = resultado.iterator(); iterator.hasNext();) {
             Localizacao localizacao = iterator.next();
 
             System.out.println("Localizacao: " + localizacao.getIdLocalizacao());
 
         }
-
-
-
     }
 }

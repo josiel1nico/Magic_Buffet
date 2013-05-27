@@ -11,10 +11,11 @@ package controler;
 public class Pacote {
     
     private String idPacote;
-    private int pacote_idPacote; //pode ser null
-    private String PacoteNome;
-    private double preco;
+    private String nomePacote;
+    private float precoPacote;
 
+    
+    
     public String getIdPacote() {
         return idPacote;
     }
@@ -24,30 +25,20 @@ public class Pacote {
     }
 
 
-    public int getPacote_idPacote() {
-        return pacote_idPacote;
-    }
-
-    public void setPacote_idPacote(int pacote_idPacote) {
-        this.pacote_idPacote = pacote_idPacote;
-    }
-
     public String getPacoteNome() {
-        return PacoteNome;
+        return nomePacote;
     }
 
     public void setPacoteNome(String PacoteNome) {
-        this.PacoteNome = PacoteNome;
+        this.nomePacote = PacoteNome;
     }
 
-    public double getPreco() {
-        return preco;
+    public float getPrecoPacote() {
+        return precoPacote;
     }
 
-    public void setPreco(double preco) {
-        this.preco = preco;
+    public void setPrecoPacote(float precoPacote) {
+        this.precoPacote = precoPacote;
     }
-    
-    
-    
+
 }

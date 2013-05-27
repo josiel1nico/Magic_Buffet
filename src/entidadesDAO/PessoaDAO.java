@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pacoteDAO;
+package entidadesDAO;
 
 import InterfaceDAO.InterfacePessoaDAO;
 import conexao.ConectionFactory;
@@ -29,8 +29,9 @@ public class PessoaDAO implements InterfacePessoaDAO {
         String SQL;
         SQL = "INSERT INTO Pessoa (cpf,gerente_Login,pnome,rg,rua,numero,bairro,cep,tipoPessoa,telefone,cidade)"
                 + "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+
+        conectar(SQL);
         try {
-            conectar(SQL);
             pstm.setString(1, pessoa.getCpf());
             pstm.setString(2, pessoa.getGerenteLogin());
             pstm.setString(3, pessoa.getPnome());
@@ -54,27 +55,27 @@ public class PessoaDAO implements InterfacePessoaDAO {
     public Pessoa buscar(String id) {
 
         String buscarPessoa = "SELECT * FROM Pessoa WHERE cpf LIKE " + id; //busca apenas uma pessoa pelo CPF
-        ResultSet rset;
+        ResultSet result;
         Pessoa pessoa = new Pessoa();
+        conectar(buscarPessoa);
         try {
-            conectar(buscarPessoa);
-            rset = pstm.executeQuery();
-            while (rset.next()) {
-                pessoa.setCpf(rset.getString("CPF"));
-                pessoa.setRg(rset.getInt("RG"));
-                pessoa.setGerenteLogin(rset.getString("Gerente_login"));
-                pessoa.setCep(rset.getString("CEP"));
-                pessoa.setRua(rset.getString("Rua"));
-                pessoa.setBairro(rset.getString("Bairro"));
-                pessoa.setTelefone(rset.getString("Telefone"));
-                pessoa.setNumero(rset.getInt("Numero"));
-                pessoa.setPnome(rset.getString("PNome"));
-                pessoa.setTipoPessoa(rset.getString("TipoPessoa"));
-                pessoa.setCidade(rset.getString("cidade"));
+            result = pstm.executeQuery();
+            while (result.next()) {
+                pessoa.setCpf(result.getString("CPF"));
+                pessoa.setRg(result.getInt("RG"));
+                pessoa.setGerenteLogin(result.getString("Gerente_login"));
+                pessoa.setCep(result.getString("CEP"));
+                pessoa.setRua(result.getString("Rua"));
+                pessoa.setBairro(result.getString("Bairro"));
+                pessoa.setTelefone(result.getString("Telefone"));
+                pessoa.setNumero(result.getInt("Numero"));
+                pessoa.setPnome(result.getString("PNome"));
+                pessoa.setTipoPessoa(result.getString("TipoPessoa"));
+                pessoa.setCidade(result.getString("cidade"));
 
             }
         } catch (SQLException ex) {
-            System.err.println("CPF De Pessoa nao confere com dados do banco");
+            //System.err.println("CPF De Pessoa nao confere com dados do banco");
             imprimeErro("Erro ao Buscar uma Pessoa", ex.getMessage());
         }
         fechar();
@@ -97,8 +98,9 @@ public class PessoaDAO implements InterfacePessoaDAO {
                 + "Telefone = ?,"
                 + "Cidade = ? "
                 + "WHERE CPF = ?";
+
+        conectar(atualizar);
         try {
-            conectar(atualizar);
             pstm.setString(1, pessoa.getGerenteLogin());
             pstm.setString(2, pessoa.getPnome());
             pstm.setInt(3, pessoa.getRg());
@@ -126,8 +128,9 @@ public class PessoaDAO implements InterfacePessoaDAO {
     public void remover(Pessoa pessoa) {
 
         String sql = "DELETE FROM Pessoa WHERE CPF = ?";
+        conectar(sql);
+
         try {
-            conectar(sql);
             pstm.setString(1, pessoa.getCpf());
             pstm.execute();
             pstm.close();
@@ -140,12 +143,12 @@ public class PessoaDAO implements InterfacePessoaDAO {
     @Override
     public ArrayList<Pessoa> buscarPessoas() {
 
-        String sql = "SELECT * FROM Pessoa ";
+        String sql = "SELECT * FROM Pessoa";
         ArrayList<Pessoa> pessoas = new ArrayList<>();
         ResultSet result;
-
+        conectar(sql);
+        
         try {
-            conectar(sql);
             result = pstm.executeQuery();
             while (result.next()) {
                 Pessoa pessoa = new Pessoa();

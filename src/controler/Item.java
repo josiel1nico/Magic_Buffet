@@ -8,12 +8,12 @@ package controler;
  *
  * @author Josiel
  */
-public class Itens {
+public class Item {
     
     private String idItem;
-    private String NomeItem;
+    private String nomeItem;
     private int quantidadeTotal;
-    private double preco_unidade;
+    private float precoUnidade;
 
     public String getIdItem() {
         return idItem;
@@ -24,11 +24,11 @@ public class Itens {
     }
 
     public String getNomeItem() {
-        return NomeItem;
+        return nomeItem;
     }
 
     public void setNomeItem(String NomeItem) {
-        this.NomeItem = NomeItem;
+        this.nomeItem = NomeItem;
     }
 
     public int getQuantidadeTotal() {
@@ -39,13 +39,11 @@ public class Itens {
         this.quantidadeTotal = quantidadeTotal;
     }
 
-    public double getPreco_unidade() {
-        return preco_unidade;
+    public float getPrecoUnidade() {
+        return precoUnidade;
     }
 
-    public void setPreco_unidade(double preco_unidade) {
-        this.preco_unidade = preco_unidade;
+    public void setPrecoUnidade(float precoUnidade) {
+        this.precoUnidade = precoUnidade;
     }
-    
-    
 }

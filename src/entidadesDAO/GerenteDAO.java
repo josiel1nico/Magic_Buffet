@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pacoteDAO;
+package entidadesDAO;
 
 import InterfaceDAO.InterfacePessoaDAO;
 import conexao.ConectionFactory;
@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 public class GerenteDAO extends PessoaDAO implements InterfacePessoaDAO {
 
     PreparedStatement pstm = null;
-    Connection con = null;
+    Connection conn = null;
 
     public void criarGerente(Gerente gerente) {
         
@@ -44,9 +45,43 @@ public class GerenteDAO extends PessoaDAO implements InterfacePessoaDAO {
 
     }
 
-    public void conectar(String sql) throws SQLException {
-        con = new ConectionFactory().getConnection();
-        pstm = con.prepareStatement(sql);
+   
+
+    @Override
+    public void criar(Pessoa pessoa) {
+        
+    }
+
+    @Override
+    public Pessoa buscar(String cpf) {
+        
+        return  null;
+    }
+
+    @Override
+    public void atualizar(Pessoa pessoa) {
+        
+    }
+
+    @Override
+    public void remover(Pessoa pessoa) {
+        
+    }
+
+    @Override
+    public ArrayList<Pessoa> buscarPessoas() {
+        return null;
+    }
+    
+    
+    public void conectar(String sql) {
+
+        try {
+            conn = new ConectionFactory().getConnection();
+            pstm = conn.prepareStatement(sql);
+        } catch (SQLException ex) {
+            imprimeErro("Erro ao conectar", ex.getMessage());
+        }
     }
 
     public void fechar() {
@@ -54,38 +89,21 @@ public class GerenteDAO extends PessoaDAO implements InterfacePessoaDAO {
             if (pstm != null) {
                 pstm.close();
             }
-            if (con != null) {
-                con.close();
+            if (conn != null) {
+                conn.close();
             }
             System.out.println("Conexão Fechada");
         } catch (Exception e) {
-            System.err.println("erro ao fechar conexao");
+            imprimeErro("Erro ao fechar conexão", e.getMessage());
+            //System.err.println("erro ao fechar conexao");
         }
     }
 
-    @Override
-    public void criar(Pessoa pessoa) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Pessoa buscar(String cpf) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void atualizar(Pessoa pessoa) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void remover(Pessoa pessoa) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ArrayList<Pessoa> buscarPessoas() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void imprimeErro(String msg, String msgErro) {
+        JOptionPane.showMessageDialog(null, msg, "Erro crítico", 0);
+        System.err.println(msg);
+        System.out.println(msgErro);
+        System.exit(0);
     }
 
     
