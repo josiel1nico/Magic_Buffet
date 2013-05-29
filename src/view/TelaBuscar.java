@@ -19,7 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import pacoteDAO.PessoaDAO;
+import entidadesDAO.PessoaDAO;
 
 /**
  *

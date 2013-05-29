@@ -214,7 +214,12 @@ public class TelaCadastrarItem extends javax.swing.JFrame {
         item.setQuantidadeTotal(Integer.parseInt(quantidade));
         Float preco = Float.parseFloat(textopreco.getText());
         item.setPrecoUnidade(preco);
-        textopreco.setText(String.valueOf(item.getPrecoUnidade()));
+        
+        
+        idao.criar(item);
+        TelaInicial telaInicial = new TelaInicial();
+        this.dispose();
+        telaInicial.setVisible(true);
         
     }//GEN-LAST:event_SALVARActionPerformed
 

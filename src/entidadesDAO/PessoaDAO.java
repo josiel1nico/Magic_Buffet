@@ -173,6 +173,41 @@ public class PessoaDAO implements InterfacePessoaDAO {
         return null;
 
     }
+    
+    
+    public ArrayList<Pessoa> buscarPessoaNome(String nome) {
+
+        String sql = "SELECT * FROM Pessoa WHERE pnome LIKE '" + nome + "'";
+        ArrayList<Pessoa> pessoas = new ArrayList<>();
+        ResultSet result;
+
+        try {
+            conectar(sql);
+            result = pstm.executeQuery();
+            while (result.next()) {
+                Pessoa pessoa = new Pessoa();
+                // pega todos os atributos da pessoa  
+                pessoa.setPnome(result.getString("PNome"));
+                pessoa.setBairro(result.getString("Bairro"));
+                pessoa.setCep(result.getString("CEP"));
+                pessoa.setNumero(result.getInt("Numero"));
+                pessoa.setRua(result.getString("Rua"));
+                pessoa.setCpf(result.getString("CPF"));
+                pessoa.setRg(result.getInt("RG"));
+                pessoa.setTelefone(result.getString("Telefone"));
+                pessoa.setCidade(result.getString("cidade"));
+
+                pessoas.add(pessoa);
+            }
+            return pessoas;
+
+        } catch (SQLException ex) {
+            imprimeErro("Erro ao Buscar Pessoas", ex.getMessage());
+        }
+        return null;
+
+    }
+
 
     public void conectar(String sql) {
 

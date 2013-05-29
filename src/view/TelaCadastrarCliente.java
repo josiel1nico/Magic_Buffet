@@ -5,7 +5,7 @@
 package view;
 
 import controler.Pessoa;
-import pacoteDAO.PessoaDAO;
+import entidadesDAO.PessoaDAO;
 
 /**
  *
@@ -205,8 +205,9 @@ public class TelaCadastrarCliente extends javax.swing.JFrame {
                                         .addGap(34, 34, 34)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
                                         .addComponent(jLabel6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(textoNumero))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(4, 4, 4)
@@ -309,6 +310,7 @@ public class TelaCadastrarCliente extends javax.swing.JFrame {
         p.setCep(textoCEP.getText());
         p.setTipoPessoa(Pessoa.CLIENTE);
         p.setTelefone(textoTelefone.getText());
+        
         cl.criar(p);
         TelaInicial telaInicial = new TelaInicial();
         this.dispose();
