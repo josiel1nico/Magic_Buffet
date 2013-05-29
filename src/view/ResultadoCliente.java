@@ -6,7 +6,7 @@ package view;
 
 import controler.Pessoa;
 import javax.swing.JOptionPane;
-import pacoteDAO.PessoaDAO;
+import entidadesDAO.PessoaDAO;
 
 /**
  *

@@ -7,7 +7,7 @@ package teste;
 import controler.Localizacao;
 import java.util.ArrayList;
 import java.util.Iterator;
-import pacoteDAO.LocalizacaoDAO;
+import entidadesDAO.LocalizacaoDAO;
 
 /**
  *

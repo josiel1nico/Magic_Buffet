@@ -49,12 +49,6 @@ public class TesteItem {
             System.out.println("Preco do Item: " + item.getPrecoUnidade());
             System.out.println("");
 
-
         }
-
-
-
-
-
     }
 }
