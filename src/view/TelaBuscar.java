@@ -66,6 +66,7 @@ public class TelaBuscar extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         interrogacaoData = new javax.swing.JLabel();
         botaoBuscar = new javax.swing.JButton();
+        MonitorRB = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -97,6 +98,14 @@ public class TelaBuscar extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup1.add(MonitorRB);
+        MonitorRB.setText("Monitor");
+        MonitorRB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MonitorRBActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -117,6 +126,8 @@ public class TelaBuscar extends javax.swing.JFrame {
                         .addComponent(ClienteRB)
                         .addGap(47, 47, 47)
                         .addComponent(FestaRB)
+                        .addGap(31, 31, 31)
+                        .addComponent(MonitorRB)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
@@ -144,7 +155,9 @@ public class TelaBuscar extends javax.swing.JFrame {
                         .addComponent(ClienteRB))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(FestaRB)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(FestaRB)
+                            .addComponent(MonitorRB))))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
@@ -211,6 +224,10 @@ public class TelaBuscar extends javax.swing.JFrame {
 
     }//GEN-LAST:event_botaoBuscarActionPerformed
 
+    private void MonitorRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MonitorRBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MonitorRBActionPerformed
+
     private void interro() {
         interrogacaoData.setToolTipText("Caso deseja procurar as festas de uma determinada data");
     }
@@ -252,6 +269,7 @@ public class TelaBuscar extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton ClienteRB;
     private javax.swing.JRadioButton FestaRB;
+    private javax.swing.JRadioButton MonitorRB;
     private javax.swing.JButton botaoBuscar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField cpfText;

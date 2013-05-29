@@ -27,7 +27,7 @@ public class LocalizacaoDAO implements InterfaceLocalizacaoDAO {
 
         String SQL;
         SQL = "INSERT INTO Localizacao(IdLocalizacao,CEP,Numero,Rua,Bairro,Cidade) "
-                + "VALUES(?,?,?,?,?,?)";
+                + "VALUES(?,?,?,?,?,?)" + ";";
 
         conectar(SQL);
 

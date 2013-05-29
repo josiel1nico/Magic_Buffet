@@ -46,8 +46,18 @@ public class TelaInicial extends javax.swing.JFrame {
         });
 
         PACOTE.setText("PACOTE");
+        PACOTE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PACOTEActionPerformed(evt);
+            }
+        });
 
         FESTA.setText("FESTA");
+        FESTA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FESTAActionPerformed(evt);
+            }
+        });
 
         DATA.setText("DATA");
         DATA.addActionListener(new java.awt.event.ActionListener() {
@@ -57,8 +67,18 @@ public class TelaInicial extends javax.swing.JFrame {
         });
 
         TEMA.setText("TEMA");
+        TEMA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TEMAActionPerformed(evt);
+            }
+        });
 
         ITENS.setText("ITENS");
+        ITENS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ITENSActionPerformed(evt);
+            }
+        });
 
         BotaoGerente.setText("GERENTE");
         BotaoGerente.addActionListener(new java.awt.event.ActionListener() {
@@ -139,7 +159,11 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_BotaoGerenteActionPerformed
 
     private void BotaoMonitores1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoMonitores1ActionPerformed
-        // TODO add your handling code here:
+        TelaCadastrarMonitor telaMonitor = new TelaCadastrarMonitor();
+        this.dispose();
+        telaMonitor.setVisible(true);
+                
+        
     }//GEN-LAST:event_BotaoMonitores1ActionPerformed
 
     private void BotaoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoBuscarActionPerformed
@@ -152,6 +176,24 @@ public class TelaInicial extends javax.swing.JFrame {
     private void DATAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DATAActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_DATAActionPerformed
+
+    private void FESTAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FESTAActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FESTAActionPerformed
+
+    private void TEMAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TEMAActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TEMAActionPerformed
+
+    private void ITENSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ITENSActionPerformed
+        this.dispose();
+        TelaCadastrarItem telaItem = new TelaCadastrarItem();
+        telaItem.setVisible(true);
+    }//GEN-LAST:event_ITENSActionPerformed
+
+    private void PACOTEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PACOTEActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PACOTEActionPerformed
 
     /**
      * @param args the command line arguments

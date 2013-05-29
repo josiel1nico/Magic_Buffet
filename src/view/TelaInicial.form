@@ -6,6 +6,7 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -86,11 +87,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="PACOTE"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PACOTEActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="FESTA">
       <Properties>
         <Property name="text" type="java.lang.String" value="FESTA"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FESTAActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="DATA">
       <Properties>
@@ -107,11 +114,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="TEMA"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TEMAActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="ITENS">
       <Properties>
         <Property name="text" type="java.lang.String" value="ITENS"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ITENSActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="BotaoGerente">
       <Properties>
