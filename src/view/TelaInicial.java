@@ -144,7 +144,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void BotaoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoBuscarActionPerformed
         this.dispose();
-        TelaBuscar telabuscar = new TelaBuscar();
+        TelaBuscar telabuscar = TelaBuscar.getInstance();
         telabuscar.setVisible(true);
 
     }//GEN-LAST:event_BotaoBuscarActionPerformed

@@ -5,7 +5,7 @@
 package view;
 
 import controler.Pessoa;
-import entidadesDAO.PessoaDAO;
+import pacoteDAO.PessoaDAO;
 
 /**
  *

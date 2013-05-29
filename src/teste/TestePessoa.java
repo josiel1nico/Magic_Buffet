@@ -8,7 +8,7 @@ import controler.Pessoa;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import entidadesDAO.PessoaDAO;
+import pacoteDAO.PessoaDAO;
 
 /**
  *
@@ -18,38 +18,13 @@ public class TestePessoa {
 
     public static void main(String[] args) {
 
-        Pessoa pessoa = new Pessoa();
+        
         PessoaDAO pdao = new PessoaDAO();
+        
 
-        pessoa.setCpf("89123123");
-        pessoa.setGerenteLogin(null);
-        pessoa.setPnome("Marcos Carreiro");
-        pessoa.setRg(13902312);
-        pessoa.setRua("Rua do Ria Pardo");
-        pessoa.setNumero(90);
-        pessoa.setBairro("Monte Castelo");
-        pessoa.setCep("59212-000");
-        pessoa.setTipoPessoa("CLIENTE");
-        pessoa.setTelefone("9932121");
-        pessoa.setCidade("Assu");
         
-        pdao.criar(pessoa);
-        
-        Pessoa p = pdao.buscar("89123123");
-        
-        System.out.println("Nome: " + p.getPnome());
-        
-        p.setPnome("Carlos Henrique");
-        
-        pdao.atualizar(p);
-        
-        System.out.println("Nome: " + p.getPnome());
-        
-        pdao.remover(p);
-        //System.out.println("Nome: " + p.getPnome());
-              
 
-        ArrayList<Pessoa> resultado = pdao.buscarPessoas();
+        ArrayList<Pessoa> resultado = pdao.buscarPessoaNome("andreza");
               
          for (Iterator<Pessoa> iterator = resultado.iterator(); iterator.hasNext();) {
             Pessoa p1 = iterator.next();

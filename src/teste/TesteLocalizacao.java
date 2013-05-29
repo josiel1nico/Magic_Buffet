@@ -7,7 +7,7 @@ package teste;
 import controler.Localizacao;
 import java.util.ArrayList;
 import java.util.Iterator;
-import entidadesDAO.LocalizacaoDAO;
+import pacoteDAO.LocalizacaoDAO;
 
 /**
  *
@@ -29,40 +29,26 @@ public class TesteLocalizacao {
          ldao.criar(l);
          ldao.remover(l);
         
-         *  System.out.println("Numero: " + l2.getNumero());
          */
-        Localizacao l2 = ldao.buscar("327");
+        Localizacao l2 = ldao.buscar("450");
         
-        System.out.println("\n");
-        
-        System.out.println("ID Localizacao: " + l2.getIdLocalizacao());
-        System.out.println("Rua: " + l2.getRua());
         System.out.println("Numero: " + l2.getNumero());
 
-        l2.setCEP("59600000");
-        l2.setBairro("Centro");
-        l2.setCidade("Natal");
-        l2.setNumero(60);
+        l2.setNumero(90);
+
+        //ldao.atualizar(l);
         
-        ldao.atualizar(l2);
-
-        System.out.println("\n");
-
-        System.out.println("ID Localizacao: " + l2.getIdLocalizacao());
-        System.out.println("Rua: " + l2.getRua());
-        System.out.println("Numero: " + l2.getNumero());
-
-
+        //A FUNCAO DE ATUALIZAR LOCALIZAÇÃO TÁ COM PROBLEMAS
+        
         ArrayList<Localizacao> resultado = ldao.buscarLocalizacoes();
-        
-        System.out.println("\nID E NOME DE TODAS AS LOCALIZACOES\n");
-        
         for (Iterator<Localizacao> iterator = resultado.iterator(); iterator.hasNext();) {
             Localizacao localizacao = iterator.next();
-            System.out.println("Identificador da Localizacao: " + localizacao.getIdLocalizacao());
-            System.out.println("Nome da Rua: " + localizacao.getRua());
-            System.out.println("");
-            
+
+            System.out.println("Localizacao: " + localizacao.getIdLocalizacao());
+
         }
+
+
+
     }
 }

@@ -6,7 +6,7 @@ package view;
 
 import controler.Gerente;
 import controler.Pessoa;
-import entidadesDAO.GerenteDAO;
+import pacoteDAO.GerenteDAO;
 
 /**
  *

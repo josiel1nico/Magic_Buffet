@@ -6,12 +6,20 @@ package view;
 
 import controler.Pessoa;
 import controler.ResultadoPesquisa;
+import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.Vector;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
-import entidadesDAO.PessoaDAO;
+import javax.swing.table.DefaultTableModel;
+import pacoteDAO.PessoaDAO;
 
 /**
  *
@@ -22,11 +30,20 @@ public class TelaBuscar extends javax.swing.JFrame {
     /**
      * Creates new form TelaBuscar
      */
+     DefaultTableModel modelo;
       
 
-    public TelaBuscar() {
+    private TelaBuscar() {
         initComponents();
         interro();
+    }
+    private static TelaBuscar instance;
+    
+    public static TelaBuscar getInstance(){
+        if(instance == null){
+            instance = new TelaBuscar();        
+        }       
+            return instance;        
     }
 
     /**
@@ -159,6 +176,25 @@ public class TelaBuscar extends javax.swing.JFrame {
                     
         if (ClienteRB.isSelected()) {
             PessoaDAO pessoa = new PessoaDAO();
+            if(cpfText.getText().equals("")){                
+                ArrayList<Pessoa> ListaPessoas = pessoa.buscarPessoas();
+                ResultadoTodosClientes resultado = new ResultadoTodosClientes();                                               
+                modelo = new DefaultTableModel();                
+                
+                modelo.addColumn("Cliente");
+                modelo.addColumn("CPF");
+                
+                for (int i = 0; i < ListaPessoas.size(); i++) {
+                    String Cliente = ListaPessoas.get(i).getPnome();
+                    String cpf = ListaPessoas.get(i).getCpf();
+                    String [] linha = {Cliente, cpf};   
+                    modelo.addRow(linha);
+                }
+                resultado.tabela.setModel(modelo);
+                resultado.setVisible(true);
+                
+            }
+            else {                            
             Pessoa p = pessoa.buscar(cpfText.getText());
             ResultadoCliente result = new ResultadoCliente();
             result.setNome(p.getPnome());
@@ -167,10 +203,9 @@ public class TelaBuscar extends javax.swing.JFrame {
             result.setTelefone(p.getTelefone());
             result.setRua(p.getRua());
             result.setRG(String.valueOf(p.getRg()));
-            result.setVisible(true);
-            
-        
-
+            result.setNumero(String.valueOf(p.getNumero()));
+            result.setVisible(true);         
+            }            
         }
 
 
