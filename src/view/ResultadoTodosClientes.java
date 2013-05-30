@@ -36,7 +36,6 @@ public class ResultadoTodosClientes extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         Informacoes = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        Editar = new javax.swing.JButton();
         Excluir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
@@ -47,13 +46,6 @@ public class ResultadoTodosClientes extends javax.swing.JFrame {
         Informacoes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 InformacoesActionPerformed(evt);
-            }
-        });
-
-        Editar.setText("Editar");
-        Editar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EditarActionPerformed(evt);
             }
         });
 
@@ -72,23 +64,20 @@ public class ResultadoTodosClientes extends javax.swing.JFrame {
                 .addGap(504, 504, 504)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Editar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60)
+                .addGap(50, 50, 50)
                 .addComponent(Informacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
+                .addGap(39, 39, 39))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Informacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Editar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
+                    .addComponent(Excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -148,7 +137,7 @@ public class ResultadoTodosClientes extends javax.swing.JFrame {
         result.textoTelefone.setEnabled(false);
         result.textoRua.setEnabled(false);
         result.numeroTexto.setEnabled(false);
-        result.textoCidade.setEnabled(false);
+        result.textoCidade.setEnabled(false);        
         this.dispose();
         result.setVisible(true);      
     }//GEN-LAST:event_InformacoesActionPerformed
@@ -169,20 +158,6 @@ public class ResultadoTodosClientes extends javax.swing.JFrame {
         }       
             
     }//GEN-LAST:event_ExcluirActionPerformed
-
-    private void EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarActionPerformed
-        // TODO add your handling code here:
-        
-        /*PessoaDAO pessoa = new PessoaDAO();
-            int linha = tabela.getSelectedRow();            
-            Object valueAt = tabela.getValueAt(linha, 1);
-            String cpf = valueAt.toString();
-            Pessoa p = pessoa.buscar(cpf);      
-            pessoa.atualizar(p);
-            ////////falta coisa aqui
-            */
-            
-    }//GEN-LAST:event_EditarActionPerformed
 
     
     
@@ -221,7 +196,6 @@ public class ResultadoTodosClientes extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Editar;
     private javax.swing.JButton Excluir;
     private javax.swing.JButton Informacoes;
     private javax.swing.JPanel jPanel1;

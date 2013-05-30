@@ -7,6 +7,9 @@ package view;
 import controler.Pessoa;
 import javax.swing.JOptionPane;
 import entidadesDAO.PessoaDAO;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 /**
  *
@@ -70,8 +73,6 @@ public class ResultadoCliente extends javax.swing.JFrame {
         initComponents();
     }
     
- 
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -105,6 +106,7 @@ public class ResultadoCliente extends javax.swing.JFrame {
         numeroTexto = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
+        fecharButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -149,6 +151,11 @@ public class ResultadoCliente extends javax.swing.JFrame {
         textoTelefone.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
 
         editarButton.setText("Editar");
+        editarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editarButtonActionPerformed(evt);
+            }
+        });
 
         excluir.setText("Excluir");
         excluir.addActionListener(new java.awt.event.ActionListener() {
@@ -170,16 +177,25 @@ public class ResultadoCliente extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel1.setText("Informações do Cliente");
 
+        fecharButton.setText("Fechar");
+        fecharButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fecharButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(70, 70, 70)
                 .addComponent(excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(90, 90, 90)
+                .addGap(69, 69, 69)
                 .addComponent(editarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(153, 153, 153))
+                .addGap(77, 77, 77)
+                .addComponent(fecharButton, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -278,7 +294,8 @@ public class ResultadoCliente extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fecharButton))
                 .addContainerGap())
         );
 
@@ -300,6 +317,49 @@ public class ResultadoCliente extends javax.swing.JFrame {
             this.dispose();
         }       
     }//GEN-LAST:event_excluirActionPerformed
+
+    private void editarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarButtonActionPerformed
+        // TODO add your handling code here:                
+        
+        
+        this.textoBairro.setEnabled(true);               
+        this.textoCep.setEnabled(true);        
+        this.textoTelefone.setEnabled(true);
+        this.textoRua.setEnabled(true);
+        this.numeroTexto.setEnabled(true);
+        this.textoCidade.setEnabled(true);
+        fecharButton.setText("Salvar");                
+    }//GEN-LAST:event_editarButtonActionPerformed
+
+    private void fecharButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecharButtonActionPerformed
+        // TODO add your handling code here:
+        if(fecharButton.getText().equals("Fechar")){            
+            TelaInicial tela = new TelaInicial();
+            tela.setVisible(true);
+            this.dispose();
+        }
+        else{            
+            int resposta = JOptionPane.showConfirmDialog( null,"Tem certeza que quer editar?","Confirmação", JOptionPane.YES_NO_OPTION);
+            if(resposta == JOptionPane.YES_OPTION){
+                PessoaDAO pessoa = new PessoaDAO();                                  
+                Pessoa p = pessoa.buscar(textoCPF.getText());
+                p.setBairro(textoBairro.getText());
+                p.setCep(textoCep.getText());
+                p.setCidade(textoCidade.getText());
+                p.setCpf(textoCPF.getText());
+                p.setNumero(Integer.parseInt(numeroTexto.getText()));
+                p.setPnome(textoNome.getText());
+                p.setRg(Integer.parseInt(textoRG.getText()));
+                p.setRua(textoRua.getText());
+                p.setTelefone(textoTelefone.getText());            
+                pessoa.atualizar(p);   
+                JOptionPane.showMessageDialog(this,"Cliente Editado");
+                this.dispose();
+                
+            }            
+            
+        }
+    }//GEN-LAST:event_fecharButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -344,6 +404,7 @@ public class ResultadoCliente extends javax.swing.JFrame {
     private javax.swing.JLabel cpfLabel;
     private javax.swing.JButton editarButton;
     private javax.swing.JButton excluir;
+    private javax.swing.JButton fecharButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;

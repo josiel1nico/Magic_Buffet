@@ -24,11 +24,13 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
               <Component id="excluir" min="-2" pref="87" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
               <Component id="editarButton" min="-2" pref="80" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="153" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
+              <Component id="fecharButton" min="-2" pref="83" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
@@ -157,6 +159,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="editarButton" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                   <Component id="excluir" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                  <Component id="fecharButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -299,6 +302,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Editar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editarButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="excluir">
       <Properties>
@@ -353,6 +359,14 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Informa&#xe7;&#xf5;es do Cliente"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="fecharButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Fechar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fecharButtonActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
