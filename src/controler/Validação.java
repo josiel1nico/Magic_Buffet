@@ -19,6 +19,5 @@ public class Validação {
             return false;
         }                
     }
-    
-    
+
 }

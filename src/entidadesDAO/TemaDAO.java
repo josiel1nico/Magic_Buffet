@@ -12,18 +12,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Josiel
  */
-public class TemaDAO implements InterfaceTemaDAO {
-
-    private Connection conn;
-    private PreparedStatement pstm;
+public class TemaDAO extends  ConectionDAO implements InterfaceTemaDAO {
 
     @Override
     public void criar(Tema tema) {
@@ -129,37 +124,5 @@ public class TemaDAO implements InterfaceTemaDAO {
             imprimeErro("Erro ao Buscar todos os Temas", ex.getMessage());
         }       
         return null;
-    }
-    
-    public void conectar(String sql) {
-
-        try {
-            conn = new ConectionFactory().getConnection();
-            pstm = conn.prepareStatement(sql);
-        } catch (SQLException ex) {
-            imprimeErro("Erro ao conectar", ex.getMessage());
-        }
-    }
-
-    public void fechar() {
-        try {
-            if (pstm != null) {
-                pstm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
-            System.out.println("Conexão Fechada");
-        } catch (Exception e) {
-            imprimeErro("Erro ao fechar conexão", e.getMessage());
-            //System.err.println("erro ao fechar conexao");
-        }
-    }
-
-    private void imprimeErro(String msg, String msgErro) {
-        JOptionPane.showMessageDialog(null, msg, "Erro crítico", 0);
-        System.err.println(msg);
-        System.out.println(msgErro);
-        System.exit(0);
     }
 }

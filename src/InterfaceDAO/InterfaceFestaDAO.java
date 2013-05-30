@@ -16,7 +16,7 @@ public interface InterfaceFestaDAO {
     public void criar(Festa festa);
 
     public Festa buscar(String  idFesta);
-
+    
     public void atualizar(Festa festa);
 
     public void remover(Festa festa);

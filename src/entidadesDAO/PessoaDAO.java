@@ -7,8 +7,6 @@ package entidadesDAO;
 import InterfaceDAO.InterfacePessoaDAO;
 import conexao.ConectionFactory;
 import controler.Pessoa;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,11 +16,9 @@ import javax.swing.JOptionPane;
  *
  * @author Josiel e Andreza
  */
-public class PessoaDAO implements InterfacePessoaDAO {
+public class PessoaDAO extends ConectionDAO implements InterfacePessoaDAO {
 
-    private Connection conn;
-    private PreparedStatement pstm;
-
+    
     @Override
     public void criar(Pessoa pessoa) {
 
@@ -206,38 +202,5 @@ public class PessoaDAO implements InterfacePessoaDAO {
         }
         return null;
 
-    }
-
-
-    public void conectar(String sql) {
-
-        try {
-            conn = new ConectionFactory().getConnection();
-            pstm = conn.prepareStatement(sql);
-        } catch (SQLException ex) {
-            imprimeErro("Erro ao conectar", ex.getMessage());
-        }
-    }
-
-    public void fechar() {
-        try {
-            if (pstm != null) {
-                pstm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
-            System.out.println("Conexão Fechada");
-        } catch (Exception e) {
-            imprimeErro("Erro ao fechar conexão", e.getMessage());
-            //System.err.println("erro ao fechar conexao");
-        }
-    }
-
-    private void imprimeErro(String msg, String msgErro) {
-        JOptionPane.showMessageDialog(null, msg, "Erro crítico", 0);
-        System.err.println(msg);
-        System.out.println(msgErro);
-        System.exit(0);
     }
 }

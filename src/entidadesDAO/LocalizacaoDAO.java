@@ -7,8 +7,6 @@ package entidadesDAO;
 import InterfaceDAO.InterfaceLocalizacaoDAO;
 import conexao.ConectionFactory;
 import controler.Localizacao;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,11 +16,9 @@ import javax.swing.JOptionPane;
  *
  * @author Josiel
  */
-public class LocalizacaoDAO implements InterfaceLocalizacaoDAO {
+public class LocalizacaoDAO extends ConectionDAO implements InterfaceLocalizacaoDAO {
 
-    private Connection conn;
-    private PreparedStatement pstm;
-
+    
     @Override
     public void criar(Localizacao localizacao) {
 
@@ -153,38 +149,4 @@ public class LocalizacaoDAO implements InterfaceLocalizacaoDAO {
         return locais;
     }
 
-    public void conectar(String sql) {
-
-        try {
-            conn = new ConectionFactory().getConnection();
-            pstm = conn.prepareStatement(sql);
-        } catch (SQLException ex) {
-            imprimeErro("Erro ao conectar", ex.getMessage());
-        }
-    }
-
-    public void fechar() {
-        try {
-            if (pstm != null) {
-                pstm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
-        } catch (Exception e) {
-            imprimeErro("Erro ao fechar conexão", e.getMessage());
-            //System.err.println("erro ao fechar conexao");
-        }
-    }
-
-    private void imprimeErro(String msg, String msgErro) {
-        JOptionPane.showMessageDialog(null, msg, "Erro crítico", 0);
-        System.err.println(msg);
-        System.out.println(msgErro);
-        System.exit(0);
-    }
-
-    private Exception RuntimeException(SQLException ex) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

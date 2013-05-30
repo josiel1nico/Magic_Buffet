@@ -18,10 +18,7 @@ import javax.swing.JOptionPane;
  *
  * @author Josiel
  */
-public class PacoteDAO implements InterfacePacoteDAO {
-
-    private Connection conn;
-    private PreparedStatement pstm;
+public class PacoteDAO extends ConectionDAO implements InterfacePacoteDAO {
 
     @Override
     public void criar(Pacote pacote) {
@@ -123,39 +120,5 @@ public class PacoteDAO implements InterfacePacoteDAO {
             imprimeErro("Erro ao Buscar Vários Pacotes", ex.getMessage());
         }
         return null;
-    }
-    
-    
-
-    public void conectar(String sql) {
-
-        try {
-            conn = new ConectionFactory().getConnection();
-            pstm = conn.prepareStatement(sql);
-        } catch (SQLException ex) {
-            imprimeErro("Erro ao conectar", ex.getMessage());
-        }
-    }
-
-    public void fechar() {
-        try {
-            if (pstm != null) {
-                pstm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
-            System.out.println("Conexão Fechada");
-        } catch (Exception e) {
-            imprimeErro("Erro ao fechar conexão", e.getMessage());
-            //System.err.println("erro ao fechar conexao");
-        }
-    }
-
-    private void imprimeErro(String msg, String msgErro) {
-        JOptionPane.showMessageDialog(null, msg, "Erro crítico", 0);
-        System.err.println(msg);
-        System.out.println(msgErro);
-        System.exit(0);
     }
 }

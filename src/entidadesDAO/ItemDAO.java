@@ -4,6 +4,7 @@
  */
 package entidadesDAO;
 
+import InterfaceDAO.InterfaceItemDAO;
 import conexao.ConectionFactory;
 import controler.Item;
 import java.sql.Connection;
@@ -17,10 +18,8 @@ import javax.swing.JOptionPane;
  *
  * @author Josiel
  */
-public class ItemDAO implements InterfaceDAO.InterfaceItemDAO {
+public class ItemDAO extends ConectionDAO implements InterfaceItemDAO {
 
-    private Connection conn;
-    private PreparedStatement pstm;
 
     @Override
     public void criar(Item item) {
@@ -136,37 +135,5 @@ public class ItemDAO implements InterfaceDAO.InterfaceItemDAO {
             imprimeErro("Erro ao Buscar um Item", ex.getMessage());
         }
         return null;      
-    }
-
-    public void conectar(String sql) {
-
-        try {
-            conn = new ConectionFactory().getConnection();
-            pstm = conn.prepareStatement(sql);
-        } catch (SQLException ex) {
-            imprimeErro("Erro ao conectar", ex.getMessage());
-        }
-    }
-
-    public void fechar() {
-        try {
-            if (pstm != null) {
-                pstm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
-            System.out.println("Conexão Fechada");
-        } catch (Exception e) {
-            imprimeErro("Erro ao fechar conexão", e.getMessage());
-            //System.err.println("erro ao fechar conexao");
-        }
-    }
-
-    private void imprimeErro(String msg, String msgErro) {
-        JOptionPane.showMessageDialog(null, msg, "Erro crítico", 0);
-        System.err.println(msg);
-        System.out.println(msgErro);
-        System.exit(0);
     }
 }

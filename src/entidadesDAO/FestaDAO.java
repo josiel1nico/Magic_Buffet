@@ -6,23 +6,18 @@ package entidadesDAO;
 
 import InterfaceDAO.InterfaceFestaDAO;
 import controler.Festa;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
 /**
  *
  * @author Josiel
  */
-public class FestaDAO implements InterfaceFestaDAO {
+public class FestaDAO extends ConectionDAO implements InterfaceFestaDAO {
 
-    private Connection conn;
-    private PreparedStatement pstm;
 
     @Override
     public void criar(Festa festa) {
-        String sql;
-        sql = sql = "INSERT INTO Festa "
+        String conectar = "INSERT INTO Festa "
                 + "IdFesta = ?,"
                 + "clienteCPF = ?,"
                 + "IdTema = ?,"
@@ -32,6 +27,8 @@ public class FestaDAO implements InterfaceFestaDAO {
                 + "idPacote = ?,"
                 + "externo = ?,"
                 + "quantidadeconvidados = ?";
+        
+        
     }
 
     @Override

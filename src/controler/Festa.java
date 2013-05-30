@@ -4,6 +4,9 @@
  */
 package controler;
 
+import java.sql.Date;
+import java.sql.Time;
+
 /**
  *
  * @author Josiel
@@ -11,18 +14,16 @@ package controler;
 public class Festa {
     
     private String IdFesta;
-    private DataFesta DataHorario;
-    private Pessoa cpf;
+    private Pessoa pessoaCPF;
     private Tema tema;
     private Localizacao local;
     private Pacote pacote;
+    private Date dataInicio;
+    private Date dataFim;
+    private Time horaInicio;
     private boolean externo;
     private int quantidadeConvidados; //tres campos separando as idades
-    private int numeroLocal;
-    private String CEPLocal;
 
-    
-    
     public String getIdFesta() {
         return IdFesta;
     }
@@ -31,20 +32,12 @@ public class Festa {
         this.IdFesta = IdFesta;
     }
 
-    public DataFesta getDataHorario() {
-        return DataHorario;
+    public Pessoa getPessoaCPF() {
+        return pessoaCPF;
     }
 
-    public void setDataHorario(DataFesta DataHorario) {
-        this.DataHorario = DataHorario;
-    }
-
-    public Pessoa getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(Pessoa cpf) {
-        this.cpf = cpf;
+    public void setPessoaCPF(Pessoa pessoaCPF) {
+        this.pessoaCPF = pessoaCPF;
     }
 
     public Tema getTema() {
@@ -71,6 +64,30 @@ public class Festa {
         this.pacote = pacote;
     }
 
+    public Date getDataInicio() {
+        return dataInicio;
+    }
+
+    public void setDataInicio(Date dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public Date getDataFim() {
+        return dataFim;
+    }
+
+    public void setDataFim(Date dataFim) {
+        this.dataFim = dataFim;
+    }
+
+    public Time getHoraInicio() {
+        return horaInicio;
+    }
+
+    public void setHoraInicio(Time horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
     public boolean isExterno() {
         return externo;
     }
@@ -86,20 +103,4 @@ public class Festa {
     public void setQuantidadeConvidados(int quantidadeConvidados) {
         this.quantidadeConvidados = quantidadeConvidados;
     }
-
-    public int getNumeroLocal() {
-        return numeroLocal;
-    }
-
-    public void setNumeroLocal(int numeroLocal) {
-        this.numeroLocal = numeroLocal;
-    }
-
-    public String getCEPLocal() {
-        return CEPLocal;
-    }
-
-    public void setCEPLocal(String CEPLocal) {
-        this.CEPLocal = CEPLocal;
-    }   
 }

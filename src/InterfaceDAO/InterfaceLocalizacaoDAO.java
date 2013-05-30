@@ -4,6 +4,7 @@
  */
 package InterfaceDAO;
 
+
 import controler.Localizacao;
 import java.util.ArrayList;
 
