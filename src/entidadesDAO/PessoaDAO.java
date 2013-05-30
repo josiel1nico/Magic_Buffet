@@ -27,7 +27,7 @@ public class PessoaDAO implements InterfacePessoaDAO {
     public void criar(Pessoa pessoa) {
 
         String SQL;
-        SQL = "INSERT INTO Pessoa (cpf,gerente_Login,pnome,rg,rua,numero,bairro,cep,tipoPessoa,telefone,cidade)"
+        SQL = "INSERT INTO pessoa (cpf,gerente_Login,pnome,rg,rua,numero,bairro,cep,tipoPessoa,telefone,cidade)"
                 + "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 
         conectar(SQL);
@@ -54,7 +54,7 @@ public class PessoaDAO implements InterfacePessoaDAO {
     @Override
     public Pessoa buscar(String id) {
 
-        String buscarPessoa = "SELECT * FROM Pessoa WHERE cpf LIKE " + id; //busca apenas uma pessoa pelo CPF
+        String buscarPessoa = "SELECT * FROM pessoa WHERE cpf LIKE " + id; //busca apenas uma pessoa pelo CPF
         ResultSet result;
         Pessoa pessoa = new Pessoa();
         conectar(buscarPessoa);
@@ -86,7 +86,7 @@ public class PessoaDAO implements InterfacePessoaDAO {
     @Override
     public void atualizar(Pessoa pessoa) {
 
-        String atualizar = "UPDATE Pessoa SET "
+        String atualizar = "UPDATE pessoa SET "
                 + "gerente_Login = ?,"
                 + "pnome = ?,"
                 + "RG = ?,"
@@ -127,7 +127,7 @@ public class PessoaDAO implements InterfacePessoaDAO {
     @Override
     public void remover(Pessoa pessoa) {
 
-        String sql = "DELETE FROM Pessoa WHERE CPF = ?";
+        String sql = "DELETE FROM pessoa WHERE CPF = ?";
         conectar(sql);
 
         try {
@@ -143,7 +143,7 @@ public class PessoaDAO implements InterfacePessoaDAO {
     @Override
     public ArrayList<Pessoa> buscarPessoas() {
 
-        String sql = "SELECT * FROM Pessoa";
+        String sql = "SELECT * FROM pessoa";
         ArrayList<Pessoa> pessoas = new ArrayList<>();
         ResultSet result;
         conectar(sql);
@@ -177,7 +177,7 @@ public class PessoaDAO implements InterfacePessoaDAO {
     
     public ArrayList<Pessoa> buscarPessoaNome(String nome) {
 
-        String sql = "SELECT * FROM Pessoa WHERE pnome LIKE '" + nome + "'";
+        String sql = "SELECT * FROM pessoa WHERE pnome LIKE '" + nome + "'";
         ArrayList<Pessoa> pessoas = new ArrayList<>();
         ResultSet result;
 

@@ -132,12 +132,23 @@ public class ResultadoTodosClientes extends javax.swing.JFrame {
         ResultadoCliente result = new ResultadoCliente();
         System.out.println("------------" + valueAt.toString());
         result.setNome(p.getPnome());
+        result.setCep(p.getCep());
+        result.setCidadee(p.getCidade());
         result.setCpf(p.getCpf());
         result.setBairro(p.getBairro());
         result.setTelefone(p.getTelefone());
         result.setRua(p.getRua());
         result.setNumero(String.valueOf(p.getNumero()));        
         result.setRG(String.valueOf(p.getRg()));
+        result.textoBairro.setEnabled(false);
+        result.textoNome.setEnabled(false);
+        result.textoCPF.setEnabled(false);
+        result.textoCep.setEnabled(false);
+        result.textoRG.setEnabled(false);
+        result.textoTelefone.setEnabled(false);
+        result.textoRua.setEnabled(false);
+        result.numeroTexto.setEnabled(false);
+        result.textoCidade.setEnabled(false);
         this.dispose();
         result.setVisible(true);      
     }//GEN-LAST:event_InformacoesActionPerformed
