@@ -5,19 +5,7 @@
 package view;
 
 import controler.Pessoa;
-import controler.ResultadoPesquisa;
-import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.util.ArrayList;
-import java.util.Vector;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import entidadesDAO.PessoaDAO;
 

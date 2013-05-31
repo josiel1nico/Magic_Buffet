@@ -4,67 +4,34 @@
  */
 package entidadesDAO;
 
-import InterfaceDAO.InterfacePessoaDAO;
+import InterfaceDAO.InterfaceGerenteDAO;
 import controler.Gerente;
-import controler.Pessoa;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 
 /**
  *
  * @author Josiel
  */
-public class GerenteDAO extends PessoaDAO implements InterfacePessoaDAO {
+public class GerenteDAO extends PessoaDAO implements InterfaceGerenteDAO {
 
 
+    @Override
     public void criarGerente(Gerente gerente) {
         
-        //String sql2 = "INSERT INTO Pessoa(gerente_Login)" + "VALUES(?)";
-
-        String sql = "INSERT INTO Gerente"
-                + "Login = ?, "
-                + "Senha = ?";
+        String sql = "INSERT INTO gerente(Login,Senha)" + "VALUES (?,?)";
         try {
             conectar(sql);
 
             pstm.setString(1, gerente.getLogin());
             pstm.setString(2, gerente.getSenha());
             pstm.execute();
+            pstm.close();
 
         } catch (SQLException ex) {
-            ex.printStackTrace();
-
+            imprimeErro("Erro ao Cadastrar as informações do Gerente", ex.getMessage());
             fechar();
         }
 
-    }
-
-   
-
-    @Override
-    public void criar(Pessoa pessoa) {
-        
-    }
-
-    @Override
-    public Pessoa buscar(String cpf) {
-        
-        return  null;
-    }
-
-    @Override
-    public void atualizar(Pessoa pessoa) {
-        
-    }
-
-    @Override
-    public void remover(Pessoa pessoa) {
-        
-    }
-
-    @Override
-    public ArrayList<Pessoa> buscarPessoas() {
-        return null;
     }
 }

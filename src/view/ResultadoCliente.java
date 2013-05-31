@@ -338,7 +338,7 @@ public class ResultadoCliente extends javax.swing.JFrame {
     private void fecharButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecharButtonActionPerformed
         // TODO add your handling code here:
         if(fecharButton.getText().equals("Fechar")){            
-            TelaInicial tela = new TelaInicial();
+            TelaInicial tela = TelaInicial.getInstance();    
             tela.setVisible(true);
             this.dispose();
         }

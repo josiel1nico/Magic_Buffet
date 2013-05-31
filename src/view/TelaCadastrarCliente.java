@@ -321,7 +321,7 @@ public class TelaCadastrarCliente extends javax.swing.JFrame {
         
         cl.criar(p);
         
-        TelaInicial telaInicial = new TelaInicial();
+        TelaInicial telaInicial = TelaInicial.getInstance();    
         this.dispose();
         telaInicial.setVisible(true);
         
@@ -339,7 +339,7 @@ public class TelaCadastrarCliente extends javax.swing.JFrame {
 
     private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
         this.dispose();
-        TelaInicial telaInicial = new TelaInicial();
+        TelaInicial telaInicial = TelaInicial.getInstance();       
         telaInicial.setVisible(true);
 
         

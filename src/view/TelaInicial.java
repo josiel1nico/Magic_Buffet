@@ -4,6 +4,8 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Josiel
@@ -13,7 +15,17 @@ public class TelaInicial extends javax.swing.JFrame {
     /**
      * Creates new form TelaInicial
      */
-    public TelaInicial() {
+    
+     private static TelaInicial instance;
+    
+    public static TelaInicial getInstance(){
+        if(instance == null){
+            instance = new TelaInicial();        
+        }       
+            return instance;        
+    }
+    
+    private TelaInicial() {
         initComponents();
     }
 
@@ -26,22 +38,21 @@ public class TelaInicial extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        CLIENTES = new javax.swing.JButton();
+        cadastros = new javax.swing.JButton();
         PACOTE = new javax.swing.JButton();
         FESTA = new javax.swing.JButton();
         DATA = new javax.swing.JButton();
         TEMA = new javax.swing.JButton();
         ITENS = new javax.swing.JButton();
         BotaoGerente = new javax.swing.JButton();
-        BotaoMonitores1 = new javax.swing.JButton();
         BotaoBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        CLIENTES.setText("CLIENTES");
-        CLIENTES.addActionListener(new java.awt.event.ActionListener() {
+        cadastros.setText("CADASTROS");
+        cadastros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CLIENTESActionPerformed(evt);
+                cadastrosActionPerformed(evt);
             }
         });
 
@@ -87,13 +98,6 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        BotaoMonitores1.setText("MONITOR");
-        BotaoMonitores1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotaoMonitores1ActionPerformed(evt);
-            }
-        });
-
         BotaoBuscar.setText("BUSCAR");
         BotaoBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,11 +111,9 @@ public class TelaInicial extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(48, 48, 48)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(FESTA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(CLIENTES, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(BotaoMonitores1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(FESTA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cadastros, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(TEMA, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -129,7 +131,7 @@ public class TelaInicial extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(63, 63, 63)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CLIENTES, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cadastros, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(DATA, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ITENS, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37)
@@ -140,7 +142,6 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BotaoGerente, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BotaoMonitores1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BotaoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(54, Short.MAX_VALUE))
         );
@@ -148,23 +149,48 @@ public class TelaInicial extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void CLIENTESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CLIENTESActionPerformed
-        TelaCadastrarCliente telaCliente = new TelaCadastrarCliente();
-        this.dispose();
-        telaCliente.setVisible(true);
-    }//GEN-LAST:event_CLIENTESActionPerformed
+    private void cadastrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrosActionPerformed
+    Cadastros tela = new Cadastros();
+    String [] options = new String[] {"Gerente", "Cliente", "Monitor"};
+    
+    int resposta = JOptionPane.showOptionDialog(null, "Escolha o tipo de cadastro", "Opções",
+     JOptionPane.DEFAULT_OPTION,JOptionPane.PLAIN_MESSAGE, null, options, options[1]);
+    
+        System.out.println(resposta);
+    //se monitor
+     if(resposta == 2){
+       tela.tipoCadastro.setText("Cadastrar Novo Monitor");
+       tela.textoCPF1.setText("0");
+       tela.textoCPF1.setEnabled(false);
+       tela.textoRG1.setText("0");
+       tela.textoRG1.setEnabled(false);
+       tela.textoCidade1.setText("Mossoró");
+       tela.textoCidade1.setEnabled(false);
+       tela.textoLogin.setEnabled(false);
+       tela.textoSenha.setEnabled(false);
+       tela.setVisible(true);
+       
+    }
+    else
+    //se clilente
+        if(resposta == 1 ){        
+            tela.textoLogin.setEnabled(false);
+            tela.textoSenha.setEnabled(false);
+            tela.setVisible(true);
+        }        
+     else
+            if( resposta == 0){
+                //se gerente
+                tela.tipoCadastro.setText("Cadastrar Novo Gerente");
+                tela.setVisible(true);
+            }
+     this.setVisible(false);
+     
+    }//GEN-LAST:event_cadastrosActionPerformed
 
     private void BotaoGerenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoGerenteActionPerformed
         //JANELA MONITOR
     }//GEN-LAST:event_BotaoGerenteActionPerformed
-
-    private void BotaoMonitores1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoMonitores1ActionPerformed
-        TelaCadastrarMonitor telaMonitor = new TelaCadastrarMonitor();
-        this.dispose();
-        telaMonitor.setVisible(true);
-                
-        
-    }//GEN-LAST:event_BotaoMonitores1ActionPerformed
 
     private void BotaoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoBuscarActionPerformed
         this.dispose();
@@ -232,12 +258,11 @@ public class TelaInicial extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotaoBuscar;
     public javax.swing.JButton BotaoGerente;
-    public javax.swing.JButton BotaoMonitores1;
-    private javax.swing.JButton CLIENTES;
     public javax.swing.JButton DATA;
     private javax.swing.JButton FESTA;
     private javax.swing.JButton ITENS;
     private javax.swing.JButton PACOTE;
     private javax.swing.JButton TEMA;
+    private javax.swing.JButton cadastros;
     // End of variables declaration//GEN-END:variables
 }

@@ -25,12 +25,9 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="FESTA" max="32767" attributes="0"/>
-                      <Component id="CLIENTES" min="-2" pref="102" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="BotaoMonitores1" min="-2" pref="101" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Component id="FESTA" max="32767" attributes="0"/>
+                  <Component id="cadastros" alignment="0" min="-2" pref="102" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -53,7 +50,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="CLIENTES" alignment="3" min="-2" pref="68" max="-2" attributes="0"/>
+                  <Component id="cadastros" alignment="3" min="-2" pref="68" max="-2" attributes="0"/>
                   <Component id="DATA" alignment="3" min="-2" pref="68" max="-2" attributes="0"/>
                   <Component id="ITENS" alignment="3" min="-2" pref="68" max="-2" attributes="0"/>
               </Group>
@@ -66,7 +63,6 @@
               <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="BotaoGerente" alignment="3" min="-2" pref="68" max="-2" attributes="0"/>
-                  <Component id="BotaoMonitores1" alignment="3" min="-2" pref="68" max="-2" attributes="0"/>
                   <Component id="BotaoBuscar" alignment="3" min="-2" pref="68" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="54" max="32767" attributes="0"/>
@@ -75,12 +71,12 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="CLIENTES">
+    <Component class="javax.swing.JButton" name="cadastros">
       <Properties>
-        <Property name="text" type="java.lang.String" value="CLIENTES"/>
+        <Property name="text" type="java.lang.String" value="CADASTROS"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CLIENTESActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cadastrosActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="PACOTE">
@@ -132,17 +128,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotaoGerenteActionPerformed"/>
-      </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JButton" name="BotaoMonitores1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="MONITOR"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotaoMonitores1ActionPerformed"/>
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>

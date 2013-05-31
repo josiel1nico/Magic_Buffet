@@ -103,7 +103,7 @@ public class telaLogin extends javax.swing.JFrame {
 
     private void EntrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EntrarMouseClicked
             // chama uma classe que valida o login e a senha
-        TelaInicial telaInicial = new TelaInicial();
+        TelaInicial telaInicial = TelaInicial.getInstance();
         this.dispose();
         telaInicial.setVisible(true);
         

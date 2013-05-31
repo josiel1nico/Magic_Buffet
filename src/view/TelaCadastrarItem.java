@@ -200,7 +200,7 @@ public class TelaCadastrarItem extends javax.swing.JFrame {
 
     private void CANCELARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CANCELARActionPerformed
         this.dispose();
-        TelaInicial telaInicial = new TelaInicial();
+        TelaInicial telaInicial = TelaInicial.getInstance();
         telaInicial.setVisible(true);
     }//GEN-LAST:event_CANCELARActionPerformed
 
@@ -217,7 +217,7 @@ public class TelaCadastrarItem extends javax.swing.JFrame {
         
         
         idao.criar(item);
-        TelaInicial telaInicial = new TelaInicial();
+        TelaInicial telaInicial = TelaInicial.getInstance();    
         this.dispose();
         telaInicial.setVisible(true);
         
