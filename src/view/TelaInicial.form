@@ -23,36 +23,34 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
+              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                   <Component id="FESTA" max="32767" attributes="0"/>
                   <Component id="cadastros" alignment="0" min="-2" pref="102" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="TEMA" min="-2" pref="101" max="-2" attributes="0"/>
-                  <Component id="DATA" min="-2" pref="101" max="-2" attributes="0"/>
-                  <Component id="BotaoGerente" min="-2" pref="101" max="-2" attributes="0"/>
+                  <Component id="BotaoBuscar" min="-2" pref="102" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="56" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="BotaoBuscar" min="-2" pref="102" max="-2" attributes="0"/>
                   <Component id="ITENS" min="-2" pref="101" max="-2" attributes="0"/>
                   <Component id="PACOTE" min="-2" pref="102" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="103" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="cadastros" alignment="3" min="-2" pref="68" max="-2" attributes="0"/>
-                  <Component id="DATA" alignment="3" min="-2" pref="68" max="-2" attributes="0"/>
                   <Component id="ITENS" alignment="3" min="-2" pref="68" max="-2" attributes="0"/>
+                  <Component id="BotaoBuscar" alignment="3" min="-2" pref="68" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -60,12 +58,7 @@
                   <Component id="TEMA" alignment="3" min="-2" pref="68" max="-2" attributes="0"/>
                   <Component id="PACOTE" alignment="3" min="-2" pref="68" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="BotaoGerente" alignment="3" min="-2" pref="68" max="-2" attributes="0"/>
-                  <Component id="BotaoBuscar" alignment="3" min="-2" pref="68" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="54" max="32767" attributes="0"/>
+              <EmptySpace pref="124" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -95,17 +88,6 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FESTAActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="DATA">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="DATA"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DATAActionPerformed"/>
-      </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-      </AuxValues>
-    </Component>
     <Component class="javax.swing.JButton" name="TEMA">
       <Properties>
         <Property name="text" type="java.lang.String" value="TEMA"/>
@@ -121,17 +103,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ITENSActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="BotaoGerente">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="GERENTE"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotaoGerenteActionPerformed"/>
-      </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="BotaoBuscar">
       <Properties>

@@ -26,7 +26,8 @@ public class FestaDAO extends ConectionDAO implements InterfaceFestaDAO {
                 + "idItem = ?,"
                 + "idPacote = ?,"
                 + "externo = ?,"
-                + "quantidadeconvidados = ?";
+                + "quantidadeconvidados = ?" 
+                + "EstiloFesta = ?";
         
         
     }

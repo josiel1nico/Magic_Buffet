@@ -5,14 +5,10 @@
 package entidadesDAO;
 
 import InterfaceDAO.InterfaceItemDAO;
-import conexao.ConectionFactory;
 import controler.Item;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,7 +20,7 @@ public class ItemDAO extends ConectionDAO implements InterfaceItemDAO {
     @Override
     public void criar(Item item) {
 
-        String criar = "INSERT INTO Item (idItem, nomeItem, quantidadeTotal, precoUnidade)"
+        String criar = "INSERT INTO item (idItem, nomeItem, quantidadeTotal, precoUnidade)"
                 + "VALUES (?,?,?,?)";
 
         conectar(criar);

@@ -8,15 +8,9 @@ package controler;
  *
  * @author Josiel
  */
-public class Tema {
-    
-    private static final String PROVENCAL = "PROVENCAL";
-    private static final String NORMAL = "NORMAL";
-    
-    
+public class Tema {               
     private String idTema;
     private String Tnome;
-    private String TipoFesta; 
 
     public String getIdTema() {
         return idTema;
@@ -32,14 +26,6 @@ public class Tema {
 
     public void setTnome(String Tnome) {
         this.Tnome = Tnome;
-    }
-
-    public String getTipoFesta() {
-        return TipoFesta;
-    }
-
-    public void setTipoFesta(String TipoFesta) {
-        this.TipoFesta = TipoFesta;
     }
     
     

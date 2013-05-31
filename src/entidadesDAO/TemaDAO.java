@@ -5,14 +5,10 @@
 package entidadesDAO;
 
 import InterfaceDAO.InterfaceTemaDAO;
-import conexao.ConectionFactory;
 import controler.Tema;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,13 +19,12 @@ public class TemaDAO extends  ConectionDAO implements InterfaceTemaDAO {
     @Override
     public void criar(Tema tema) {
 
-        String criar = "INSERT INTO Tema (IdTema, Tnome, TipoFesta)"
-                + "VALUES(?, ?, ?)";
+        String criar = "INSERT INTO tema (IdTema, Tnome)"
+                + "VALUES(?, ?)";
         conectar(criar);
         try {
             pstm.setString(1, tema.getIdTema());
-            pstm.setString(2, tema.getTnome());
-            pstm.setString(3, tema.getTipoFesta());
+            pstm.setString(2, tema.getTnome());            
             pstm.execute();
             pstm.close();
 
@@ -49,8 +44,7 @@ public class TemaDAO extends  ConectionDAO implements InterfaceTemaDAO {
             result = pstm.executeQuery();
             while (result.next()) {
                 tema.setIdTema(result.getString("IdTema"));
-                tema.setTnome(result.getString("Tnome"));
-                tema.setTipoFesta(result.getString("TipoFesta"));
+                tema.setTnome(result.getString("Tnome"));                
             }
 
         } catch (SQLException ex) {
@@ -63,15 +57,13 @@ public class TemaDAO extends  ConectionDAO implements InterfaceTemaDAO {
     @Override
     public void atualizar(Tema tema) {
         String atualizar = "UPDATE Tema SET "
-                + "Tnome = ?,"
-                + "TipoFesta = ? "
+                + "Tnome = ?,"                
                 + "WHERE IdTema = ?";
 
         conectar(atualizar);
         try {
             pstm.setString(1, tema.getTnome());
-            pstm.setString(2, tema.getTipoFesta());
-            pstm.setString(3, tema.getIdTema());
+            pstm.setString(2, tema.getIdTema());            
 
             pstm.executeUpdate();
             System.out.println("Tema atualizado");
@@ -114,8 +106,7 @@ public class TemaDAO extends  ConectionDAO implements InterfaceTemaDAO {
                 
                 Tema tema = new Tema();
                 tema.setIdTema(result.getString("IdTema"));
-                tema.setTnome(result.getString("Tnome"));
-                tema.setTipoFesta(result.getString("TipoFesta"));
+                tema.setTnome(result.getString("Tnome"));                
                 
                 temas.add(tema);
             }

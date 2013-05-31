@@ -13,6 +13,10 @@ import java.sql.Time;
  */
 public class Festa {
     
+    private static final String PROVENCAL = "PROVENCAL";
+    private static final String NORMAL = "NORMAL";
+    
+    private String tipoFesta;
     private String IdFesta;
     private Pessoa pessoaCPF;
     private Tema tema;
@@ -24,6 +28,14 @@ public class Festa {
     private boolean externo;
     private int quantidadeConvidados; //tres campos separando as idades
 
+    public String getTipoFesta() {
+        return tipoFesta;
+    }
+
+    public void setTipoFesta(String tipoFesta) {
+        this.tipoFesta = tipoFesta;
+    }
+    
     public String getIdFesta() {
         return IdFesta;
     }
