@@ -20,7 +20,7 @@ public class TemaDAO extends  ConectionDAO implements InterfaceTemaDAO {
     public void criar(Tema tema) {
 
         String criar = "INSERT INTO tema (IdTema, Tnome)"
-                + "VALUES(?, ?)";
+                + "VALUES(?,?)";
         conectar(criar);
         try {
             pstm.setString(1, tema.getIdTema());

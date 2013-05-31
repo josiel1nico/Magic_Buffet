@@ -12,30 +12,21 @@ import java.sql.Time;
  * @author Josiel
  */
 public class Festa {
-    
+
     private static final String PROVENCAL = "PROVENCAL";
     private static final String NORMAL = "NORMAL";
-    
-    private String tipoFesta;
     private String IdFesta;
-    private Pessoa pessoaCPF;
-    private Tema tema;
-    private Localizacao local;
-    private Pacote pacote;
+    private String pessoaCPF;
+    private String tema;
+    private String local;
+    private String pacote;
     private Date dataInicio;
     private Date dataFim;
     private Time horaInicio;
     private boolean externo;
     private int quantidadeConvidados; //tres campos separando as idades
+    private String estiloFesta;
 
-    public String getTipoFesta() {
-        return tipoFesta;
-    }
-
-    public void setTipoFesta(String tipoFesta) {
-        this.tipoFesta = tipoFesta;
-    }
-    
     public String getIdFesta() {
         return IdFesta;
     }
@@ -44,37 +35,38 @@ public class Festa {
         this.IdFesta = IdFesta;
     }
 
-    public Pessoa getPessoaCPF() {
+    public String getPessoaCPF() {
         return pessoaCPF;
     }
 
-    public void setPessoaCPF(Pessoa pessoaCPF) {
+    public void setPessoaCPF(String pessoaCPF) {
         this.pessoaCPF = pessoaCPF;
     }
 
-    public Tema getTema() {
+    public String getTema() {
         return tema;
     }
 
-    public void setTema(Tema tema) {
+    public void setTema(String tema) {
         this.tema = tema;
     }
 
-    public Localizacao getLocal() {
+    public String getLocal() {
         return local;
     }
 
-    public void setLocal(Localizacao local) {
+    public void setLocal(String local) {
         this.local = local;
     }
 
-    public Pacote getPacote() {
+    public String getPacote() {
         return pacote;
     }
 
-    public void setPacote(Pacote pacote) {
+    public void setPacote(String pacote) {
         this.pacote = pacote;
     }
+
 
     public Date getDataInicio() {
         return dataInicio;
@@ -114,5 +106,13 @@ public class Festa {
 
     public void setQuantidadeConvidados(int quantidadeConvidados) {
         this.quantidadeConvidados = quantidadeConvidados;
+    }
+
+    public String getEstiloFesta() {
+        return estiloFesta;
+    }
+
+    public void setEstiloFesta(String tipoFesta) {
+        this.estiloFesta = tipoFesta;
     }
 }
