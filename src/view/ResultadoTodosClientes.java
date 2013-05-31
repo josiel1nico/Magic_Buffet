@@ -40,7 +40,7 @@ public class ResultadoTodosClientes extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         Informacoes.setText("Informações");
         Informacoes.addActionListener(new java.awt.event.ActionListener() {
@@ -117,7 +117,7 @@ public class ResultadoTodosClientes extends javax.swing.JFrame {
         int linha = tabela.getSelectedRow();
         Object valueAt = tabela.getValueAt(linha, 1);
         String cpf = valueAt.toString(); 
-        Pessoa p = pessoa.buscar(cpf);
+        Pessoa p = pessoa.buscar(cpf,"CLIENTE");
         ResultadoCliente result = new ResultadoCliente();
         System.out.println("------------" + valueAt.toString());
         result.setNome(p.getPnome());
@@ -150,7 +150,7 @@ public class ResultadoTodosClientes extends javax.swing.JFrame {
             int linha = tabela.getSelectedRow();            
             Object valueAt = tabela.getValueAt(linha, 1);
             String cpf = valueAt.toString();
-            Pessoa p = pessoa.buscar(cpf);        
+            Pessoa p = pessoa.buscar(cpf,"CLIENTE");        
             pessoa.remover(p);
             JOptionPane.showMessageDialog(this,"Cliente Removido");
             TelaBuscar tela = TelaBuscar.getInstance();

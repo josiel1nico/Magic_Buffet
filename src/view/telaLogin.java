@@ -4,6 +4,10 @@
  */
 package view;
 
+import controler.Gerente;
+import entidadesDAO.GerenteDAO;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Josiel
@@ -30,7 +34,7 @@ public class telaLogin extends javax.swing.JFrame {
         Login = new javax.swing.JLabel();
         SenhaLabel = new javax.swing.JLabel();
         Entrar = new javax.swing.JButton();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        senhaTexto = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,7 +77,7 @@ public class telaLogin extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(LoginTexto, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
-                            .addComponent(jPasswordField1))))
+                            .addComponent(senhaTexto))))
                 .addContainerGap(146, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -88,7 +92,7 @@ public class telaLogin extends javax.swing.JFrame {
                         .addGap(39, 39, 39))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(SenhaLabel)
-                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(senhaTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(32, 32, 32)
                 .addComponent(Entrar)
                 .addContainerGap(113, Short.MAX_VALUE))
@@ -112,7 +116,21 @@ public class telaLogin extends javax.swing.JFrame {
 
     private void EntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EntrarActionPerformed
         // TODO add your handling code here:
+        GerenteDAO gerente = new GerenteDAO();
+        Gerente manager;
+        manager = gerente.buscarGerente(LoginTexto.getText());
+        if(manager == null){
+            JOptionPane.showMessageDialog(this, "Login não existe");
+        } 
+        else 
+            if(manager.getSenha().equals(String.valueOf(senhaTexto.getPassword()))){             
+                TelaInicial tela = TelaInicial.getInstance();
+                tela.setVisible(true);            
+        }
+        else
+                JOptionPane.showMessageDialog(this, "Senha não confere");
         
+        //ajeitar
         
     }//GEN-LAST:event_EntrarActionPerformed
 
@@ -155,6 +173,6 @@ public class telaLogin extends javax.swing.JFrame {
     private javax.swing.JLabel Login;
     public javax.swing.JTextField LoginTexto;
     private javax.swing.JLabel SenhaLabel;
-    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JPasswordField senhaTexto;
     // End of variables declaration//GEN-END:variables
 }

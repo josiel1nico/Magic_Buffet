@@ -13,6 +13,8 @@ import controler.Gerente;
 public interface InterfaceGerenteDAO {
     
     public void criarGerente(Gerente gerente);       
+    public Gerente buscarGerente(String login);
+    public void removerGerente(Gerente gerente);
     
     
 }

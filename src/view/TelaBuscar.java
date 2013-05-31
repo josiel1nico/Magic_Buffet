@@ -8,6 +8,7 @@ import controler.Pessoa;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import entidadesDAO.PessoaDAO;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -172,8 +173,7 @@ public class TelaBuscar extends javax.swing.JFrame {
             if(cpfText.getText().equals("")){                
                 ArrayList<Pessoa> ListaPessoas = pessoa.buscarPessoas();
                 ResultadoTodosClientes resultado = new ResultadoTodosClientes();                                               
-                modelo = new DefaultTableModel();                
-                
+                modelo = new DefaultTableModel();                                
                 modelo.addColumn("Cliente");
                 modelo.addColumn("CPF");
                 
@@ -188,29 +188,35 @@ public class TelaBuscar extends javax.swing.JFrame {
                 
             }
             else {                            
-            Pessoa p = pessoa.buscar(cpfText.getText());
-            ResultadoCliente result = new ResultadoCliente();
-            result.setNome(p.getPnome());
-            result.setCpf(p.getCpf());
-            result.setBairro(p.getBairro());
-            result.setTelefone(p.getTelefone());
-            result.setRua(p.getRua());
-            result.setRG(String.valueOf(p.getRg()));
-            result.setNumero(String.valueOf(p.getNumero()));
-            result.setCep(p.getCep());            
-            result.setCidadee(p.getCidade());            
-            result.textoBairro.setEnabled(false);
-            result.textoNome.setEnabled(false);
-            result.textoCPF.setEnabled(false);
-            result.textoCep.setEnabled(false);
-            result.textoRG.setEnabled(false);
-            result.textoTelefone.setEnabled(false);
-            result.textoRua.setEnabled(false);
-            result.numeroTexto.setEnabled(false);
-            result.textoCidade.setEnabled(false);                    
-            result.setVisible(true);         
-            }            
-        }
+                Pessoa p = pessoa.buscar(cpfText.getText(),"CLIENTE");               
+                 if(p.getPnome()== null){
+                    JOptionPane.showMessageDialog(this,"Cliente não encontrado" );
+                    }
+                
+                 else {
+                    ResultadoCliente result = new ResultadoCliente();
+                    result.setNome(p.getPnome());
+                    result.setCpf(p.getCpf());
+                    result.setBairro(p.getBairro());
+                    result.setTelefone(p.getTelefone());
+                    result.setRua(p.getRua());
+                    result.setRG(String.valueOf(p.getRg()));
+                    result.setNumero(String.valueOf(p.getNumero()));
+                    result.setCep(p.getCep());            
+                    result.setCidadee(p.getCidade());            
+                    result.textoBairro.setEnabled(false);
+                    result.textoNome.setEnabled(false);
+                    result.textoCPF.setEnabled(false);
+                    result.textoCep.setEnabled(false);
+                    result.textoRG.setEnabled(false);
+                    result.textoTelefone.setEnabled(false);
+                    result.textoRua.setEnabled(false);
+                    result.numeroTexto.setEnabled(false);
+                    result.textoCidade.setEnabled(false);                    
+                    result.setVisible(true);         
+                  }            
+                }
+              }
 
 
     }//GEN-LAST:event_botaoBuscarActionPerformed

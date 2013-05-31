@@ -531,10 +531,12 @@ public class Cadastros extends javax.swing.JFrame {
             manager.setRg(Integer.parseInt(RG));
             manager.setRua(textoRua1.getText());
             String Numero = textoNumero1.getText();
+                if(Numero.equals("")) 
+                    Numero = "0";
             manager.setNumero(Integer.parseInt(Numero));
             manager.setBairro(textoBairro1.getText());
             manager.setCep(textoCEP1.getText());
-            manager.setTipoPessoa(Pessoa.CLIENTE);
+            manager.setTipoPessoa(Pessoa.GERENTE);
             manager.setTelefone(textoTelefone1.getText());
             manager.setCidade(textoCidade1.getText());
             manager.setCep(textoCEP1.getText());
@@ -547,28 +549,19 @@ public class Cadastros extends javax.swing.JFrame {
 
 
         } else if (tipoCadastro.getText().contains("Monitor")) {
-            p.setCpf(textoCPF1.getText());
-            System.out.println("cpf");
+            p.setCpf(textoCPF1.getText());            
             p.setPnome(textoNome1.getText());
-            String RG = textoRG1.getText();
-            System.out.println("nome");
-            System.out.println(RG);
-            p.setRg(Integer.parseInt(RG));
-            System.out.println("rg");
-            p.setRua(textoRua1.getText());
-            System.out.println("rua");
+            String RG = textoRG1.getText();            
+            p.setRg(Integer.parseInt(RG));            
+            p.setRua(textoRua1.getText());            
             String Numero = textoNumero1.getText();
-            p.setNumero(Integer.parseInt(Numero));
-            System.out.println("numero");
-            p.setBairro(textoBairro1.getText());
-            System.out.println("bairro");
+            p.setNumero(Integer.parseInt(Numero));            
+            p.setBairro(textoBairro1.getText());            
             p.setCep(textoCEP1.getText());
-            p.setTipoPessoa(Pessoa.CLIENTE);
+            p.setTipoPessoa(Pessoa.MONITOR);
             p.setTelefone(textoTelefone1.getText());
-            System.out.println("telefone");
             p.setCidade(textoCidade1.getText());
             p.setCep(textoCEP1.getText());
-            System.out.println("cep");
             cl.criar(p);
             JOptionPane.showMessageDialog(this, "Monitor Criado");
         }

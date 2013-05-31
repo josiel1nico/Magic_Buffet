@@ -312,10 +312,10 @@ public class ResultadoCliente extends javax.swing.JFrame {
 
     private void excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirActionPerformed
         // TODO add your handling code here:
-         int resposta = JOptionPane.showConfirmDialog( null,"Tem certeza que quer exlcuir o cliente do sistema?","Confirmação", JOptionPane.YES_NO_OPTION);
+        int resposta = JOptionPane.showConfirmDialog( null,"Tem certeza que quer exlcuir o cliente do sistema?","Confirmação", JOptionPane.YES_NO_OPTION);
         if(resposta == JOptionPane.YES_OPTION){
             PessoaDAO pessoa = new PessoaDAO();                    
-            Pessoa p = pessoa.buscar(textoCPF.getText());        
+            Pessoa p = pessoa.buscar(textoCPF.getText(),"CLIENTE");        
             pessoa.remover(p);
             JOptionPane.showMessageDialog(this,"Cliente Removido");
             this.dispose();
@@ -346,7 +346,7 @@ public class ResultadoCliente extends javax.swing.JFrame {
             int resposta = JOptionPane.showConfirmDialog( null,"Tem certeza que quer editar?","Confirmação", JOptionPane.YES_NO_OPTION);
             if(resposta == JOptionPane.YES_OPTION){
                 PessoaDAO pessoa = new PessoaDAO();                                  
-                Pessoa p = pessoa.buscar(textoCPF.getText());
+                Pessoa p = pessoa.buscar(textoCPF.getText(),"CLIENTE");
                 p.setBairro(textoBairro.getText());
                 p.setCep(textoCep.getText());
                 p.setCidade(textoCidade.getText());

@@ -15,7 +15,7 @@ public interface InterfacePessoaDAO {
 
     public void criar(Pessoa pessoa);
 
-    public Pessoa buscar(String cpf);
+    public Pessoa buscar(String cpf,String tipo);
 
     public void atualizar(Pessoa pessoa);
 

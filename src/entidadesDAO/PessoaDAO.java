@@ -48,9 +48,10 @@ public class PessoaDAO extends ConectionDAO implements InterfacePessoaDAO {
     }
 
     @Override
-    public Pessoa buscar(String id) {
+    public Pessoa buscar(String cpf, String tipo) {
 
-        String buscarPessoa = "SELECT * FROM pessoa WHERE cpf LIKE " + id; //busca apenas uma pessoa pelo CPF
+        String buscarPessoa = "SELECT * FROM pessoa WHERE cpf = '" + cpf +
+                "' AND TipoPessoa = '" + tipo + "'"; //busca apenas uma pessoa pelo CPF
         ResultSet result;
         Pessoa pessoa = new Pessoa();
         conectar(buscarPessoa);
@@ -139,7 +140,7 @@ public class PessoaDAO extends ConectionDAO implements InterfacePessoaDAO {
     @Override
     public ArrayList<Pessoa> buscarPessoas() {
 
-        String sql = "SELECT * FROM pessoa";
+            String sql = "SELECT * FROM pessoa WHERE TipoPessoa = 'CLIENTE'";
         ArrayList<Pessoa> pessoas = new ArrayList<>();
         ResultSet result;
         conectar(sql);
