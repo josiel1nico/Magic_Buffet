@@ -8,7 +8,7 @@ package controler;
  *
  * @author andreza
  */
-public class Validação {
+public class Validacao {
     
     public boolean validarCPF(String cpf){
         if(cpf.length() != 11  ){

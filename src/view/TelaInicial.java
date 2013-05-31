@@ -179,6 +179,9 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void TEMAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TEMAActionPerformed
         // TODO add your handling code here:
+        CadastroDeTema telaTema = new CadastroDeTema();
+        telaTema.setVisible(true);
+        this.dispose();        
     }//GEN-LAST:event_TEMAActionPerformed
 
     private void ITENSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ITENSActionPerformed
