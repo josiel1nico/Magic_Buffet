@@ -5,12 +5,11 @@
 package entidadesDAO;
 
 import InterfaceDAO.InterfaceLocalizacaoDAO;
-import conexao.ConectionFactory;
 import controler.Localizacao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -22,11 +21,11 @@ public class LocalizacaoDAO extends ConectionDAO implements InterfaceLocalizacao
     @Override
     public void criar(Localizacao localizacao) {
 
-        String SQL;
-        SQL = "INSERT INTO Localizacao(IdLocalizacao,CEP,Numero,Rua,Bairro,Cidade) "
+        String criarLocalizacao;
+        criarLocalizacao = "INSERT INTO Localizacao(IdLocalizacao,CEP,Numero,Rua,Bairro,Cidade) "
                 + "VALUES(?,?,?,?,?,?)";
 
-        conectar(SQL);
+        conectar(criarLocalizacao);
 
         try {
 
@@ -40,14 +39,14 @@ public class LocalizacaoDAO extends ConectionDAO implements InterfaceLocalizacao
             pstm.close();
 
         } catch (SQLException ex) {
-            imprimeErro("Erro ao inserir Localizacao", ex.getMessage());
+            imprimeErro("Erro ao inserir localizacao", ex.getMessage());
         }
     }
 
     @Override
     public Localizacao buscar(String IdLocalizacao) {
 
-        String buscarLocalizacao = "SELECT * FROM Localizacao WHERE IdLocalizacao LIKE " + IdLocalizacao;
+        String buscarLocalizacao = "SELECT * FROM localizacao WHERE IdLocalizacao LIKE " + IdLocalizacao;
 
         Localizacao localizacao = new Localizacao();
         conectar(buscarLocalizacao);
@@ -76,7 +75,7 @@ public class LocalizacaoDAO extends ConectionDAO implements InterfaceLocalizacao
     @Override
     public void atualizar(Localizacao localizacao) {
 
-        String atualiza = "UPDATE Localizacao SET " 
+        String atualiza = "UPDATE localizacao SET " 
                 + "CEP = ?,"
                 + "Numero = ?,"
                 + "Rua = ?,"
@@ -95,7 +94,6 @@ public class LocalizacaoDAO extends ConectionDAO implements InterfaceLocalizacao
             pstm.setString(6, localizacao.getIdLocalizacao());
 
             pstm.executeUpdate();
-
             System.out.println("Localizacao Atualizada");
             fechar();
 
@@ -106,13 +104,13 @@ public class LocalizacaoDAO extends ConectionDAO implements InterfaceLocalizacao
 
     @Override
     public void remover(Localizacao localizacao) {
-        String remove = "DELETE FROM Localizacao WHERE IdLocalizacao = ?";
+        String remove = "DELETE FROM localizacao WHERE IdLocalizacao = ?";
         conectar(remove);
         try {
 
             pstm.setString(1, localizacao.getIdLocalizacao());
             pstm.execute();
-            pstm.close();
+            fechar();
             System.out.println("Localizacao removida com sucesso");
 
         } catch (SQLException e) {
@@ -123,7 +121,7 @@ public class LocalizacaoDAO extends ConectionDAO implements InterfaceLocalizacao
     @Override
     public ArrayList<Localizacao> buscarLocalizacoes() {
 
-        String buscarTodos = "SELECT *  FROM Localizacao";
+        String buscarTodos = "SELECT *  FROM localizacao";
 
         ArrayList<Localizacao> locais = new ArrayList<>();
         ResultSet result;

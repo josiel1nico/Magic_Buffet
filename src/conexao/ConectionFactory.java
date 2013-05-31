@@ -20,7 +20,7 @@ public class ConectionFactory {
         try {
             String url = "jdbc:mysql://localhost/projetobd"; //+ serverName + "/" + mydatabase;  
             String username = "root";        //nome do usuario do BD        
-            String password = "2158";      //senha de acesso  
+            String password = "root";      //senha de acesso  
             //System.out.println("Conectando ao BD");
             
             connection =  DriverManager.getConnection(url, username, password);

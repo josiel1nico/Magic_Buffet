@@ -21,7 +21,6 @@ public class TesteTema {
         Tema tema = new Tema();
 
         tema.setIdTema("5040");
-        tema.setTipoFesta("PROVENCAL");
         tema.setTnome("Branca de Neve");
 
         //tdao.criar(tema);
@@ -44,7 +43,6 @@ public class TesteTema {
             Tema tema1 = iterator.next();
             
             System.out.println("Tema de Festa : " + tema1.getTnome());
-            System.out.println("Tipo de Festa : " + tema1.getTipoFesta());
             System.out.println("\n");
             
         }
