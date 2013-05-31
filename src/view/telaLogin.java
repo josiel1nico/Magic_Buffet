@@ -119,17 +119,18 @@ public class telaLogin extends javax.swing.JFrame {
         GerenteDAO gerente = new GerenteDAO();
         Gerente manager;
         manager = gerente.buscarGerente(LoginTexto.getText());
-        if(manager == null){
-            JOptionPane.showMessageDialog(this, "Login não existe");
-        } 
-        else 
+        System.out.println(manager.getLogin());
+        if(manager.getLogin() == null)
+            JOptionPane.showMessageDialog(this, "Login não existe");                   
+        else {
             if(manager.getSenha().equals(String.valueOf(senhaTexto.getPassword()))){             
                 TelaInicial tela = TelaInicial.getInstance();
                 tela.setVisible(true);            
         }
-        else
+        else{
                 JOptionPane.showMessageDialog(this, "Senha não confere");
-        
+            }
+        }
         //ajeitar
         
     }//GEN-LAST:event_EntrarActionPerformed

@@ -56,7 +56,7 @@ public class TelaBuscar extends javax.swing.JFrame {
         botaoBuscar = new javax.swing.JButton();
         MonitorRB = new javax.swing.JRadioButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel1.setText("CPF do Cliente");
