@@ -4,11 +4,8 @@
  */
 package view;
 
-import com.sun.media.sound.ModelOscillator;
 import controler.Pessoa;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import entidadesDAO.PessoaDAO;
 
 /**
@@ -17,6 +14,7 @@ import entidadesDAO.PessoaDAO;
  */
 public class ResultadoTodosClientes extends javax.swing.JFrame {
 
+    String tipoPessoa;
     /**
      * Creates new form ResultadoTodosClientes
      */
@@ -117,7 +115,7 @@ public class ResultadoTodosClientes extends javax.swing.JFrame {
         int linha = tabela.getSelectedRow();
         Object valueAt = tabela.getValueAt(linha, 1);
         String cpf = valueAt.toString(); 
-        Pessoa p = pessoa.buscar(cpf,"CLIENTE");
+        Pessoa p = pessoa.buscar(cpf,tipoPessoa);
         ResultadoCliente result = new ResultadoCliente();
         System.out.println("------------" + valueAt.toString());
         result.setNome(p.getPnome());

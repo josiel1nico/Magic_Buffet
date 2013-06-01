@@ -5,12 +5,10 @@
 package entidadesDAO;
 
 import InterfaceDAO.InterfacePessoaDAO;
-import conexao.ConectionFactory;
 import controler.Pessoa;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -138,9 +136,9 @@ public class PessoaDAO extends ConectionDAO implements InterfacePessoaDAO {
     }
 
     @Override
-    public ArrayList<Pessoa> buscarPessoas() {
+    public ArrayList<Pessoa> buscarPessoas(String tipo) {
 
-            String sql = "SELECT * FROM pessoa WHERE TipoPessoa = 'CLIENTE'";
+            String sql = "SELECT * FROM pessoa WHERE TipoPessoa = '"+ tipo + "'";
         ArrayList<Pessoa> pessoas = new ArrayList<>();
         ResultSet result;
         conectar(sql);

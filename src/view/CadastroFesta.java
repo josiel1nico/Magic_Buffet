@@ -41,10 +41,8 @@ public class CadastroFesta extends javax.swing.JFrame {
         itensPacote = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
-        textoData = new com.toedter.calendar.JDateChooser();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        textoDataFim = new com.toedter.calendar.JDateChooser();
         jLabel8 = new javax.swing.JLabel();
         textoHora = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -188,8 +186,6 @@ public class CadastroFesta extends javax.swing.JFrame {
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                                 .addComponent(textoHora, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
                                                 .addGap(278, 278, 278))
-                                            .addComponent(textoDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(textoData, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                     .addComponent(itensPacote, 0, 235, Short.MAX_VALUE)
@@ -249,14 +245,10 @@ public class CadastroFesta extends javax.swing.JFrame {
                     .addComponent(itensPacote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(jButton4))
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel6)
-                    .addComponent(textoData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel7)
-                    .addComponent(textoDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
+                .addComponent(jLabel6)
+                .addGap(28, 28, 28)
+                .addComponent(jLabel7)
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -386,8 +378,6 @@ public class CadastroFesta extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
-    private com.toedter.calendar.JDateChooser textoData;
-    private com.toedter.calendar.JDateChooser textoDataFim;
     private javax.swing.JTextField textoHora;
     private javax.swing.JTextField textoNome;
     private javax.swing.JTextField textocpf;

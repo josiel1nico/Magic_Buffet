@@ -19,20 +19,19 @@ public class TelaBuscar extends javax.swing.JFrame {
     /**
      * Creates new form TelaBuscar
      */
-     DefaultTableModel modelo;
-      
+    DefaultTableModel modelo;
 
     private TelaBuscar() {
         initComponents();
         interro();
     }
     private static TelaBuscar instance;
-    
-    public static TelaBuscar getInstance(){
-        if(instance == null){
-            instance = new TelaBuscar();        
-        }       
-            return instance;        
+
+    public static TelaBuscar getInstance() {
+        if (instance == null) {
+            instance = new TelaBuscar();
+        }
+        return instance;
     }
 
     /**
@@ -63,6 +62,11 @@ public class TelaBuscar extends javax.swing.JFrame {
 
         buttonGroup1.add(ClienteRB);
         ClienteRB.setText("Cliente");
+        ClienteRB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ClienteRBActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(FestaRB);
         FestaRB.setText("Festa");
@@ -167,33 +171,31 @@ public class TelaBuscar extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void botaoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoBuscarActionPerformed
-                    
+
         if (ClienteRB.isSelected()) {
             PessoaDAO pessoa = new PessoaDAO();
-            if(cpfText.getText().equals("")){                
-                ArrayList<Pessoa> ListaPessoas = pessoa.buscarPessoas();
-                ResultadoTodosClientes resultado = new ResultadoTodosClientes();                                               
-                modelo = new DefaultTableModel();                                
+            if (cpfText.getText().equals("")) {
+                ArrayList<Pessoa> ListaPessoas = pessoa.buscarPessoas("CLIENTE");
+                ResultadoTodosClientes resultado = new ResultadoTodosClientes();
+                resultado.tipoPessoa = "CLIENTE";
+                modelo = new DefaultTableModel();
                 modelo.addColumn("Cliente");
                 modelo.addColumn("CPF");
-                
+
                 for (int i = 0; i < ListaPessoas.size(); i++) {
                     String Cliente = ListaPessoas.get(i).getPnome();
                     String cpf = ListaPessoas.get(i).getCpf();
-                    String [] linha = {Cliente, cpf};   
+                    String[] linha = {Cliente, cpf};
                     modelo.addRow(linha);
                 }
                 resultado.tabela.setModel(modelo);
                 resultado.setVisible(true);
-                
-            }
-            else {                            
-                Pessoa p = pessoa.buscar(cpfText.getText(),"CLIENTE");               
-                 if(p.getPnome()== null){
-                    JOptionPane.showMessageDialog(this,"Cliente não encontrado" );
-                    }
-                
-                 else {
+
+            } else {
+                Pessoa p = pessoa.buscar(cpfText.getText(), "CLIENTE");
+                if (p.getPnome() == null) {
+                    JOptionPane.showMessageDialog(this, "Cliente não encontrado");
+                } else {
                     ResultadoCliente result = new ResultadoCliente();
                     result.setNome(p.getPnome());
                     result.setCpf(p.getCpf());
@@ -202,8 +204,8 @@ public class TelaBuscar extends javax.swing.JFrame {
                     result.setRua(p.getRua());
                     result.setRG(String.valueOf(p.getRg()));
                     result.setNumero(String.valueOf(p.getNumero()));
-                    result.setCep(p.getCep());            
-                    result.setCidadee(p.getCidade());            
+                    result.setCep(p.getCep());
+                    result.setCidadee(p.getCidade());
                     result.textoBairro.setEnabled(false);
                     result.textoNome.setEnabled(false);
                     result.textoCPF.setEnabled(false);
@@ -212,18 +214,68 @@ public class TelaBuscar extends javax.swing.JFrame {
                     result.textoTelefone.setEnabled(false);
                     result.textoRua.setEnabled(false);
                     result.numeroTexto.setEnabled(false);
-                    result.textoCidade.setEnabled(false);                    
-                    result.setVisible(true);         
-                  }            
+                    result.textoCidade.setEnabled(false);
+                    result.setVisible(true);
                 }
-              }
+            }
+        } else if (MonitorRB.isSelected()) {
 
+            PessoaDAO pessoa = new PessoaDAO();
+            
+            if (cpfText.getText().equals("")) {
+                ArrayList<Pessoa> ListaPessoas = pessoa.buscarPessoas("MONITOR");
+                ResultadoTodosClientes resultado = new ResultadoTodosClientes();
+                resultado.tipoPessoa = "MONITOR";
+                modelo = new DefaultTableModel();
+                modelo.addColumn("Monitor");
+                modelo.addColumn("CPF");
 
+                for (int i = 0; i < ListaPessoas.size(); i++) {
+                    String Monitor = ListaPessoas.get(i).getPnome();
+                    String cpf = ListaPessoas.get(i).getCpf();
+                    String[] linha = {Monitor, cpf};
+                    modelo.addRow(linha);
+                }
+                resultado.tabela.setModel(modelo);
+                resultado.setVisible(true);
+
+            } else {
+                Pessoa p = pessoa.buscar(cpfText.getText(), "MONITOR");
+                if (p.getPnome() == null) {
+                    JOptionPane.showMessageDialog(this, "Monitor não encontrado");
+                } else {
+                    ResultadoCliente result = new ResultadoCliente();
+                    result.setNome(p.getPnome());
+                    result.setCpf(p.getCpf());
+                    result.setBairro(p.getBairro());
+                    result.setTelefone(p.getTelefone());
+                    result.setRua(p.getRua());
+                    result.setRG(String.valueOf(p.getRg()));
+                    result.setNumero(String.valueOf(p.getNumero()));
+                    result.setCep(p.getCep());
+                    result.setCidadee(p.getCidade());
+                    result.textoBairro.setEnabled(false);
+                    result.textoNome.setEnabled(false);
+                    result.textoCPF.setEnabled(false);
+                    result.textoCep.setEnabled(false);
+                    result.textoRG.setEnabled(false);
+                    result.textoTelefone.setEnabled(false);
+                    result.textoRua.setEnabled(false);
+                    result.numeroTexto.setEnabled(false);
+                    result.textoCidade.setEnabled(false);
+                    result.setVisible(true);
+                }
+            }
+        }
     }//GEN-LAST:event_botaoBuscarActionPerformed
 
     private void MonitorRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MonitorRBActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_MonitorRBActionPerformed
+
+    private void ClienteRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClienteRBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ClienteRBActionPerformed
 
     private void interro() {
         interrogacaoData.setToolTipText("Caso deseja procurar as festas de uma determinada data");

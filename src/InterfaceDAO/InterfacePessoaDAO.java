@@ -21,7 +21,7 @@ public interface InterfacePessoaDAO {
 
     public void remover(Pessoa pessoa);
 
-    public ArrayList<Pessoa> buscarPessoas();
+    public ArrayList<Pessoa> buscarPessoas(String tipo);
 }
 
 
