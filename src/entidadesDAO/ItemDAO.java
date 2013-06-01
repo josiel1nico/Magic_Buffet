@@ -41,7 +41,7 @@ public class ItemDAO extends ConectionDAO implements InterfaceItemDAO {
 
     @Override
     public Item buscar(String idItem) {
-        String buscar = "SELECT * FROM Item WHERE IdItem LIKE " + idItem;
+        String buscar = "SELECT * FROM item WHERE IdItem LIKE " + idItem;
         ResultSet result;
         conectar(buscar);
         Item item = new Item();
@@ -66,7 +66,7 @@ public class ItemDAO extends ConectionDAO implements InterfaceItemDAO {
     @Override
     public void atualizar(Item item) {
 
-        String atualiza = "UPDATE Item SET "
+        String atualiza = "UPDATE item SET "
                 + "nomeItem = ?,"
                 + "quantidadeTotal = ?,"
                 + "precoUnidade = ?"
@@ -91,7 +91,7 @@ public class ItemDAO extends ConectionDAO implements InterfaceItemDAO {
     @Override
     public void remover(Item item) {
 
-        String remover = "DELETE FROM Item WHERE idItem = ?";
+        String remover = "DELETE FROM item WHERE idItem = ?";
 
         conectar(remover);
 
@@ -108,7 +108,7 @@ public class ItemDAO extends ConectionDAO implements InterfaceItemDAO {
     @Override
     public ArrayList<Item> buscarItens() {
 
-        String buscarItens = "SELECT * FROM Item ";
+        String buscarItens = "SELECT * FROM item ";
         
         ArrayList<Item> itens = new ArrayList<>();
         ResultSet result;

@@ -22,7 +22,7 @@ public class PacoteDAO extends ConectionDAO implements InterfacePacoteDAO {
 
     @Override
     public void criar(Pacote pacote) {
-        String criar = "INSERT INTO Pacote (IdPacote, nomePacote, precoPacote)"
+        String criar = "INSERT INTO pacote (IdPacote, nomePacote, precoPacote)"
                 + "VALUES(?,?,?)";
 
         conectar(criar);
@@ -43,7 +43,7 @@ public class PacoteDAO extends ConectionDAO implements InterfacePacoteDAO {
     @Override
     public Pacote buscar(String idPacote) {
 
-        String busca = "SELECT * FROM Pacote WHERE idPacote LIKE " + idPacote;
+        String busca = "SELECT * FROM pacote WHERE idPacote LIKE " + idPacote;
         ResultSet result;
         Pacote pacote = new Pacote();
 
@@ -65,7 +65,7 @@ public class PacoteDAO extends ConectionDAO implements InterfacePacoteDAO {
     @Override
     public void atualizar(Pacote pacote) {
 
-        String atualiza = "UPDATE Pacote SET "
+        String atualiza = "UPDATE pacote SET "
                 + "nomePacote = ?,"
                 + "precoPacote = ?"
                 + "WHERE IdPacote = ?";
@@ -85,7 +85,7 @@ public class PacoteDAO extends ConectionDAO implements InterfacePacoteDAO {
     @Override
     public void remover(Pacote pacote) {
 
-        String remover = "DELETE FROM Pacote WHERE IdPacote = ?";
+        String remover = "DELETE FROM pacote WHERE IdPacote = ?";
 
         conectar(remover);
         try {
@@ -100,7 +100,7 @@ public class PacoteDAO extends ConectionDAO implements InterfacePacoteDAO {
     @Override
     public ArrayList<Pacote> buscarPacote() {
 
-        String buscapacotes = "SELECT * FROM Pacote";
+        String buscapacotes = "SELECT * FROM pacote";
         ArrayList<Pacote> pacotes = new ArrayList<>();
         ResultSet result;
         conectar(buscapacotes);

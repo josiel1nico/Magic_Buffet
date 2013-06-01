@@ -7,9 +7,6 @@ package view;
 import controler.Pessoa;
 import javax.swing.JOptionPane;
 import entidadesDAO.PessoaDAO;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 
 /**
  *
@@ -198,8 +195,6 @@ public class ResultadoCliente extends javax.swing.JFrame {
                 .addComponent(excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(69, 69, 69)
                 .addComponent(editarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77)
-                .addComponent(fecharButton, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -227,7 +222,10 @@ public class ResultadoCliente extends javax.swing.JFrame {
                                         .addGap(34, 34, 34)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(textoCep)
-                                            .addComponent(numeroTexto)))))
+                                            .addComponent(numeroTexto)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(fecharButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(0, 0, Short.MAX_VALUE))))))
                             .addComponent(cidadelabel))
                         .addGap(61, 61, 61))
                     .addGroup(layout.createSequentialGroup()
@@ -295,11 +293,12 @@ public class ResultadoCliente extends javax.swing.JFrame {
                     .addComponent(textoCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ceplabel)
                     .addComponent(textoCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(editarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fecharButton))
+                .addGap(38, 38, 38)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(fecharButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(editarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -315,7 +314,8 @@ public class ResultadoCliente extends javax.swing.JFrame {
         int resposta = JOptionPane.showConfirmDialog( null,"Tem certeza que quer exlcuir o cliente do sistema?","Confirmação", JOptionPane.YES_NO_OPTION);
         if(resposta == JOptionPane.YES_OPTION){
             PessoaDAO pessoa = new PessoaDAO();                    
-            Pessoa p = pessoa.buscar(textoCPF.getText(),"CLIENTE");        
+            String tipo = "CLIENTE";
+            Pessoa p = pessoa.buscar(textoCPF.getText(),tipo);        
             pessoa.remover(p);
             JOptionPane.showMessageDialog(this,"Cliente Removido");
             this.dispose();
@@ -326,12 +326,12 @@ public class ResultadoCliente extends javax.swing.JFrame {
         // TODO add your handling code here:                
         
         
-        this.textoBairro.setEnabled(true);               
-        this.textoCep.setEnabled(true);        
-        this.textoTelefone.setEnabled(true);
-        this.textoRua.setEnabled(true);
-        this.numeroTexto.setEnabled(true);
-        this.textoCidade.setEnabled(true);
+        this.textoBairro.setEditable(true);               
+        this.textoCep.setEditable(true);        
+        this.textoTelefone.setEditable(true);
+        this.textoRua.setEditable(true);
+        this.numeroTexto.setEditable(true);
+        this.textoCidade.setEditable(true);
         fecharButton.setText("Salvar");                
     }//GEN-LAST:event_editarButtonActionPerformed
 
@@ -345,8 +345,9 @@ public class ResultadoCliente extends javax.swing.JFrame {
         else{            
             int resposta = JOptionPane.showConfirmDialog( null,"Tem certeza que quer editar?","Confirmação", JOptionPane.YES_NO_OPTION);
             if(resposta == JOptionPane.YES_OPTION){
-                PessoaDAO pessoa = new PessoaDAO();                                  
-                Pessoa p = pessoa.buscar(textoCPF.getText(),"CLIENTE");
+                PessoaDAO pessoa = new PessoaDAO();        
+                String tipo = "MONITOR";
+                Pessoa p = pessoa.buscar(textoCPF.getText(),tipo);
                 p.setBairro(textoBairro.getText());
                 p.setCep(textoCep.getText());
                 p.setCidade(textoCidade.getText());

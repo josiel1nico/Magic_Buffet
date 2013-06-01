@@ -28,9 +28,7 @@
               <Component id="excluir" min="-2" pref="87" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
               <Component id="editarButton" min="-2" pref="80" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
-              <Component id="fecharButton" min="-2" pref="83" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace min="85" max="32767" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
@@ -63,6 +61,10 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="textoCep" max="32767" attributes="0"/>
                                           <Component id="numeroTexto" max="32767" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="fecharButton" min="-2" pref="89" max="-2" attributes="0"/>
+                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          </Group>
                                       </Group>
                                   </Group>
                               </Group>
@@ -153,11 +155,13 @@
                   <Component id="ceplabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="textoCep" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="38" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="editarButton" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
-                  <Component id="excluir" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
-                  <Component id="fecharButton" alignment="3" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="fecharButton" alignment="0" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="editarButton" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="excluir" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
