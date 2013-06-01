@@ -4,11 +4,9 @@
  */
 package view;
 
-import com.sun.media.sound.ModelOscillator;
+
 import controler.Pessoa;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import entidadesDAO.PessoaDAO;
 
 /**
@@ -129,15 +127,15 @@ public class ResultadoTodosClientes extends javax.swing.JFrame {
         result.setRua(p.getRua());
         result.setNumero(String.valueOf(p.getNumero()));        
         result.setRG(String.valueOf(p.getRg()));
-        result.textoBairro.setEnabled(false);
-        result.textoNome.setEnabled(false);
-        result.textoCPF.setEnabled(false);
-        result.textoCep.setEnabled(false);
-        result.textoRG.setEnabled(false);
-        result.textoTelefone.setEnabled(false);
-        result.textoRua.setEnabled(false);
-        result.numeroTexto.setEnabled(false);
-        result.textoCidade.setEnabled(false);        
+        result.textoBairro.setEditable(false);
+        result.textoNome.setEditable(false);
+        result.textoCPF.setEditable(false);
+        result.textoCep.setEditable(false);
+        result.textoRG.setEditable(false);
+        result.textoTelefone.setEditable(false);
+        result.textoRua.setEditable(false);
+        result.numeroTexto.setEditable(false);
+        result.textoCidade.setEditable(false);        
         this.dispose();
         result.setVisible(true);      
     }//GEN-LAST:event_InformacoesActionPerformed

@@ -4,7 +4,18 @@
  */
 package view;
 
+import controler.Festa;
+import controler.Item;
+import controler.Pacote;
+import controler.Pessoa;
+import entidadesDAO.FestaDAO;
+import entidadesDAO.ItemDAO;
+import entidadesDAO.PacoteDAO;
+import java.util.ArrayList;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -167,7 +178,7 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_cadastrosActionPerformed
 
     private void BotaoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoBuscarActionPerformed
-        this.dispose();
+        this.setVisible(false);
         TelaBuscar telabuscar = TelaBuscar.getInstance();
         telabuscar.setVisible(true);
 
@@ -175,23 +186,47 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void FESTAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FESTAActionPerformed
         // TODO add your handling code here:
+        CadastroFesta telaFesta = new CadastroFesta();
+        telaFesta.setVisible(true);
+        this.setVisible(false);
+        
+        
     }//GEN-LAST:event_FESTAActionPerformed
 
     private void TEMAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TEMAActionPerformed
         // TODO add your handling code here:
         CadastroDeTema telaTema = new CadastroDeTema();
         telaTema.setVisible(true);
-        this.dispose();        
+        this.setVisible(false);
     }//GEN-LAST:event_TEMAActionPerformed
 
     private void ITENSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ITENSActionPerformed
-        this.dispose();
+        this.setVisible(false);
         TelaCadastrarItem telaItem = new TelaCadastrarItem();
         telaItem.setVisible(true);
     }//GEN-LAST:event_ITENSActionPerformed
 
     private void PACOTEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PACOTEActionPerformed
-        // TODO add your handling code here:
+        DefaultTableModel modelo;     
+        ItemDAO pacote = new ItemDAO();
+        ArrayList<Item> ListaPacotes = pacote.buscarItens();
+        
+        modelo = new DefaultTableModel();                                
+        modelo.addColumn("Item");        
+        modelo.addColumn("ID"); 
+        String Item;
+        String ID;
+        for (int i = 0; i < ListaPacotes.size(); i++) {
+              Item = ListaPacotes.get(i).getNomeItem();              
+              ID = ListaPacotes.get(i).getIdItem();
+              String [] linha = {Item,ID};
+              modelo.addRow(linha);
+          }
+              
+              TelaCadastrarpacote tela = new  TelaCadastrarpacote();
+              tela.tabela.setModel(modelo);
+              tela.setVisible(true);
+              this.setVisible(false);
     }//GEN-LAST:event_PACOTEActionPerformed
 
     /**

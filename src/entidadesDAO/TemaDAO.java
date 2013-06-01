@@ -35,7 +35,7 @@ public class TemaDAO extends  ConectionDAO implements InterfaceTemaDAO {
 
     @Override
     public Tema buscar(String idTema) {
-        String buscaTema = "SELECT * FROM Tema WHERE IdTema LIKE " + idTema;
+        String buscaTema = "SELECT * FROM tema WHERE IdTema LIKE " + idTema;
         ResultSet result;
         Tema tema = new Tema();
 
@@ -56,7 +56,7 @@ public class TemaDAO extends  ConectionDAO implements InterfaceTemaDAO {
 
     @Override
     public void atualizar(Tema tema) {
-        String atualizar = "UPDATE Tema SET "
+        String atualizar = "UPDATE tema SET "
                 + "Tnome = ?,"                
                 + "WHERE IdTema = ?";
 
@@ -79,7 +79,7 @@ public class TemaDAO extends  ConectionDAO implements InterfaceTemaDAO {
     @Override
     public void remover(Tema tema) {
 
-        String remove = "DELETE FROM Tema WHERE IdTema = ?";
+        String remove = "DELETE FROM tema WHERE IdTema = ?";
         conectar(remove);
         try {
             pstm.setString(1, tema.getIdTema());
@@ -95,7 +95,7 @@ public class TemaDAO extends  ConectionDAO implements InterfaceTemaDAO {
     @Override
     public ArrayList<Tema> buscarTema() {
         
-        String BuscaTodos = "SELECT * FROM Tema ";
+        String BuscaTodos = "SELECT * FROM tema ";
         
         ArrayList<Tema> temas = new ArrayList<>();
         ResultSet result;
