@@ -5,14 +5,11 @@
 package entidadesDAO;
 
 import InterfaceDAO.InterfacePacoteDAO;
-import conexao.ConectionFactory;
+import controler.Item;
 import controler.Pacote;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -27,17 +24,36 @@ public class PacoteDAO extends ConectionDAO implements InterfacePacoteDAO {
 
         conectar(criar);
         try {
+            
+            conn.setAutoCommit(false);
+            
+        } catch (SQLException ex) {
+            imprimeErro("Erro ao criar pacote com itens", ex.getMessage());
+        }
+
+        try {
             pstm.setString(1, pacote.getIdPacote());
             pstm.setString(2, pacote.getPacoteNome());
             pstm.setDouble(3, pacote.getPrecoPacote());
-
             pstm.execute();
+
+            for (Item item : pacote.getItensPacote()) {
+
+                String insert = "INSERT INTO pacote_contem_iten (pacote_IdPacote, item_IDItem)"
+                        + "VALUES (?,?)";
+                conectar(insert);
+
+                pstm.setString(1, pacote.getIdPacote());
+                pstm.setString(2, item.getIdItem());
+
+            }
+            conn.commit();
+            conn.setAutoCommit(true);
             pstm.close();
 
         } catch (SQLException ex) {
             imprimeErro("Erro ao Cadastrar um Pacote", ex.getMessage());
         }
-
     }
 
     @Override
@@ -46,7 +62,6 @@ public class PacoteDAO extends ConectionDAO implements InterfacePacoteDAO {
         String busca = "SELECT * FROM pacote WHERE idPacote LIKE " + idPacote;
         ResultSet result;
         Pacote pacote = new Pacote();
-
         conectar(busca);
         try {
             result = pstm.executeQuery();
@@ -111,10 +126,10 @@ public class PacoteDAO extends ConectionDAO implements InterfacePacoteDAO {
                 pacote.setIdPacote(result.getString("IdPacote"));
                 pacote.setPacoteNome(result.getString("nomePacote"));
                 pacote.setPrecoPacote(result.getFloat("precoPacote"));
-                
+
                 pacotes.add(pacote);
             }
-                return pacotes;
+            return pacotes;
 
         } catch (SQLException ex) {
             imprimeErro("Erro ao Buscar Vários Pacotes", ex.getMessage());

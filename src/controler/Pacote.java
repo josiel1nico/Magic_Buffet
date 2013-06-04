@@ -4,6 +4,8 @@
  */
 package controler;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Josiel
@@ -13,8 +15,25 @@ public class Pacote {
     private String idPacote;
     private String nomePacote;
     private float precoPacote;
+    ArrayList<Item> itensPacote = new ArrayList<>();
 
     
+    public String getNomePacote() {
+        return nomePacote;
+    }
+
+    public void setNomePacote(String nomePacote) {
+        this.nomePacote = nomePacote;
+    }
+
+    public ArrayList<Item> getItensPacote() {
+        return itensPacote;
+    }
+
+    public void setItensPacote(ArrayList<Item> itensPacote) {
+        this.itensPacote = itensPacote;
+    }
+       
     
     public String getIdPacote() {
         return idPacote;
