@@ -117,7 +117,7 @@ public class ResultadoTodosClientes extends javax.swing.JFrame {
         String cpf = valueAt.toString(); 
         Pessoa p = pessoa.buscar(cpf,tipoPessoa);
         ResultadoCliente result = new ResultadoCliente();
-        System.out.println("------------" + valueAt.toString());
+        
         result.setNome(p.getPnome());
         result.setCep(p.getCep());
         result.setCidadee(p.getCidade());
@@ -127,6 +127,7 @@ public class ResultadoTodosClientes extends javax.swing.JFrame {
         result.setRua(p.getRua());
         result.setNumero(String.valueOf(p.getNumero()));        
         result.setRG(String.valueOf(p.getRg()));
+        result.setTipo(tipoPessoa);
         result.textoBairro.setEnabled(false);
         result.textoNome.setEnabled(false);
         result.textoCPF.setEnabled(false);

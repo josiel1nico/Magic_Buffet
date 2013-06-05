@@ -17,17 +17,17 @@ public class ResultadoCliente extends javax.swing.JFrame {
     /**
      * Creates new form ResultadoCliente
      */
-    public  String tipo;
-    private String nome;
-    private String cpf;
-    private String rua;
-    private String bairro;
-    private String numero;
-    private String RG;
-    private String telefone;
-    private String cep;
-    private String cidade;
+    private  String tipo;    
 
+
+    
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
     public void setCep(String cep) {
         textoCep.setText(cep);
     }
@@ -350,7 +350,7 @@ public class ResultadoCliente extends javax.swing.JFrame {
         else{            
             int resposta = JOptionPane.showConfirmDialog( null,"Tem certeza que quer editar?","Confirmação", JOptionPane.YES_NO_OPTION);
             if(resposta == JOptionPane.YES_OPTION){
-                PessoaDAO pessoa = new PessoaDAO();                        
+                PessoaDAO pessoa = new PessoaDAO();                   
                 Pessoa p = pessoa.buscar(textoCPF.getText(),tipo);
                 p.setBairro(textoBairro.getText());
                 p.setCep(textoCep.getText());
