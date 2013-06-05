@@ -57,47 +57,12 @@ public class FestaDAO extends ConectionDAO implements InterfaceFestaDAO {
 
     }
 
-    
-        public Festa buscar() {
+            
 
-        String buscarFesta = "SELECT MAX(IDFesta) FROM festa";
-
-        Festa festa = new Festa();
-        conectar(buscarFesta);
-
-        try {
-            ResultSet result;
-            result = pstm.executeQuery();
-
-            while (result.next()) {
-                festa.setIdFesta(result.getString("IDFesta"));
-                festa.setPessoaCPF(result.getString("clienteCPF"));
-                festa.setTema(result.getString("idTema"));
-                festa.setLocal(result.getString("localizacaoCEP"));
-                festa.setPacote(result.getString("idPacote"));
-                festa.setDataInicio(result.getString("datainicio"));
-                festa.setDataFim(result.getString("dataFim"));
-                festa.setHoraInicio(result.getTime("horaInicio"));
-                festa.setExterno(result.getBoolean("externo"));
-                festa.setQuantidadeConvidados(result.getInt("quantidadeconvidados"));
-                festa.setEstiloFesta(result.getString("estiloFesta"));
-            }
-
-        } catch (SQLException ex) {
-            imprimeErro("Erro ao buscar id festa", ex.getMessage());
-        }
-        fechar();
-        return festa;
-    }
-
-    
-    
-    
-    
     @Override
     public Festa buscar(String idFesta) {
 
-        String buscarFesta = "SELECT * FROM festa WHERE IdFesta LIKE" + idFesta + ";";
+        String buscarFesta = "SELECT * FROM festa WHERE IdFesta LIKE '" + idFesta + "'";
 
         conectar(buscarFesta);
         Festa festa = new Festa();

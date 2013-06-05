@@ -178,12 +178,9 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_BotaoBuscarActionPerformed
 
     private void FESTAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FESTAActionPerformed
-        // TODO add your handling code here:
         CadastroFesta telaFesta = new CadastroFesta();
         telaFesta.setVisible(true);
-        this.setVisible(false);
-        
-        
+        this.setVisible(false);        
     }//GEN-LAST:event_FESTAActionPerformed
 
     private void TEMAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TEMAActionPerformed

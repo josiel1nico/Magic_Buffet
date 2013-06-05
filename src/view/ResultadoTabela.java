@@ -4,21 +4,30 @@
  */
 package view;
 
+import controler.Festa;
+import controler.Localizacao;
 import controler.Pessoa;
+import controler.Tema;
+import entidadesDAO.FestaDAO;
+import entidadesDAO.LocalizacaoDAO;
 import javax.swing.JOptionPane;
 import entidadesDAO.PessoaDAO;
+import entidadesDAO.TemaDAO;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 
 /**
  *
  * @author andreza
  */
-public class ResultadoTodosClientes extends javax.swing.JFrame {
+public class ResultadoTabela extends javax.swing.JFrame {
 
-    String tipoPessoa;
+    String tipoPessoa = "";
+    
     /**
      * Creates new form ResultadoTodosClientes
      */
-    public ResultadoTodosClientes() {
+    public ResultadoTabela() {
         initComponents();
     }
 
@@ -111,12 +120,80 @@ public class ResultadoTodosClientes extends javax.swing.JFrame {
 
     private void InformacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InformacoesActionPerformed
         // TODO add your handling code here:
+        if(tipoPessoa.equals("")){  
+            int linha = tabela.getSelectedRow();
+            Object valueAt = tabela.getValueAt(linha, 3);
+            String id = valueAt.toString();             
+            ResultadoFesta result = new ResultadoFesta();
+              FestaDAO festa = new FestaDAO();        
+
+                Festa f = festa.buscar(id);
+                PessoaDAO p = new PessoaDAO();
+                Pessoa pessoa = p.buscar(f.getPessoaCPF(), "CLIENTE");                
+                result.cliente.setText(pessoa.getPnome());
+                result.cliente.setEditable(false);        
+                result.horario.setText(f.getHoraInicio().toString());
+                result.horario.setEditable(false);
+                result.convidados.setText(String.valueOf(f.getQuantidadeConvidados()));
+                result.convidados.setEditable(false);
+                result.itensPacote.setText(f.getPacote());
+                result.itensPacote.setEditable(false);
+                result.data.setText(f.getDataInicio());
+                result.data.setEditable(false);
+                result.estilo.setText(f.getEstiloFesta());
+                result.estilo.setEditable(false);
+                 if(!f.isExterno()){
+                    result.local.setText("BUFFET");
+                 }
+                 else{
+                     if(f.getLocal().equalsIgnoreCase("Endereço do cliente")){
+                         
+                         result.local.setText(pessoa.getRua() +" - " +  
+                                 pessoa.getBairro() + " - " + pessoa.getNumero());
+                     }
+                     else{
+                     LocalizacaoDAO localizacao = new LocalizacaoDAO();
+                     Localizacao localiz;
+                     String cep = f.getLocal();
+                     localiz = localizacao.buscarCEP(cep);
+                     result.local.setText(localiz.getCEP() + " - " + localiz.getBairro()
+                              + " - " + localiz.getRua());
+                     
+                     
+              }
+                     
+                     
+                 }
+                
+                
+                TemaDAO temas = new TemaDAO();
+                ArrayList<Tema> tema;
+                tema = temas.buscarTema();
+                String[] themes = new String[tema.size()];
+                String temaSelecionado = f.getTema();                
+                for (int i = 0; i < tema.size(); i++) {
+                    if(tema.get(i).getTnome().equals(temaSelecionado)) {
+                        String aux = themes[0];                                
+                        themes[0] = temaSelecionado;
+                        themes[i] = aux;                        
+                    }
+                    
+                    themes[i] = tema.get(i).getTnome();
+                }
+
+                DefaultComboBoxModel  model = new DefaultComboBoxModel(themes);
+                result.itensTema.setModel(model);
+                result.itensTema.setEditable(false);
+                result.itensTema.setEnabled(false);
+                result.setVisible(true);            
+        }
+        else {
         PessoaDAO pessoa = new PessoaDAO();          
         int linha = tabela.getSelectedRow();
         Object valueAt = tabela.getValueAt(linha, 1);
         String cpf = valueAt.toString(); 
         Pessoa p = pessoa.buscar(cpf,tipoPessoa);
-        ResultadoCliente result = new ResultadoCliente();
+        Resultado result = new Resultado();
         
         result.setNome(p.getPnome());
         result.setCep(p.getCep());
@@ -138,7 +215,8 @@ public class ResultadoTodosClientes extends javax.swing.JFrame {
         result.numeroTexto.setEnabled(false);
         result.textoCidade.setEnabled(false);        
         this.dispose();
-        result.setVisible(true);      
+        result.setVisible(true);     
+        }
     }//GEN-LAST:event_InformacoesActionPerformed
 
     private void ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExcluirActionPerformed
@@ -177,20 +255,20 @@ public class ResultadoTodosClientes extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ResultadoTodosClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ResultadoTabela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ResultadoTodosClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ResultadoTabela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ResultadoTodosClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ResultadoTabela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ResultadoTodosClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ResultadoTabela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ResultadoTodosClientes().setVisible(true);
+                new ResultadoTabela().setVisible(true);
             }
         });
     }

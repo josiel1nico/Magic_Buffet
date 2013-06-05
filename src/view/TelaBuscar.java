@@ -4,10 +4,14 @@
  */
 package view;
 
+import controler.Festa;
 import controler.Pessoa;
+import entidadesDAO.FestaDAO;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import entidadesDAO.PessoaDAO;
+import java.sql.Time;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 
 /**
@@ -50,10 +54,10 @@ public class TelaBuscar extends javax.swing.JFrame {
         ClienteRB = new javax.swing.JRadioButton();
         FestaRB = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         interrogacaoData = new javax.swing.JLabel();
         botaoBuscar = new javax.swing.JButton();
         MonitorRB = new javax.swing.JRadioButton();
+        data = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -73,12 +77,6 @@ public class TelaBuscar extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel2.setText("Data");
-
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
 
         interrogacaoData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/interrogacao_1.png"))); // NOI18N
 
@@ -113,15 +111,13 @@ public class TelaBuscar extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(botaoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel2)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel1)
-                                            .addGap(36, 36, 36)
-                                            .addComponent(cpfText, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel2)
+                                        .addComponent(jLabel1))
+                                    .addGap(36, 36, 36)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(cpfText, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                                        .addComponent(data, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGap(42, 42, 42)
                                     .addComponent(interrogacaoData)))
                             .addGap(24, 24, 24)))
@@ -148,13 +144,15 @@ public class TelaBuscar extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cpfText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(64, 64, 64)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(53, 53, 53)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(interrogacaoData)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2)))
-                .addGap(58, 58, 58)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(8, 8, 8)))
+                .addGap(61, 61, 61)
                 .addComponent(botaoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(80, 80, 80))
         );
@@ -162,21 +160,18 @@ public class TelaBuscar extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-           // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
-
     private void botaoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoBuscarActionPerformed
 
         if (ClienteRB.isSelected()) {
             PessoaDAO pessoa = new PessoaDAO();
             if (cpfText.getText().equals("")) {
                 ArrayList<Pessoa> ListaPessoas = pessoa.buscarPessoas("CLIENTE");
-                ResultadoTodosClientes resultado = new ResultadoTodosClientes();
+                ResultadoTabela resultado = new ResultadoTabela();
                 resultado.tipoPessoa = "CLIENTE";
                 modelo = new DefaultTableModel();
                 modelo.addColumn("Cliente");
                 modelo.addColumn("CPF");
+                
 
                 for (int i = 0; i < ListaPessoas.size(); i++) {
                     String Cliente = ListaPessoas.get(i).getPnome();
@@ -192,7 +187,7 @@ public class TelaBuscar extends javax.swing.JFrame {
                 if (p.getPnome() == null) {
                     JOptionPane.showMessageDialog(this, "Cliente não encontrado");
                 } else {
-                    ResultadoCliente result = new ResultadoCliente();
+                    Resultado result = new Resultado();
                     result.setNome(p.getPnome());
                     result.setCpf(p.getCpf());
                     result.setBairro(p.getBairro());
@@ -222,7 +217,7 @@ public class TelaBuscar extends javax.swing.JFrame {
             
             if (cpfText.getText().equals("")) {
                 ArrayList<Pessoa> ListaPessoas = pessoa.buscarPessoas("MONITOR");
-                ResultadoTodosClientes resultado = new ResultadoTodosClientes();
+                ResultadoTabela resultado = new ResultadoTabela();
                 resultado.tipoPessoa = "MONITOR";
                 modelo = new DefaultTableModel();
                 modelo.addColumn("Monitor");
@@ -242,7 +237,7 @@ public class TelaBuscar extends javax.swing.JFrame {
                 if (p.getPnome() == null) {
                     JOptionPane.showMessageDialog(this, "Monitor não encontrado");
                 } else {
-                    ResultadoCliente result = new ResultadoCliente();
+                    Resultado result = new Resultado();
                     result.setNome(p.getPnome());
                     result.setCpf(p.getCpf());
                     result.setBairro(p.getBairro());
@@ -266,6 +261,53 @@ public class TelaBuscar extends javax.swing.JFrame {
                     result.setVisible(true);
                 }
             }
+        }
+        else 
+            if(FestaRB.isSelected()) {
+                Calendar date = data.getCalendar();
+                String dataBusca = date.get(Calendar.DAY_OF_MONTH) + "/" + 
+                      (date.get(Calendar.MONTH) + 1) 
+                        + "/" + date.get(Calendar.YEAR);
+                
+                FestaDAO festas = new FestaDAO();
+                ArrayList<Festa> festa = new ArrayList();
+                festa = festas.buscarFesta(dataBusca);
+                
+                
+                
+                
+                
+                ResultadoTabela resultado = new ResultadoTabela();
+                
+                modelo = new DefaultTableModel();
+                modelo.addColumn("Clientes das Festas");
+                modelo.addColumn("CPF");
+                modelo.addColumn("Horário");
+                modelo.addColumn("Id");
+                
+                
+
+
+                for (int i = 0; i < festa.size(); i++) {
+                    String CpfCliente = festa.get(i).getPessoaCPF();
+                    Time horario = festa.get(i).getHoraInicio();
+                    PessoaDAO p = new PessoaDAO();
+                    Pessoa pessoa = p.buscar(CpfCliente, Pessoa.CLIENTE);                            
+                    String nomeCliente = pessoa.getPnome();
+                    String id = festa.get(i).getIdFesta();
+                    String[] linha = {nomeCliente,CpfCliente, horario.toString(),id};
+                    
+                    modelo.addRow(linha);
+                }
+                
+                resultado.tabela.setModel(modelo);
+                resultado.setVisible(true);
+
+                
+                
+                
+                
+                
         }
     }//GEN-LAST:event_botaoBuscarActionPerformed
 
@@ -323,10 +365,10 @@ public class TelaBuscar extends javax.swing.JFrame {
     private javax.swing.JButton botaoBuscar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField cpfText;
+    private com.toedter.calendar.JDateChooser data;
     private javax.swing.JLabel interrogacaoData;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

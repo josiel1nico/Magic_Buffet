@@ -542,10 +542,19 @@ public final class CadastroFesta extends javax.swing.JFrame {
                     for (int j = 0; j < itensOk.size(); j++) {
                          mensagem = mensagem + itensOk.get(j) + "\n";
                     }
-                }
-                JOptionPane.showMessageDialog(this, mensagem);
-            }
+                }                           
         
+            if(Buffet.isSelected()){
+                ArrayList<Festa> fest = festas.buscarFesta(datainit);
+                for (int i = 0; i < fest.size(); i++) {
+                    if(!fest.get(i).isExterno()){
+                        mensagem = mensagem + " Buffet já está locado nesse dia\n";
+                    }
+                }
+            }
+        JOptionPane.showMessageDialog(this, mensagem);
+        }
+         
         checkData = true;
     }//GEN-LAST:event_botaoChecarActionPerformed
 

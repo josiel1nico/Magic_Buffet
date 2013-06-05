@@ -71,6 +71,33 @@ public class LocalizacaoDAO extends ConectionDAO implements InterfaceLocalizacao
         fechar();
         return localizacao;
     }
+    
+    public Localizacao buscarCEP(String cep) {
+
+        String buscarLocalizacao = "SELECT * FROM localizacao WHERE CEP LIKE '"+ cep + "'";
+
+        Localizacao localizacao = new Localizacao();
+        conectar(buscarLocalizacao);
+
+        try {
+            ResultSet result;
+            result = pstm.executeQuery();
+
+            while (result.next()) {
+                localizacao.setIdLocalizacao(result.getString("IdLocalizacao"));
+                localizacao.setCEP(result.getString("CEP"));
+                localizacao.setRua(result.getString("Rua"));
+                localizacao.setNumero(result.getInt("Numero"));
+                localizacao.setBairro(result.getString("Bairro"));
+                localizacao.setCidade(result.getString("Cidade"));
+            }
+
+        } catch (SQLException ex) {
+            imprimeErro("Erro ao buscar Localizacao", ex.getMessage());
+        }
+        fechar();
+        return localizacao;
+    }
 
     // TÁ COM PROBLEMA REFAZER
     @Override
