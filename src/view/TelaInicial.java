@@ -4,16 +4,9 @@
  */
 package view;
 
-import controler.Festa;
 import controler.Item;
-import controler.Pacote;
-import controler.Pessoa;
-import entidadesDAO.FestaDAO;
 import entidadesDAO.ItemDAO;
-import entidadesDAO.PacoteDAO;
 import java.util.ArrayList;
-import javax.swing.ComboBoxModel;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 

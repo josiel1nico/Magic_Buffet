@@ -4,8 +4,10 @@
  */
 package controler;
 
+
 import java.sql.Date;
 import java.sql.Time;
+
 
 /**
  *
@@ -20,8 +22,8 @@ public class Festa {
     private String tema;
     private String local;
     private String pacote;
-    private Date dataInicio;
-    private Date dataFim;
+    private String dataInicio;
+    private String dataFim;
     private Time horaInicio;
     private boolean externo;
     private int quantidadeConvidados; //tres campos separando as idades
@@ -68,19 +70,19 @@ public class Festa {
     }
 
 
-    public Date getDataInicio() {
+    public String getDataInicio() {
         return dataInicio;
     }
 
-    public void setDataInicio(Date dataInicio) {
+    public void setDataInicio(String dataInicio) {
         this.dataInicio = dataInicio;
     }
 
-    public Date getDataFim() {
+    public String getDataFim() {
         return dataFim;
     }
 
-    public void setDataFim(Date dataFim) {
+    public void setDataFim(String dataFim) {
         this.dataFim = dataFim;
     }
 

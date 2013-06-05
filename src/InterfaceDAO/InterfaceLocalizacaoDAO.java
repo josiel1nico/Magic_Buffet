@@ -16,7 +16,7 @@ public interface InterfaceLocalizacaoDAO {
 
     public void criar(Localizacao localizacao);
 
-    public Localizacao buscar(String IdLocalizacao);
+    public Localizacao buscar();
 
     public void atualizar(Localizacao localizacao);
 

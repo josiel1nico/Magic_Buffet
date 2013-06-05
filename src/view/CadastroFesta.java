@@ -5,16 +5,22 @@
 package view;
 
 import controler.Festa;
-import controler.Item;
+import controler.Localizacao;
 import controler.Pacote;
 import controler.Pessoa;
 import controler.Tema;
 import entidadesDAO.FestaDAO;
-import entidadesDAO.ItemDAO;
+import entidadesDAO.LocalizacaoDAO;
 import entidadesDAO.PacoteDAO;
 import entidadesDAO.PessoaDAO;
 import entidadesDAO.TemaDAO;
+import java.rmi.server.UID;
 import java.util.ArrayList;
+import java.sql.Date;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -62,6 +68,11 @@ public final class CadastroFesta extends javax.swing.JFrame {
         initComponents();
         prencherOpcoesTema();
         prencherOpcoesPacote();
+        textoBairro.setEnabled(false);
+        textoCEP.setEnabled(false);
+        textoCidade.setEnabled(false);
+        textoRua.setEnabled(false);
+        textoNumero.setEnabled(false);        
     }
 
     /**
@@ -73,6 +84,7 @@ public final class CadastroFesta extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         textocpf = new javax.swing.JTextField();
         textoNome = new javax.swing.JTextField();
         checarCPF = new javax.swing.JButton();
@@ -87,29 +99,33 @@ public final class CadastroFesta extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        textoHora = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
+        localExterno = new javax.swing.JRadioButton();
+        UsarEndereco = new javax.swing.JRadioButton();
+        Buffet = new javax.swing.JRadioButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel10 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        textoRua = new javax.swing.JTextField();
+        textoBairro = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
+        textoNumero = new javax.swing.JTextField();
+        textoCEP = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
-        jTextField9 = new javax.swing.JTextField();
+        botaoSalvar = new javax.swing.JButton();
+        textoCidade = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel15 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        diaInicio = new com.toedter.calendar.JDateChooser();
-        diaFIm = new com.toedter.calendar.JDateChooser();
+        estilo = new javax.swing.JComboBox();
         botaoChecar = new javax.swing.JButton();
+        datainicio = new com.toedter.calendar.JDateChooser();
+        datafim = new com.toedter.calendar.JDateChooser();
+        horaSpin = new com.toedter.components.JSpinField();
+        minutosSpin = new com.toedter.components.JSpinField();
+        botaoCancelar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        qntConvidados = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -151,13 +167,33 @@ public final class CadastroFesta extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
         jLabel9.setText("Estilo");
 
-        jRadioButton1.setText("Local Externo");
+        buttonGroup1.add(localExterno);
+        localExterno.setText("Local Externo");
+        localExterno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                localExternoActionPerformed(evt);
+            }
+        });
 
-        jRadioButton2.setText("Usar Endereço do cliente");
+        buttonGroup1.add(UsarEndereco);
+        UsarEndereco.setText("Usar Endereço do cliente");
+        UsarEndereco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UsarEnderecoActionPerformed(evt);
+            }
+        });
 
-        jRadioButton3.setText("Buffet");
+        buttonGroup1.add(Buffet);
+        Buffet.setText("Buffet");
+        Buffet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuffetActionPerformed(evt);
+            }
+        });
 
         jLabel10.setText("Rua");
+
+        textoRua.setEditable(false);
 
         jLabel11.setText("Bairro");
 
@@ -165,14 +201,19 @@ public final class CadastroFesta extends javax.swing.JFrame {
 
         jLabel13.setText("CEP");
 
-        jButton5.setText("Salvar");
+        botaoSalvar.setText("Salvar");
+        botaoSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoSalvarActionPerformed(evt);
+            }
+        });
 
         jLabel14.setText("Cidade");
 
         jLabel15.setFont(new java.awt.Font("Ubuntu", 1, 17)); // NOI18N
         jLabel15.setText("Cadastro de uma nova Festa");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Provençal", "Normal" }));
+        estilo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Provençal", "Normal" }));
 
         botaoChecar.setText("Checar Data");
         botaoChecar.addActionListener(new java.awt.event.ActionListener() {
@@ -180,6 +221,21 @@ public final class CadastroFesta extends javax.swing.JFrame {
                 botaoChecarActionPerformed(evt);
             }
         });
+
+        horaSpin.setMaximum(23);
+        horaSpin.setMinimum(0);
+
+        minutosSpin.setMaximum(59);
+        minutosSpin.setMinimum(0);
+
+        botaoCancelar.setText("Cancelar");
+        botaoCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCancelarActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Quant. Convidados");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -189,81 +245,86 @@ public final class CadastroFesta extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15)
+                            .addComponent(jSeparator2)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(localExterno)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Buffet)
+                        .addGap(34, 34, 34)
+                        .addComponent(UsarEndereco))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel14))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(textoRua, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addContainerGap()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel10)
-                                            .addComponent(jLabel11)
-                                            .addComponent(jLabel14))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(textoCidade, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                                            .addComponent(textoBairro))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))
                                         .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                    .addComponent(jTextField9, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
-                                                    .addComponent(jTextField5))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))
-                                                .addGap(18, 18, 18)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                    .addComponent(jTextField6, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
-                                                    .addComponent(jTextField8)))))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(21, 21, 21)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel15)
-                                            .addComponent(jSeparator2))))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addContainerGap()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel9)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addGap(7, 7, 7)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                        .addComponent(jLabel4)
-                                                        .addGap(3, 3, 3))))
-                                            .addComponent(jLabel8)))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(textoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addComponent(textoHora, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-                                                .addGap(278, 278, 278))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                    .addComponent(itensPacote, 0, 235, Short.MAX_VALUE)
-                                                    .addComponent(itensTema, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                .addGap(18, 18, 18)
-                                                .addComponent(botaoCriarPacote))
-                                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(diaFIm, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(diaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(textoCEP, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                                            .addComponent(textoNumero)))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel9)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addGap(7, 7, 7)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                    .addComponent(jLabel4)
+                                                    .addGap(3, 3, 3))))
+                                        .addComponent(jLabel8)))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(textoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                    .addComponent(horaSpin, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addGap(18, 18, 18)
+                                                    .addComponent(minutosSpin, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                                                    .addComponent(jLabel1))
+                                                .addComponent(estilo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGap(18, 18, 18)
-                                            .addComponent(botaoChecar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(48, 48, 48)
-                                .addComponent(jRadioButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jRadioButton3)
-                                .addGap(34, 34, 34)
-                                .addComponent(jRadioButton2)))
-                        .addGap(0, 8, Short.MAX_VALUE))
+                                            .addComponent(qntConvidados, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(datafim, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(datainicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(itensPacote, javax.swing.GroupLayout.Alignment.LEADING, 0, 235, Short.MAX_VALUE)
+                                                .addComponent(itensTema, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                    .addGap(18, 18, 18)
+                                                    .addComponent(botaoChecar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addGap(18, 18, 18)
+                                                    .addComponent(botaoCriarPacote))))))))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(layout.createSequentialGroup()
                                     .addGap(55, 55, 55)
@@ -275,7 +336,12 @@ public final class CadastroFesta extends javax.swing.JFrame {
                                 .addComponent(jLabel2))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel3)
-                                .addGap(442, 442, 442)))))
+                                .addGap(442, 442, 442))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(botaoCancelar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botaoSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -284,20 +350,8 @@ public final class CadastroFesta extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(diaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel7)
-                            .addComponent(diaFIm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(textoHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))
-                        .addGap(17, 17, 17)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel7))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -321,42 +375,56 @@ public final class CadastroFesta extends javax.swing.JFrame {
                             .addComponent(itensPacote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
                             .addComponent(botaoCriarPacote))
+                        .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(22, 22, 22)
-                                .addComponent(jLabel6))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(botaoChecar)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)))
+                            .addComponent(botaoChecar)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(datainicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel6)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                        .addComponent(datafim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel8)
+                    .addComponent(horaSpin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(minutosSpin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(qntConvidados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(estilo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton3)
-                    .addComponent(jRadioButton1))
+                    .addComponent(UsarEndereco)
+                    .addComponent(Buffet)
+                    .addComponent(localExterno))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textoRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textoBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textoCEP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textoCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12)
-                            .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textoNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel14))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                        .addComponent(jButton5)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(botaoSalvar)
+                            .addComponent(botaoCancelar))))
                 .addContainerGap())
         );
 
@@ -404,7 +472,7 @@ public final class CadastroFesta extends javax.swing.JFrame {
         FestaDAO festas = new FestaDAO();
         ArrayList<Festa> festa;                
         
-        festa = festas.buscarFesta(diaInicio.getDate()); //array de feestas em uma data
+        festa = festas.buscarFesta(datainicio.getDate()); //array de feestas em uma data
         
         if(festa == null){
             JOptionPane.showMessageDialog(this,"Data Disponível");            
@@ -416,8 +484,8 @@ public final class CadastroFesta extends javax.swing.JFrame {
                     String f = e_festa.getPacote();
                     Pacote pak = pacote.buscarPorNome(f);
                     ArrayList<String> listaItens = pak.getItensPacote();
-                    for (int itensPacote = 0; itensPacote < listaItens.size(); itensPacote++) {
-                        String it = itensMeuPacote.get(itensPacote);
+                    for (int itensPacotes = 0; itensPacotes < listaItens.size(); itensPacotes++) {
+                            String it = itensMeuPacote.get(itensPacotes);
                         for (int i = 0; i < listaItens.size(); i++) {
                             if(listaItens.get(i).equalsIgnoreCase(it)){
                                 itensLocados.add(it);
@@ -430,12 +498,140 @@ public final class CadastroFesta extends javax.swing.JFrame {
    
                  }
                 
-                for (int i = 0; i < itensOk.size(); i++) {
-                    System.out.println(itensOk.get(i));
+                System.out.println("tamano" + itensLocados.size());
+                
+                for (int i = 0; i < itensLocados.size(); i++) {
+                    
+                    System.out.println(itensLocados.get(i));
             }
                 
             }                                                       
     }//GEN-LAST:event_botaoChecarActionPerformed
+
+    private void botaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarActionPerformed
+        
+        Festa festa = new Festa();
+        FestaDAO festas = new FestaDAO();
+        
+        festa.setPacote(itensPacote.getSelectedItem().toString());
+        festa.setTema(itensTema.getSelectedItem().toString());                           
+        festa.setEstiloFesta(estilo.getSelectedItem().toString());
+        festa.setPessoaCPF(textocpf.getText());
+        festa.setQuantidadeConvidados(Integer.parseInt(qntConvidados.getText()));
+        festa.setLocal(textoCEP.getText());
+        
+        
+        Calendar d = datafim.getCalendar();                
+        String data = d.get(Calendar.DAY_OF_MONTH) + "/" + (d.get(Calendar.MONTH)+1)
+                       + "/" + d.get(Calendar.YEAR);
+        festa.setDataFim(data);        
+        Calendar dataInicial = datafim.getCalendar();                
+        String datainit = dataInicial.get(Calendar.DAY_OF_MONTH) + "/" + 
+                      (dataInicial.get(Calendar.MONTH) + 1) 
+                        + "/" + dataInicial.get(Calendar.YEAR);
+        
+        if(data == null){
+            data = datainit;
+        }
+        
+        festa.setDataFim(data);
+        festa.setDataInicio(datainit);
+        
+        
+        
+        int hora = horaSpin.getValue();
+        int minuto = minutosSpin.getValue();        
+        Time hour = new Time(hora, minuto, 0);                
+        festa.setHoraInicio(hour);
+        
+        
+        
+        
+        
+        if(Buffet.isSelected()){            
+            festa.setExterno(false);            
+        } 
+        else {
+            if(UsarEndereco.isSelected() || localExterno.isSelected()){
+                    festa.setExterno(true);
+                    LocalizacaoDAO locais = new LocalizacaoDAO();
+                    Localizacao local = new Localizacao();                           
+                    local.setBairro(textoBairro.getText());
+                    local.setCEP(textoCEP.getText());
+                    local.setRua(textoRua.getText());
+                    local.setNumero(Integer.parseInt(textoNumero.getText()));
+                    local.setCidade(textoCidade.getText());                              
+                    UID id = new UID();
+                    local.setIdLocalizacao(id.toString());                                    
+                      
+                    locais.criar(local);
+            }                
+        }        
+        
+        JOptionPane.showMessageDialog(this,"Tem certeza que deseja salvar a festa?");
+        festas.criar(festa); 
+        JOptionPane.showMessageDialog(this,"Festa cadastrada");
+        
+    }//GEN-LAST:event_botaoSalvarActionPerformed
+
+    private void localExternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_localExternoActionPerformed
+        textoBairro.setEditable(true);
+        textoCEP.setEditable(true);
+        textoRua.setEditable(true);
+        textoCidade.setEditable(true);
+        textoNumero.setEditable(true);
+        textoBairro.setEnabled(true);
+        textoCEP.setEnabled(true);
+        textoRua.setEnabled(true);
+        textoCidade.setEnabled(true);
+        textoNumero.setEnabled(true); 
+        textoBairro.setText("");
+        textoCEP.setText("");
+        textoRua.setText("");
+        textoCidade.setText("");
+        textoNumero.setText("");    
+    }//GEN-LAST:event_localExternoActionPerformed
+
+    private void BuffetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuffetActionPerformed
+        textoBairro.setEnabled(false);
+        textoCEP.setEnabled(false);
+        textoRua.setEnabled(false);
+        textoCidade.setEnabled(false);
+        textoNumero.setEnabled(false);        
+        textoBairro.setText("");
+        textoCEP.setText("");
+        textoRua.setText("");
+        textoCidade.setText("");
+        textoNumero.setText("");    
+        
+    }//GEN-LAST:event_BuffetActionPerformed
+
+    private void UsarEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsarEnderecoActionPerformed
+        if(textocpf.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Digite o número do cpf de um cliente");
+        }
+        textoBairro.setEnabled(false);
+        textoCEP.setEnabled(false);
+        textoRua.setEnabled(false);
+        textoCidade.setEnabled(false);
+        textoNumero.setEnabled(false);           
+        Pessoa pessoa;
+        PessoaDAO pessoas = new PessoaDAO();
+        pessoa = pessoas.buscar(textocpf.getText(), "CLIENTE");
+                
+        textoBairro.setText(pessoa.getBairro());
+        textoCEP.setText(pessoa.getCep());
+        textoRua.setText(pessoa.getRua());
+        textoCidade.setText(pessoa.getCidade());
+        textoNumero.setText(String.valueOf(pessoa.getNumero()));    
+        
+    }//GEN-LAST:event_UsarEnderecoActionPerformed
+
+    private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
+        this.dispose();
+        TelaInicial tela = TelaInicial.getInstance();
+        tela.setVisible(true);
+    }//GEN-LAST:event_botaoCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -472,16 +668,22 @@ public final class CadastroFesta extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton Buffet;
+    private javax.swing.JRadioButton UsarEndereco;
+    private javax.swing.JButton botaoCancelar;
     private javax.swing.JButton botaoChecar;
     private javax.swing.JButton botaoCriarPacote;
+    private javax.swing.JButton botaoSalvar;
     private javax.swing.JButton buscarCliente;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton checarCPF;
-    private com.toedter.calendar.JDateChooser diaFIm;
-    private com.toedter.calendar.JDateChooser diaInicio;
+    private com.toedter.calendar.JDateChooser datafim;
+    private com.toedter.calendar.JDateChooser datainicio;
+    private javax.swing.JComboBox estilo;
+    private com.toedter.components.JSpinField horaSpin;
     private javax.swing.JComboBox itensPacote;
     private javax.swing.JComboBox itensTema;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -496,18 +698,17 @@ public final class CadastroFesta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
-    private javax.swing.JTextField textoHora;
+    private javax.swing.JRadioButton localExterno;
+    private com.toedter.components.JSpinField minutosSpin;
+    private javax.swing.JTextField qntConvidados;
+    private javax.swing.JTextField textoBairro;
+    private javax.swing.JTextField textoCEP;
+    private javax.swing.JTextField textoCidade;
     private javax.swing.JTextField textoNome;
+    private javax.swing.JTextField textoNumero;
+    private javax.swing.JTextField textoRua;
     private javax.swing.JTextField textocpf;
     // End of variables declaration//GEN-END:variables
 }

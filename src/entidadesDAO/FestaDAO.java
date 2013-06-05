@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Josiel
@@ -19,35 +21,79 @@ public class FestaDAO extends ConectionDAO implements InterfaceFestaDAO {
     @Override
     public void criar(Festa festa) {
 
-        String criarFesta = "INSERT INTO Festa "
+        String criarFesta = "INSERT INTO festa "
                 + "(IdFesta, clienteCPF, idTema, localizacaoCEP, idPacote, datainicio, "
-                + "dataiFim, horaInicio, externo, quantidadeconvidados, estiloFesta)"
+                + "dataFim, horaInicio, externo, quantidadeconvidados, estiloFesta)"
                 + "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 
 
-        conectar(criarFesta);
+        
         try {
+            conectar(criarFesta);
+            conn.setAutoCommit(false);
             pstm.setString(1, festa.getIdFesta());
             pstm.setString(2, festa.getPessoaCPF());
             pstm.setString(3, festa.getTema());
             pstm.setString(4, festa.getLocal());
             pstm.setString(5, festa.getPacote());
-            pstm.setDate(6, festa.getDataInicio());
-            pstm.setDate(7, festa.getDataFim());
+            pstm.setString(6, festa.getDataInicio());
+            pstm.setString(7, festa.getDataFim());
             pstm.setTime(8, festa.getHoraInicio());
             pstm.setBoolean(9, festa.isExterno());
             pstm.setInt(10, festa.getQuantidadeConvidados());
             pstm.setString(11, festa.getEstiloFesta());
-
             pstm.execute();
+            conn.commit();
             fechar();
 
         } catch (SQLException ex) {
-            imprimeErro("Erro ao cadastrar Festa", ex.getMessage());
+            try {
+                conn.rollback();
+                imprimeErro("Erro ao cadastrar Festa", ex.getMessage());
+            } catch (SQLException ex1) {
+                Logger.getLogger(FestaDAO.class.getName()).log(Level.SEVERE, null, ex1);
+            }
         }
 
     }
 
+    
+        public Festa buscar() {
+
+        String buscarFesta = "SELECT MAX(IDFesta) FROM festa";
+
+        Festa festa = new Festa();
+        conectar(buscarFesta);
+
+        try {
+            ResultSet result;
+            result = pstm.executeQuery();
+
+            while (result.next()) {
+                festa.setIdFesta(result.getString("IDFesta"));
+                festa.setPessoaCPF(result.getString("clienteCPF"));
+                festa.setTema(result.getString("idTema"));
+                festa.setLocal(result.getString("localizacaoCEP"));
+                festa.setPacote(result.getString("idPacote"));
+                festa.setDataInicio(result.getString("datainicio"));
+                festa.setDataFim(result.getString("dataFim"));
+                festa.setHoraInicio(result.getTime("horaInicio"));
+                festa.setExterno(result.getBoolean("externo"));
+                festa.setQuantidadeConvidados(result.getInt("quantidadeconvidados"));
+                festa.setEstiloFesta(result.getString("estiloFesta"));
+            }
+
+        } catch (SQLException ex) {
+            imprimeErro("Erro ao buscar id festa", ex.getMessage());
+        }
+        fechar();
+        return festa;
+    }
+
+    
+    
+    
+    
     @Override
     public Festa buscar(String idFesta) {
 
@@ -66,8 +112,8 @@ public class FestaDAO extends ConectionDAO implements InterfaceFestaDAO {
                 festa.setTema(result.getString("idTema"));
                 festa.setLocal(result.getString("localizacaoCEP"));
                 festa.setPacote(result.getString("idPacote"));
-                festa.setDataInicio(result.getDate("datainicio"));
-                festa.setDataFim(result.getDate("dataiFim"));
+                festa.setDataInicio(result.getString("datainicio"));
+                festa.setDataFim(result.getString("dataFim"));
                 festa.setHoraInicio(result.getTime("horaInicio"));
                 festa.setExterno(result.getBoolean("externo"));
                 festa.setQuantidadeConvidados(result.getInt("quantidadeconvidados"));
@@ -100,8 +146,8 @@ public class FestaDAO extends ConectionDAO implements InterfaceFestaDAO {
                 festa.setTema(result.getString("idTema"));
                 festa.setLocal(result.getString("localizacaoCEP"));
                 festa.setPacote(result.getString("idPacote"));
-                festa.setDataInicio(result.getDate("datainicio"));
-                festa.setDataFim(result.getDate("dataiFim"));
+                festa.setDataInicio(result.getString("datainicio"));
+                festa.setDataFim(result.getString("dataFim"));
                 festa.setHoraInicio(result.getTime("horaInicio"));
                 festa.setExterno(result.getBoolean("externo"));
                 festa.setQuantidadeConvidados(result.getInt("quantidadeconvidados"));
@@ -132,7 +178,7 @@ public class FestaDAO extends ConectionDAO implements InterfaceFestaDAO {
                 + "localizacaoCEP = ?,"
                 + "idPacote = ?,"
                 + "datainicio = ?,"
-                + "dataiFim = ?,"
+                + "dataFim = ?,"
                 + "horaInicio = ?,"
                 + "externo = ?,"
                 + "quantidadeconvidados = ?,"
@@ -146,8 +192,8 @@ public class FestaDAO extends ConectionDAO implements InterfaceFestaDAO {
             pstm.setString(3, festa.getTema());
             pstm.setString(4, festa.getLocal());
             pstm.setString(5, festa.getPacote());
-            pstm.setDate(6, festa.getDataInicio());
-            pstm.setDate(7, festa.getDataFim());
+            pstm.setString(6, festa.getDataInicio());
+            pstm.setString(7, festa.getDataFim());
             pstm.setTime(8, festa.getHoraInicio());
             pstm.setBoolean(9, festa.isExterno());
             pstm.setInt(10, festa.getQuantidadeConvidados());
@@ -196,8 +242,8 @@ public class FestaDAO extends ConectionDAO implements InterfaceFestaDAO {
                 festa.setTema(result.getString("idTema"));
                 festa.setLocal(result.getString("localizacaoCEP"));
                 festa.setPacote(result.getString("idPacote"));
-                festa.setDataInicio(result.getDate("datainicio"));
-                festa.setDataFim(result.getDate("dataiFim"));
+                festa.setDataInicio(result.getString("datainicio"));
+                festa.setDataFim(result.getString("dataFim"));
                 festa.setHoraInicio(result.getTime("horaInicio"));
                 festa.setExterno(result.getBoolean("externo"));
                 festa.setQuantidadeConvidados(result.getInt("quantidadeconvidados"));

@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -22,7 +22,7 @@ public class LocalizacaoDAO extends ConectionDAO implements InterfaceLocalizacao
     public void criar(Localizacao localizacao) {
 
         String criarLocalizacao;
-        criarLocalizacao = "INSERT INTO Localizacao(IdLocalizacao,CEP,Numero,Rua,Bairro,Cidade) "
+        criarLocalizacao = "INSERT INTO localizacao(IdLocalizacao,CEP,Numero,Rua,Bairro,Cidade) "
                 + "VALUES(?,?,?,?,?,?)";
 
         conectar(criarLocalizacao);
@@ -43,10 +43,11 @@ public class LocalizacaoDAO extends ConectionDAO implements InterfaceLocalizacao
         }
     }
 
+    
     @Override
-    public Localizacao buscar(String IdLocalizacao) {
+    public Localizacao buscar() {
 
-        String buscarLocalizacao = "SELECT * FROM localizacao WHERE IdLocalizacao LIKE " + IdLocalizacao;
+        String buscarLocalizacao = "SELECT MAX(idLocalizacao) FROM localizacao";
 
         Localizacao localizacao = new Localizacao();
         conectar(buscarLocalizacao);
@@ -56,7 +57,7 @@ public class LocalizacaoDAO extends ConectionDAO implements InterfaceLocalizacao
             result = pstm.executeQuery();
 
             while (result.next()) {
-                localizacao.setIdLocalizacao(result.getString("IdLocalizacao"));
+                localizacao.setIdLocalizacao(result.getString("idLocalizacao"));
                 localizacao.setCEP(result.getString("CEP"));
                 localizacao.setRua(result.getString("Rua"));
                 localizacao.setNumero(result.getInt("Numero"));
