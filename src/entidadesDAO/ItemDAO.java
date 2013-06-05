@@ -41,7 +41,7 @@ public class ItemDAO extends ConectionDAO implements InterfaceItemDAO {
 
     @Override
     public Item buscar(String idItem) {
-        String buscar = "SELECT * FROM item WHERE IdItem LIKE " + idItem;
+        String buscar = "SELECT * FROM item WHERE IdItem LIKE '" + idItem + "'";
         ResultSet result;
         conectar(buscar);
         Item item = new Item();

@@ -9,6 +9,7 @@ import controler.Festa;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 /**
  *
  * @author Josiel
@@ -80,7 +81,48 @@ public class FestaDAO extends ConectionDAO implements InterfaceFestaDAO {
         fechar();
         return festa;
     }
+                     
+    public ArrayList<Festa> buscarFesta(Date data) {
+        
+        String buscarFestas = "SELECT * FROM festa WHERE datainicio LIKE '" + data + "'";
+        ArrayList<Festa> festas = new ArrayList<>();
+        ResultSet result;
+        
+        conectar(buscarFestas);
+        try {
+            result = pstm.executeQuery();
+            while (result.next()) {
+                
+                Festa festa = new Festa();
 
+                festa.setIdFesta(result.getString("IdFesta"));
+                festa.setPessoaCPF(result.getString("clienteCPF"));
+                festa.setTema(result.getString("idTema"));
+                festa.setLocal(result.getString("localizacaoCEP"));
+                festa.setPacote(result.getString("idPacote"));
+                festa.setDataInicio(result.getDate("datainicio"));
+                festa.setDataFim(result.getDate("dataiFim"));
+                festa.setHoraInicio(result.getTime("horaInicio"));
+                festa.setExterno(result.getBoolean("externo"));
+                festa.setQuantidadeConvidados(result.getInt("quantidadeconvidados"));
+                festa.setEstiloFesta(result.getString("estiloFesta"));
+                
+                festas.add(festa);
+            }
+        } catch (SQLException ex) {
+            imprimeErro("Erro ao Buscar Todas as Festa", ex.getMessage());
+        }
+        
+        return festas;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     @Override
     public void atualizar(Festa festa) {
 

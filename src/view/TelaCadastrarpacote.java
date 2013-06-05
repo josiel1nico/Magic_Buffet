@@ -9,6 +9,7 @@ import controler.Pacote;
 import entidadesDAO.ItemDAO;
 import entidadesDAO.PacoteDAO;
 import java.awt.List;
+import java.rmi.server.UID;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -185,59 +186,87 @@ public class TelaCadastrarpacote extends javax.swing.JFrame {
     private void textoNomePacoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoNomePacoteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textoNomePacoteActionPerformed
-
+    
     private void textoPrecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoPrecoActionPerformed
         // TODO add your handling code here:
-       
+        
         
         
     }//GEN-LAST:event_textoPrecoActionPerformed
-
+    
     private void CANCELARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CANCELARActionPerformed
         this.dispose();
         TelaInicial telaInicial = TelaInicial.getInstance();
         telaInicial.setVisible(true);
     }//GEN-LAST:event_CANCELARActionPerformed
-
+    
     private void SALVARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SALVARActionPerformed
+        
         PacoteDAO pacoteDAO = new PacoteDAO();
         Pacote pacote = new Pacote();
-        pacote.setPacoteNome(nomePacote.getText());                
+        String nome = textoNomePacote.getText();
+        
+        
+        if(pacoteDAO.buscarPorNome(nome).getPacoteNome() != null){
+            JOptionPane.showMessageDialog(this, "Nome de pacote já cadastrado");            
+        }   
+        else {
+        
+        pacote.setPacoteNome(textoNomePacote.getText());        
         Float preco = Float.parseFloat(textoPreco.getText());
         pacote.setPrecoPacote(preco);
         textoPreco.setText(String.valueOf(pacote.getPrecoPacote()));
-         
+        
+        int[] linhaSelecionadas;
+        linhaSelecionadas = tabela.getSelectedRows();        
+        int linha;
+        float valor = 0;
+        ArrayList<String> itens = new ArrayList();
+        for (int i = 0; i < tabela.getSelectedRowCount(); i++) {
+            linha = linhaSelecionadas[i];            
+            String idItem = tabela.getValueAt(linha, 1).toString();            
+            itens.add(idItem);            
+        }
+        
+          pacote.setItensPacote(itens);
+        
+        for (String item : pacote.getItensPacote()) {
+            System.out.println(item + " ");
+        }
+        
+        UID id = new UID();
+      
+        pacote.setIdPacote(String.valueOf(id));        
         pacoteDAO.criar(pacote);
         TelaInicial telaInicial = TelaInicial.getInstance();
         this.dispose();
         telaInicial.setVisible(true);
-
+        }
     }//GEN-LAST:event_SALVARActionPerformed
-
+    
     private void calcularPrecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcularPrecoActionPerformed
         Item item;
         ItemDAO it = new ItemDAO();
-        if(tabela.getSelectedRowCount() == 0){
+        if (tabela.getSelectedRowCount() == 0) {
             JOptionPane.showMessageDialog(this, "Selecione algum item");
-        }
-        else{        
-            int[] linhaSelecionadas ;
-            linhaSelecionadas = tabela.getSelectedRows();        
+        } else {            
+            int[] linhaSelecionadas;
+            linhaSelecionadas = tabela.getSelectedRows();            
             int linha;
             float valor = 0;
             ArrayList<Item> itens = new ArrayList();
             for (int i = 0; i < tabela.getSelectedRowCount(); i++) {
-               linha = linhaSelecionadas[i];            
-               String valueAt = tabela.getValueAt(linha, 1).toString();
-               item = it.buscar(valueAt);
+                linha = linhaSelecionadas[i];                
+                String valueAt = tabela.getValueAt(linha, 1).toString();
+                item = it.buscar(valueAt);
                 System.out.println(item.getPrecoUnidade());
-               valor= valor + item.getPrecoUnidade();                
-           }
-            if(!desconto.getText().equals("")){
+                valor = valor + item.getPrecoUnidade();                
+            }
+            if (!desconto.getText().equals("")) {
                 valor = valor - Integer.parseInt(desconto.getText());
             }
-           textoPreco.setText(String.valueOf(valor));
-     }
+            textoPreco.setText(String.valueOf(valor));
+        }
     }//GEN-LAST:event_calcularPrecoActionPerformed
 
     /**

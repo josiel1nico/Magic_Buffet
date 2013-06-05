@@ -4,21 +4,64 @@
  */
 package view;
 
+import controler.Festa;
+import controler.Item;
+import controler.Pacote;
 import controler.Pessoa;
+import controler.Tema;
+import entidadesDAO.FestaDAO;
+import entidadesDAO.ItemDAO;
+import entidadesDAO.PacoteDAO;
 import entidadesDAO.PessoaDAO;
+import entidadesDAO.TemaDAO;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author andreza
  */
-public class CadastroFesta extends javax.swing.JFrame {
+public final class CadastroFesta extends javax.swing.JFrame {
 
-    /**
-     * Creates new form CadastroFesta
-     */
+    
+    
+    public void prencherOpcoesTema(){
+        TemaDAO temas = new TemaDAO();
+        ArrayList<Tema> tema;
+        tema = temas.buscarTema();
+        String[] themes = new String[tema.size()];
+        
+        for (int i = 0; i < tema.size(); i++) {
+            themes[i] = tema.get(i).getTnome();
+        }
+        
+        DefaultComboBoxModel  model = new DefaultComboBoxModel(themes);
+        itensTema.setModel(model);
+    }
+    
+        
+    
+    public void prencherOpcoesPacote(){
+        PacoteDAO pacotes = new PacoteDAO();
+        ArrayList<Pacote> pacote;
+        pacote = pacotes.buscarPacote();
+        String[] packages = new String[pacote.size()];
+        
+        for (int i = 0; i < pacote.size(); i++) {
+            packages[i] = pacote.get(i).getPacoteNome();
+        }
+        
+        DefaultComboBoxModel  model = new DefaultComboBoxModel(packages);
+        itensPacote.setModel(model);
+        
+    }
+    
+    
     public CadastroFesta() {
         initComponents();
+        prencherOpcoesTema();
+        prencherOpcoesPacote();
     }
 
     /**
@@ -40,7 +83,7 @@ public class CadastroFesta extends javax.swing.JFrame {
         itensTema = new javax.swing.JComboBox();
         itensPacote = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
+        botaoCriarPacote = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -64,6 +107,9 @@ public class CadastroFesta extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jLabel15 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
+        diaInicio = new com.toedter.calendar.JDateChooser();
+        diaFIm = new com.toedter.calendar.JDateChooser();
+        botaoChecar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -87,13 +133,14 @@ public class CadastroFesta extends javax.swing.JFrame {
 
         jLabel4.setText("Tema");
 
-        itensTema.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        itensPacote.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel5.setText("Pacote");
 
-        jButton4.setText("Criar Novo Pacote");
+        botaoCriarPacote.setText("Criar Novo Pacote");
+        botaoCriarPacote.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCriarPacoteActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Data Inico");
 
@@ -101,7 +148,7 @@ public class CadastroFesta extends javax.swing.JFrame {
 
         jLabel8.setText("Hora Inicial");
 
-        jLabel9.setFont(new java.awt.Font("Ubuntu", 0, 17)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
         jLabel9.setText("Estilo");
 
         jRadioButton1.setText("Local Externo");
@@ -126,6 +173,13 @@ public class CadastroFesta extends javax.swing.JFrame {
         jLabel15.setText("Cadastro de uma nova Festa");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Provençal", "Normal" }));
+
+        botaoChecar.setText("Checar Data");
+        botaoChecar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoChecarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -184,15 +238,20 @@ public class CadastroFesta extends javax.swing.JFrame {
                                         .addComponent(textoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addComponent(textoHora, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                                                .addComponent(textoHora, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
                                                 .addGap(278, 278, 278))
                                             .addGroup(layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                     .addComponent(itensPacote, 0, 235, Short.MAX_VALUE)
                                                     .addComponent(itensTema, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                                 .addGap(18, 18, 18)
-                                                .addComponent(jButton4))
-                                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                                .addComponent(botaoCriarPacote))
+                                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(diaFIm, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(diaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(botaoChecar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(48, 48, 48)
                                 .addComponent(jRadioButton1)
@@ -223,41 +282,53 @@ public class CadastroFesta extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(jLabel15)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textocpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(checarCPF)
-                    .addComponent(buscarCliente)
-                    .addComponent(jLabel2))
-                .addGap(11, 11, 11)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(itensTema, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(itensPacote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(jButton4))
-                .addGap(22, 22, 22)
-                .addComponent(jLabel6)
-                .addGap(28, 28, 28)
-                .addComponent(jLabel7)
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(diaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel7)
+                            .addComponent(diaFIm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textoHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))
+                        .addGap(17, 17, 17)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textocpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(checarCPF)
+                            .addComponent(buscarCliente)
+                            .addComponent(jLabel2))
+                        .addGap(11, 11, 11)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(itensTema, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(itensPacote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)
+                            .addComponent(botaoCriarPacote))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addComponent(jLabel6))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(botaoChecar)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)))
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -284,7 +355,7 @@ public class CadastroFesta extends javax.swing.JFrame {
                             .addComponent(jLabel12)
                             .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel14))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                         .addComponent(jButton5)))
                 .addContainerGap())
         );
@@ -293,24 +364,78 @@ public class CadastroFesta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void checarCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checarCPFActionPerformed
-        String cpf = textocpf.getText();
-        boolean check;
+        String cpf = textocpf.getText();        
         Pessoa pessoa;
         PessoaDAO person = new PessoaDAO();
         pessoa = person.buscar(cpf, "CLIENTE");        
-        if(pessoa.getPnome() != null){
-            check = true;
+        if(pessoa.getPnome() != null){            
+            textoNome.setText(pessoa.getPnome());
+            textoNome.setEnabled(true);
         }
         else {
-            check = false;
+            JOptionPane.showMessageDialog(this, "CPF nãõ encontrado, cadastre o cliente");
         }
-        System.out.println(check);
         
     }//GEN-LAST:event_checarCPFActionPerformed
 
     private void buscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarClienteActionPerformed
-        // TODO add your handling code here:
+        
+        TelaBuscar tela = TelaBuscar.getInstance();
+        tela.setVisible(true);
+        
     }//GEN-LAST:event_buscarClienteActionPerformed
+
+    private void botaoCriarPacoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCriarPacoteActionPerformed
+        
+        TelaCadastrarpacote tela = new TelaCadastrarpacote();
+        tela.setVisible(true);                
+    }//GEN-LAST:event_botaoCriarPacoteActionPerformed
+
+    private void botaoChecarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoChecarActionPerformed
+        
+        String meuPacote = itensPacote.getSelectedItem().toString();
+        
+        PacoteDAO pacote = new PacoteDAO();
+        Pacote p = pacote.buscarPorNome(meuPacote);
+        ArrayList<String> itensMeuPacote = p.getItensPacote();
+        ArrayList<String> itensOk = new ArrayList<>();
+        ArrayList<String> itensLocados = new ArrayList<>();
+        
+        FestaDAO festas = new FestaDAO();
+        ArrayList<Festa> festa;                
+        
+        festa = festas.buscarFesta(diaInicio.getDate()); //array de feestas em uma data
+        
+        if(festa == null){
+            JOptionPane.showMessageDialog(this,"Data Disponível");            
+        }
+        
+        else{
+                for (int fest = 0; fest < festa.size(); fest++) {
+                    Festa e_festa = festa.get(fest);
+                    String f = e_festa.getPacote();
+                    Pacote pak = pacote.buscarPorNome(f);
+                    ArrayList<String> listaItens = pak.getItensPacote();
+                    for (int itensPacote = 0; itensPacote < listaItens.size(); itensPacote++) {
+                        String it = itensMeuPacote.get(itensPacote);
+                        for (int i = 0; i < listaItens.size(); i++) {
+                            if(listaItens.get(i).equalsIgnoreCase(it)){
+                                itensLocados.add(it);
+                            }
+                            else {
+                                itensOk.add(it);
+                            }
+                        }
+                    }
+   
+                 }
+                
+                for (int i = 0; i < itensOk.size(); i++) {
+                    System.out.println(itensOk.get(i));
+            }
+                
+            }                                                       
+    }//GEN-LAST:event_botaoChecarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -347,11 +472,14 @@ public class CadastroFesta extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botaoChecar;
+    private javax.swing.JButton botaoCriarPacote;
     private javax.swing.JButton buscarCliente;
     private javax.swing.JButton checarCPF;
+    private com.toedter.calendar.JDateChooser diaFIm;
+    private com.toedter.calendar.JDateChooser diaInicio;
     private javax.swing.JComboBox itensPacote;
     private javax.swing.JComboBox itensTema;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel10;

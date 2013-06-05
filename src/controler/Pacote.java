@@ -15,22 +15,14 @@ public class Pacote {
     private String idPacote;
     private String nomePacote;
     private float precoPacote;
-    ArrayList<Item> itensPacote = new ArrayList<>();
+    private ArrayList<String> itensPacote;
 
-    
-    public String getNomePacote() {
-        return nomePacote;
-    }
 
-    public void setNomePacote(String nomePacote) {
-        this.nomePacote = nomePacote;
-    }
-
-    public ArrayList<Item> getItensPacote() {
+    public ArrayList<String> getItensPacote() {
         return itensPacote;
     }
 
-    public void setItensPacote(ArrayList<Item> itensPacote) {
+    public void setItensPacote(ArrayList<String> itensPacote) {
         this.itensPacote = itensPacote;
     }
        

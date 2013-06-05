@@ -30,8 +30,6 @@ public class CadastroDeTema extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        idTema = new javax.swing.JLabel();
-        idTexto = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         nomeTema = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -40,9 +38,6 @@ public class CadastroDeTema extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        idTema.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
-        idTema.setText("ID");
 
         jLabel1.setText("Nome");
 
@@ -86,13 +81,9 @@ public class CadastroDeTema extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(76, 76, 76)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addComponent(idTema))
+                .addComponent(jLabel1)
                 .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(idTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nomeTema, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(nomeTema, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -106,11 +97,7 @@ public class CadastroDeTema extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nomeTema, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(idTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(idTema))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(salvar)
                     .addComponent(jButton2))
@@ -130,7 +117,9 @@ public class CadastroDeTema extends javax.swing.JFrame {
     private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
         TemaDAO tema = new TemaDAO();
         Tema theme = new Tema();
-        theme.setIdTema(idTexto.getText());        
+        String nome = nomeTema.getText();
+        String codigo = nome.substring(0,1) + nome.substring(nome.length() / 2, nome.length()/2+1) ;
+        theme.setIdTema("MF" + codigo);        
         theme.setTnome(nomeTema.getText());        
         tema.criar(theme);
         JOptionPane.showMessageDialog(this, "Tema criado com sucesso!");
@@ -174,8 +163,6 @@ public class CadastroDeTema extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel idTema;
-    private javax.swing.JTextField idTexto;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;

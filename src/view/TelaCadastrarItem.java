@@ -34,8 +34,6 @@ public class TelaCadastrarItem extends javax.swing.JFrame {
         jList1 = new javax.swing.JList();
         jLabel10 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        codigoItem = new javax.swing.JLabel();
-        textoCodigoItem = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         textoNomeItem = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -59,14 +57,6 @@ public class TelaCadastrarItem extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel10.setText("Cadastrar Item");
-
-        codigoItem.setText("Codigo do Item");
-
-        textoCodigoItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoCodigoItemActionPerformed(evt);
-            }
-        });
 
         jLabel1.setText("Nome do Item");
 
@@ -125,10 +115,8 @@ public class TelaCadastrarItem extends javax.swing.JFrame {
                         .addGap(61, 61, 61)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(codigoItem))
-                                .addGap(34, 34, 34))
+                                .addComponent(jLabel1)
+                                .addGap(43, 43, 43))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
@@ -136,26 +124,21 @@ public class TelaCadastrarItem extends javax.swing.JFrame {
                                 .addGap(26, 26, 26)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(textoNomeItem)
-                            .addComponent(textoCodigoItem)
                             .addComponent(textoQuantidade)
                             .addComponent(textopreco, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE))))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(14, 14, 14)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(57, Short.MAX_VALUE)))
+                    .addContainerGap(53, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jLabel10)
-                .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(codigoItem)
-                    .addComponent(textoCodigoItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(textoNomeItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -171,20 +154,16 @@ public class TelaCadastrarItem extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CANCELAR)
                     .addComponent(SALVAR))
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addContainerGap(137, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(42, 42, 42)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(390, Short.MAX_VALUE)))
+                    .addContainerGap(394, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void textoCodigoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoCodigoItemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textoCodigoItemActionPerformed
 
     private void textoNomeItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoNomeItemActionPerformed
         // TODO add your handling code here:
@@ -207,20 +186,23 @@ public class TelaCadastrarItem extends javax.swing.JFrame {
     private void SALVARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SALVARActionPerformed
         Item item = new Item();
         ItemDAO idao = new ItemDAO();
-        
-        item.setIdItem(textoCodigoItem.getText());
+
+        String nome = textoNomeItem.getText();
+        String codigo = nome.substring(0, 1) + nome.substring(nome.length() / 2, nome.length() / 2 + 1);
+
+        item.setIdItem("MF"+codigo);
         item.setNomeItem(textoNomeItem.getText());
         String quantidade = textoQuantidade.getText();
         item.setQuantidadeTotal(Integer.parseInt(quantidade));
         Float preco = Float.parseFloat(textopreco.getText());
         item.setPrecoUnidade(preco);
-        
-        
+
+
         idao.criar(item);
-        TelaInicial telaInicial = TelaInicial.getInstance();    
+        TelaInicial telaInicial = TelaInicial.getInstance();
         this.dispose();
         telaInicial.setVisible(true);
-        
+
     }//GEN-LAST:event_SALVARActionPerformed
 
     /**
@@ -260,7 +242,6 @@ public class TelaCadastrarItem extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton CANCELAR;
     public javax.swing.JButton SALVAR;
-    private javax.swing.JLabel codigoItem;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -269,7 +250,6 @@ public class TelaCadastrarItem extends javax.swing.JFrame {
     private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    public javax.swing.JTextField textoCodigoItem;
     public javax.swing.JTextField textoNomeItem;
     public javax.swing.JTextField textoQuantidade;
     public javax.swing.JTextField textopreco;

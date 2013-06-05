@@ -17,43 +17,42 @@ import java.util.ArrayList;
  */
 public class PacoteDAO extends ConectionDAO implements InterfacePacoteDAO {
 
+    public void criarItensPacote(Pacote pacote){
+          for (String item : pacote.getItensPacote()) {
+
+                String insert = "INSERT INTO pacote_contem_item (chavePacote, chaveItem, nomePacote)"
+                        + "VALUES (?,?,?)";
+                
+             
+              try {
+                    conectar(insert);                    
+                    pstm.setString(1, pacote.getIdPacote());
+                    pstm.setString(2, item);
+                    pstm.setString(3, pacote.getPacoteNome());
+                    pstm.execute();
+                    pstm.close();
+              } catch (SQLException ex) {
+                   imprimeErro("Erro ao Cadastrar itens em um Pacote", ex.getMessage());
+              }           
+            }
+    }
+    
     @Override
     public void criar(Pacote pacote) {
-        String criar = "INSERT INTO pacote (IdPacote, nomePacote, precoPacote)"
-                + "VALUES(?,?,?)";
+        String criar = "INSERT INTO pacote (IdPacote,NomePacote,PrecoPacote) VALUES(?,?,?)";
 
         conectar(criar);
-        try {
-            
-            conn.setAutoCommit(false);
-            
-        } catch (SQLException ex) {
-            imprimeErro("Erro ao criar pacote com itens", ex.getMessage());
-        }
-
-        try {
+        try {                        
             pstm.setString(1, pacote.getIdPacote());
             pstm.setString(2, pacote.getPacoteNome());
-            pstm.setDouble(3, pacote.getPrecoPacote());
-            pstm.execute();
-
-            for (Item item : pacote.getItensPacote()) {
-
-                String insert = "INSERT INTO pacote_contem_iten (pacote_IdPacote, item_IDItem)"
-                        + "VALUES (?,?)";
-                conectar(insert);
-
-                pstm.setString(1, pacote.getIdPacote());
-                pstm.setString(2, item.getIdItem());
-
-            }
-            conn.commit();
-            conn.setAutoCommit(true);
+            pstm.setDouble(3, pacote.getPrecoPacote());            
+            pstm.execute();                   
             pstm.close();
-
-        } catch (SQLException ex) {
+            criarItensPacote(pacote);
+        } catch (SQLException ex) {            
             imprimeErro("Erro ao Cadastrar um Pacote", ex.getMessage());
         }
+        
     }
 
     @Override
@@ -76,6 +75,31 @@ public class PacoteDAO extends ConectionDAO implements InterfacePacoteDAO {
         fechar();
         return pacote;
     }
+    
+    
+     
+    public Pacote buscarPorNome(String nome) {
+
+        String busca = "SELECT * FROM pacote WHERE nomePacote LIKE '" + nome + "'";
+        ResultSet result;
+        Pacote pacote = new Pacote();
+        conectar(busca);
+        try {
+            result = pstm.executeQuery();
+            while (result.next()) {
+                pacote.setIdPacote(result.getString("IdPacote"));
+                pacote.setPacoteNome(result.getString("nomePacote"));
+                pacote.setPrecoPacote(result.getFloat("precoPacote"));
+            }
+        } catch (SQLException ex) {
+            imprimeErro("Erro ao Buscar um Pacote", ex.getMessage());
+        }
+        fechar();
+        return pacote;
+    }
+    
+    
+    
 
     @Override
     public void atualizar(Pacote pacote) {
