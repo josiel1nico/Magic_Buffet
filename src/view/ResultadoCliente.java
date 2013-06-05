@@ -17,7 +17,7 @@ public class ResultadoCliente extends javax.swing.JFrame {
     /**
      * Creates new form ResultadoCliente
      */
-    
+    public  String tipo;
     private String nome;
     private String cpf;
     private String rua;
@@ -313,8 +313,7 @@ public class ResultadoCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
         int resposta = JOptionPane.showConfirmDialog( null,"Tem certeza que quer exlcuir o cliente do sistema?","Confirmação", JOptionPane.YES_NO_OPTION);
         if(resposta == JOptionPane.YES_OPTION){
-            PessoaDAO pessoa = new PessoaDAO();                    
-            String tipo = "CLIENTE";
+            PessoaDAO pessoa = new PessoaDAO();                                
             Pessoa p = pessoa.buscar(textoCPF.getText(),tipo);        
             pessoa.remover(p);
             JOptionPane.showMessageDialog(this,"Cliente Removido");
@@ -327,11 +326,17 @@ public class ResultadoCliente extends javax.swing.JFrame {
         
         
         this.textoBairro.setEditable(true);               
+        this.textoBairro.setEnabled(true); 
         this.textoCep.setEditable(true);        
+        this.textoCep.setEnabled(true);
         this.textoTelefone.setEditable(true);
+        this.textoTelefone.setEnabled(true);
         this.textoRua.setEditable(true);
+        this.textoRua.setEnabled(true);
         this.numeroTexto.setEditable(true);
+        this.numeroTexto.setEnabled(true);
         this.textoCidade.setEditable(true);
+        this.textoCidade.setEnabled(true);
         fecharButton.setText("Salvar");                
     }//GEN-LAST:event_editarButtonActionPerformed
 
@@ -345,8 +350,7 @@ public class ResultadoCliente extends javax.swing.JFrame {
         else{            
             int resposta = JOptionPane.showConfirmDialog( null,"Tem certeza que quer editar?","Confirmação", JOptionPane.YES_NO_OPTION);
             if(resposta == JOptionPane.YES_OPTION){
-                PessoaDAO pessoa = new PessoaDAO();        
-                String tipo = "MONITOR";
+                PessoaDAO pessoa = new PessoaDAO();                        
                 Pessoa p = pessoa.buscar(textoCPF.getText(),tipo);
                 p.setBairro(textoBairro.getText());
                 p.setCep(textoCep.getText());
@@ -356,7 +360,8 @@ public class ResultadoCliente extends javax.swing.JFrame {
                 p.setPnome(textoNome.getText());
                 p.setRg(Integer.parseInt(textoRG.getText()));
                 p.setRua(textoRua.getText());
-                p.setTelefone(textoTelefone.getText());            
+                p.setTelefone(textoTelefone.getText()); 
+                p.setTipoPessoa(tipo);
                 pessoa.atualizar(p);   
                 JOptionPane.showMessageDialog(this,"Cliente Editado");
                 this.dispose();

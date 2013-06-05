@@ -211,6 +211,7 @@ public class TelaBuscar extends javax.swing.JFrame {
                     result.textoRua.setEnabled(false);
                     result.numeroTexto.setEnabled(false);
                     result.textoCidade.setEnabled(false);
+                    result.tipo = Pessoa.CLIENTE;
                     result.setVisible(true);
                 }
             }
@@ -259,6 +260,7 @@ public class TelaBuscar extends javax.swing.JFrame {
                     result.textoRua.setEnabled(false);
                     result.numeroTexto.setEnabled(false);
                     result.textoCidade.setEnabled(false);
+                    result.tipo = Pessoa.MONITOR;
                     result.setVisible(true);
                 }
             }

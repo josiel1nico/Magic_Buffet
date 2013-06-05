@@ -99,7 +99,6 @@ public class PacoteDAO extends ConectionDAO implements InterfacePacoteDAO {
     }
     
     
-    
 
     @Override
     public void atualizar(Pacote pacote) {

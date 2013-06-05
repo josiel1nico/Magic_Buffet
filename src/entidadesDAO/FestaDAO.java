@@ -128,7 +128,7 @@ public class FestaDAO extends ConectionDAO implements InterfaceFestaDAO {
         return festa;
     }
                      
-    public ArrayList<Festa> buscarFesta(Date data) {
+    public ArrayList<Festa> buscarFesta(String data) {
         
         String buscarFestas = "SELECT * FROM festa WHERE datainicio LIKE '" + data + "'";
         ArrayList<Festa> festas = new ArrayList<>();

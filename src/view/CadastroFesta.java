@@ -5,22 +5,21 @@
 package view;
 
 import controler.Festa;
+import controler.Item;
 import controler.Localizacao;
 import controler.Pacote;
 import controler.Pessoa;
 import controler.Tema;
 import entidadesDAO.FestaDAO;
+import entidadesDAO.ItemDAO;
 import entidadesDAO.LocalizacaoDAO;
 import entidadesDAO.PacoteDAO;
 import entidadesDAO.PessoaDAO;
 import entidadesDAO.TemaDAO;
 import java.rmi.server.UID;
 import java.util.ArrayList;
-import java.sql.Date;
 import java.sql.Time;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -30,7 +29,7 @@ import javax.swing.JOptionPane;
  */
 public final class CadastroFesta extends javax.swing.JFrame {
 
-    
+    public boolean checkData = false;
     
     public void prencherOpcoesTema(){
         TemaDAO temas = new TemaDAO();
@@ -462,116 +461,163 @@ public final class CadastroFesta extends javax.swing.JFrame {
     private void botaoChecarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoChecarActionPerformed
         
         String meuPacote = itensPacote.getSelectedItem().toString();
-        
+        ItemDAO it = new ItemDAO();
         PacoteDAO pacote = new PacoteDAO();
         Pacote p = pacote.buscarPorNome(meuPacote);
-        ArrayList<String> itensMeuPacote = p.getItensPacote();
+        ArrayList<Item> itensMeuPacote = it.buscarItensPacote(p);        
         ArrayList<String> itensOk = new ArrayList<>();
         ArrayList<String> itensLocados = new ArrayList<>();
         
         FestaDAO festas = new FestaDAO();
-        ArrayList<Festa> festa;                
+        ArrayList<Festa> festa;                  
+        Calendar dataInicial = datainicio.getCalendar();
+        String datainit = dataInicial.get(Calendar.DAY_OF_MONTH) + "/" + 
+                      (dataInicial.get(Calendar.MONTH) + 1) 
+                        + "/" + dataInicial.get(Calendar.YEAR);
         
-        festa = festas.buscarFesta(datainicio.getDate()); //array de feestas em uma data
-        
-        if(festa == null){
+        festa = festas.buscarFesta(datainit); //array de feestas em uma data
+        System.out.println(festa);
+        int k = 2;
+        if(festa.isEmpty()){
             JOptionPane.showMessageDialog(this,"Data Disponível");            
         }
         
         else{
                 for (int fest = 0; fest < festa.size(); fest++) {
+                    System.out.println("entrou no for 1");
                     Festa e_festa = festa.get(fest);
+                    System.out.println("peguei uma festa");
                     String f = e_festa.getPacote();
+                    System.out.println("peguei o pacote da festa");
                     Pacote pak = pacote.buscarPorNome(f);
-                    ArrayList<String> listaItens = pak.getItensPacote();
-                    for (int itensPacotes = 0; itensPacotes < listaItens.size(); itensPacotes++) {
-                            String it = itensMeuPacote.get(itensPacotes);
+                    System.out.println("busquei o pacote");                  
+                    ArrayList<Item> listaItens = it.buscarItensPacote(pak);
+                    System.out.println("busquei itens");                    
+                    System.out.println("criei um array de itens" + listaItens.size());                    
+                    for (int j = 0; j < listaItens.size(); j++) {
+                            System.out.println("entrei no for 2");
+                            String itp = itensMeuPacote.get(j).getNomeItem();
+                            System.out.println("itp = item do pacote");
                         for (int i = 0; i < listaItens.size(); i++) {
-                            if(listaItens.get(i).equalsIgnoreCase(it)){
-                                itensLocados.add(it);
+                            System.out.println("entrei no 3");
+                            if(listaItens.get(i).getNomeItem().equalsIgnoreCase(itp)){                                                                    
+                                itensLocados.add(itp);                                
                             }
                             else {
-                                itensOk.add(it);
+                                itensOk.add(itp);
                             }
                         }
                     }
    
                  }
                 
-                System.out.println("tamano" + itensLocados.size());
                 
-                for (int i = 0; i < itensLocados.size(); i++) {
-                    
-                    System.out.println(itensLocados.get(i));
+                String mensagem = "";
+                int quantidade = 0;
+                for (int i = 0; i < itensLocados.size(); i++) {                    
+                    String iL = itensLocados.get(i);
+                    for (int j = 0; j < itensLocados.size(); j++) {
+                        if(j == i) {
+                            j++;
+                        }
+                        else{                            
+                            if(itensLocados.get(j).equals(iL)){
+                                quantidade++;
+                            }
+                            
+                            Item iten = it.buscarNome(iL);
+                            if(iten.getQuantidadeTotal() > quantidade){
+                                mensagem = mensagem + "Não há " + iL + " disponivel(eis) para a data\n";
+                            }
+                            else {
+                                mensagem = mensagem + iL + " esta disponivel para a data\n";
+                            }
+                        }
+                    }
+                   
+                }
+                
+                if(itensOk.size() > 0) {
+                 mensagem = mensagem + " itens disponiveis \n";
+                    for (int j = 0; j < itensOk.size(); j++) {
+                         mensagem = mensagem + itensOk.get(j) + "\n";
+                    }
+                }
+                JOptionPane.showMessageDialog(this, mensagem);
             }
-                
-            }                                                       
+        
+        checkData = true;
     }//GEN-LAST:event_botaoChecarActionPerformed
 
     private void botaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarActionPerformed
         
-        Festa festa = new Festa();
-        FestaDAO festas = new FestaDAO();
-        
-        festa.setPacote(itensPacote.getSelectedItem().toString());
-        festa.setTema(itensTema.getSelectedItem().toString());                           
-        festa.setEstiloFesta(estilo.getSelectedItem().toString());
-        festa.setPessoaCPF(textocpf.getText());
-        festa.setQuantidadeConvidados(Integer.parseInt(qntConvidados.getText()));
-        festa.setLocal(textoCEP.getText());
-        
-        
-        Calendar d = datafim.getCalendar();                
-        String data = d.get(Calendar.DAY_OF_MONTH) + "/" + (d.get(Calendar.MONTH)+1)
-                       + "/" + d.get(Calendar.YEAR);
-        festa.setDataFim(data);        
-        Calendar dataInicial = datafim.getCalendar();                
-        String datainit = dataInicial.get(Calendar.DAY_OF_MONTH) + "/" + 
-                      (dataInicial.get(Calendar.MONTH) + 1) 
-                        + "/" + dataInicial.get(Calendar.YEAR);
-        
-        if(data == null){
-            data = datainit;
+        if(!checkData) {
+            JOptionPane.showMessageDialog(this, "Verifique a data antes de salvar");
         }
-        
-        festa.setDataFim(data);
-        festa.setDataInicio(datainit);
-        
-        
-        
-        int hora = horaSpin.getValue();
-        int minuto = minutosSpin.getValue();        
-        Time hour = new Time(hora, minuto, 0);                
-        festa.setHoraInicio(hour);
-        
-        
-        
-        
-        
-        if(Buffet.isSelected()){            
-            festa.setExterno(false);            
-        } 
         else {
-            if(UsarEndereco.isSelected() || localExterno.isSelected()){
-                    festa.setExterno(true);
-                    LocalizacaoDAO locais = new LocalizacaoDAO();
-                    Localizacao local = new Localizacao();                           
-                    local.setBairro(textoBairro.getText());
-                    local.setCEP(textoCEP.getText());
-                    local.setRua(textoRua.getText());
-                    local.setNumero(Integer.parseInt(textoNumero.getText()));
-                    local.setCidade(textoCidade.getText());                              
-                    UID id = new UID();
-                    local.setIdLocalizacao(id.toString());                                    
-                      
-                    locais.criar(local);
-            }                
-        }        
-        
-        JOptionPane.showMessageDialog(this,"Tem certeza que deseja salvar a festa?");
-        festas.criar(festa); 
-        JOptionPane.showMessageDialog(this,"Festa cadastrada");
-        
+            Festa festa = new Festa();
+            FestaDAO festas = new FestaDAO();
+
+            festa.setPacote(itensPacote.getSelectedItem().toString());
+            festa.setTema(itensTema.getSelectedItem().toString());                           
+            festa.setEstiloFesta(estilo.getSelectedItem().toString());
+            festa.setPessoaCPF(textocpf.getText());
+            festa.setQuantidadeConvidados(Integer.parseInt(qntConvidados.getText()));
+            festa.setLocal(textoCEP.getText());
+
+
+            Calendar d = datafim.getCalendar();                
+            String data = d.get(Calendar.DAY_OF_MONTH) + "/" + (d.get(Calendar.MONTH)+1)
+                           + "/" + d.get(Calendar.YEAR);
+            festa.setDataFim(data);        
+            Calendar dataInicial = datafim.getCalendar();                
+            String datainit = dataInicial.get(Calendar.DAY_OF_MONTH) + "/" + 
+                          (dataInicial.get(Calendar.MONTH) + 1) 
+                            + "/" + dataInicial.get(Calendar.YEAR);
+
+            if(data == null){
+                data = datainit;
+            }
+
+            festa.setDataFim(data);
+            festa.setDataInicio(datainit);
+
+
+
+            int hora = horaSpin.getValue();
+            int minuto = minutosSpin.getValue();        
+            Time hour = new Time(hora, minuto, 0);                
+            festa.setHoraInicio(hour);
+
+
+
+
+
+            if(Buffet.isSelected()){            
+                festa.setExterno(false);            
+            } 
+            else {
+                if(UsarEndereco.isSelected() || localExterno.isSelected()){
+                        festa.setExterno(true);
+                        LocalizacaoDAO locais = new LocalizacaoDAO();
+                        Localizacao local = new Localizacao();                           
+                        local.setBairro(textoBairro.getText());
+                        local.setCEP(textoCEP.getText());
+                        local.setRua(textoRua.getText());
+                        local.setNumero(Integer.parseInt(textoNumero.getText()));
+                        local.setCidade(textoCidade.getText());                              
+                        UID id = new UID();
+                        local.setIdLocalizacao(id.toString());                                    
+
+                        locais.criar(local);
+                }                
+            }        
+
+            JOptionPane.showMessageDialog(this,"Tem certeza que deseja salvar a festa?");
+            festas.criar(festa); 
+            JOptionPane.showMessageDialog(this,"Festa cadastrada");
+        }
+
     }//GEN-LAST:event_botaoSalvarActionPerformed
 
     private void localExternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_localExternoActionPerformed
