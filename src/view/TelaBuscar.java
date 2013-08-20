@@ -183,7 +183,7 @@ public class TelaBuscar extends javax.swing.JFrame {
                 resultado.setVisible(true);
 
             } else {
-                Pessoa p = pessoa.buscar(cpfText.getText(), "CLIENTE");
+                Pessoa p = (Pessoa) pessoa.buscar(cpfText.getText(), "CLIENTE");
                 if (p.getPnome() == null) {
                     JOptionPane.showMessageDialog(this, "Cliente não encontrado");
                 } else {
@@ -233,7 +233,7 @@ public class TelaBuscar extends javax.swing.JFrame {
                 resultado.setVisible(true);
 
             } else {
-                Pessoa p = pessoa.buscar(cpfText.getText(), "MONITOR");
+                Pessoa p = (Pessoa) pessoa.buscar(cpfText.getText(), "MONITOR");
                 if (p.getPnome() == null) {
                     JOptionPane.showMessageDialog(this, "Monitor não encontrado");
                 } else {
@@ -292,7 +292,7 @@ public class TelaBuscar extends javax.swing.JFrame {
                     String CpfCliente = festa.get(i).getPessoaCPF();
                     Time horario = festa.get(i).getHoraInicio();
                     PessoaDAO p = new PessoaDAO();
-                    Pessoa pessoa = p.buscar(CpfCliente, Pessoa.CLIENTE);                            
+                    Pessoa pessoa = (Pessoa) p.buscar(CpfCliente, Pessoa.CLIENTE);                            
                     String nomeCliente = pessoa.getPnome();
                     String id = festa.get(i).getIdFesta();
                     String[] linha = {nomeCliente,CpfCliente, horario.toString(),id};

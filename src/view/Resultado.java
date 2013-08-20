@@ -314,7 +314,7 @@ public class Resultado extends javax.swing.JFrame {
         int resposta = JOptionPane.showConfirmDialog( null,"Tem certeza que quer exlcuir o cliente do sistema?","Confirmação", JOptionPane.YES_NO_OPTION);
         if(resposta == JOptionPane.YES_OPTION){
             PessoaDAO pessoa = new PessoaDAO();                                
-            Pessoa p = pessoa.buscar(textoCPF.getText(),tipo);        
+            Pessoa p = (Pessoa) pessoa.buscar(textoCPF.getText(),tipo);        
             pessoa.remover(p);
             JOptionPane.showMessageDialog(this,"Cliente Removido");
             this.dispose();
@@ -351,7 +351,7 @@ public class Resultado extends javax.swing.JFrame {
             int resposta = JOptionPane.showConfirmDialog( null,"Tem certeza que quer editar?","Confirmação", JOptionPane.YES_NO_OPTION);
             if(resposta == JOptionPane.YES_OPTION){
                 PessoaDAO pessoa = new PessoaDAO();                   
-                Pessoa p = pessoa.buscar(textoCPF.getText(),tipo);
+                Pessoa p = (Pessoa)pessoa.buscar(textoCPF.getText(),tipo);
                 p.setBairro(textoBairro.getText());
                 p.setCep(textoCep.getText());
                 p.setCidade(textoCidade.getText());

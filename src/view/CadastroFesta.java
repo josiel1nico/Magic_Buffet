@@ -33,8 +33,12 @@ public final class CadastroFesta extends javax.swing.JFrame {
     
     public void prencherOpcoesTema(){
         TemaDAO temas = new TemaDAO();
-        ArrayList<Tema> tema;
-        tema = temas.buscarTema();
+        ArrayList<Object> temaObj  = temas.buscar();;
+        ArrayList<Tema> tema  = new ArrayList<>();
+        
+        for(Object t : temaObj)
+            tema.add((Tema)t);
+        
         String[] themes = new String[tema.size()];
         
         for (int i = 0; i < tema.size(); i++) {
@@ -49,12 +53,16 @@ public final class CadastroFesta extends javax.swing.JFrame {
     
     public void prencherOpcoesPacote(){
         PacoteDAO pacotes = new PacoteDAO();
-        ArrayList<Pacote> pacote;
-        pacote = pacotes.buscarPacote();
+        ArrayList<Object> pacote =  pacotes.buscar();
+        ArrayList<Pacote> pk = new ArrayList<>();                
+        
+        for(Object p : pacote)
+            pk.add((Pacote)p);
+                    
         String[] packages = new String[pacote.size()];
         
-        for (int i = 0; i < pacote.size(); i++) {
-            packages[i] = pacote.get(i).getPacoteNome();
+        for (int i = 0; i < pk.size(); i++) {
+            packages[i] = pk.get(i).getPacoteNome();
         }
         
         DefaultComboBoxModel  model = new DefaultComboBoxModel(packages);
@@ -434,7 +442,7 @@ public final class CadastroFesta extends javax.swing.JFrame {
         String cpf = textocpf.getText();        
         Pessoa pessoa;
         PessoaDAO person = new PessoaDAO();
-        pessoa = person.buscar(cpf, "CLIENTE");        
+        pessoa = (Pessoa) person.buscar(cpf, "CLIENTE");        
         if(pessoa.getPnome() != null){            
             textoNome.setText(pessoa.getPnome());
             textoNome.setEnabled(true);
@@ -672,7 +680,7 @@ public final class CadastroFesta extends javax.swing.JFrame {
         textoNumero.setEnabled(false);           
         Pessoa pessoa;
         PessoaDAO pessoas = new PessoaDAO();
-        pessoa = pessoas.buscar(textocpf.getText(), "CLIENTE");
+        pessoa = (Pessoa) pessoas.buscar(textocpf.getText(), "CLIENTE");
                 
         textoBairro.setText(pessoa.getBairro());
         textoCEP.setText(pessoa.getCep());

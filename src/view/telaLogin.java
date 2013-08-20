@@ -117,9 +117,8 @@ public class telaLogin extends javax.swing.JFrame {
     private void EntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EntrarActionPerformed
         // TODO add your handling code here:
         GerenteDAO gerente = new GerenteDAO();
-        Gerente manager;
-        manager = gerente.buscarGerente(LoginTexto.getText());
-        System.out.println(manager.getLogin());
+        Gerente manager = (Gerente) gerente.buscar(LoginTexto.getText());
+        
         if(manager.getLogin() == null)
             JOptionPane.showMessageDialog(this, "Login não existe");                   
         else {

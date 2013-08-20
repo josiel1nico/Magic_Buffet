@@ -543,7 +543,7 @@ public class Cadastros extends javax.swing.JFrame {
             manager.setGerenteLogin(textoLogin.getText());
             manager.setLogin(textoLogin.getText());
             manager.setSenha(String.valueOf(textoSenha.getPassword()));
-            gerente.criarGerente(manager);
+            gerente.criar(manager);
             gerente.criar(manager);
             JOptionPane.showMessageDialog(this, "Gerente Criado");
 

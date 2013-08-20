@@ -4,19 +4,23 @@
  */
 package entidadesDAO;
 
-import InterfaceDAO.InterfacePacoteDAO;
-import controler.Item;
+import InterfaceDAO.BuscaInterface;
+import InterfaceDAO.BuscaMultiplaInterface;
+import InterfaceDAO.GenericInterface;
 import controler.Pacote;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import view.Mensagens;
 
 /**DateDate
  *
  * @author Josiel
  */
-public class PacoteDAO extends ConectionDAO implements InterfacePacoteDAO {
+public class PacoteDAO extends ConectionDAO implements GenericInterface, BuscaInterface, BuscaMultiplaInterface {
 
+    private Mensagens mensagem = new Mensagens();
+    
     public void criarItensPacote(Pacote pacote){
           for (String item : pacote.getItensPacote()) {
 
@@ -32,33 +36,36 @@ public class PacoteDAO extends ConectionDAO implements InterfacePacoteDAO {
                     pstm.execute();
                     pstm.close();
               } catch (SQLException ex) {
-                   imprimeErro("Erro ao Cadastrar itens em um Pacote", ex.getMessage());
+                   mensagem.imprimeErro("Erro ao Cadastrar itens em um Pacote", ex.getMessage());
               }           
             }
     }
     
     @Override
-    public void criar(Pacote pacote) {
+    public boolean criar(Object object) {
         String criar = "INSERT INTO pacote (IdPacote,NomePacote,PrecoPacote) VALUES(?,?,?)";
 
         conectar(criar);
-        try {                        
+        try {           
+            Pacote pacote = (Pacote) object;
             pstm.setString(1, pacote.getIdPacote());
             pstm.setString(2, pacote.getPacoteNome());
             pstm.setDouble(3, pacote.getPrecoPacote());            
             pstm.execute();                   
             pstm.close();
             criarItensPacote(pacote);
+            return true;
         } catch (SQLException ex) {            
-            imprimeErro("Erro ao Cadastrar um Pacote", ex.getMessage());
+            mensagem.imprimeErro("Erro ao Cadastrar um Pacote", ex.getMessage());
+            return false;
         }
         
     }
 
     @Override
-    public Pacote buscar(String idPacote) {
+    public Object buscar(String...args) {
 
-        String busca = "SELECT * FROM pacote WHERE idPacote LIKE " + idPacote;
+        String busca = "SELECT * FROM pacote WHERE idPacote LIKE " + args[0];
         ResultSet result;
         Pacote pacote = new Pacote();
         conectar(busca);
@@ -70,7 +77,7 @@ public class PacoteDAO extends ConectionDAO implements InterfacePacoteDAO {
                 pacote.setPrecoPacote(result.getFloat("precoPacote"));
             }
         } catch (SQLException ex) {
-            imprimeErro("Erro ao Buscar um Pacote", ex.getMessage());
+            mensagem.imprimeErro("Erro ao Buscar um Pacote", ex.getMessage());
         }
         fechar();
         return pacote;
@@ -92,7 +99,7 @@ public class PacoteDAO extends ConectionDAO implements InterfacePacoteDAO {
                 pacote.setPrecoPacote(result.getFloat("precoPacote"));
             }
         } catch (SQLException ex) {
-            imprimeErro("Erro ao Buscar um Pacote", ex.getMessage());
+            mensagem.imprimeErro("Erro ao Buscar um Pacote", ex.getMessage());
         }
         fechar();
         return pacote;
@@ -101,7 +108,7 @@ public class PacoteDAO extends ConectionDAO implements InterfacePacoteDAO {
     
 
     @Override
-    public void atualizar(Pacote pacote) {
+    public boolean atualizar(Object object) {
 
         String atualiza = "UPDATE pacote SET "
                 + "nomePacote = ?,"
@@ -109,37 +116,43 @@ public class PacoteDAO extends ConectionDAO implements InterfacePacoteDAO {
                 + "WHERE IdPacote = ?";
         conectar(atualiza);
         try {
+            Pacote pacote = (Pacote) object;
             pstm.setString(1, pacote.getPacoteNome());
             pstm.setFloat(2, pacote.getPrecoPacote());
             pstm.setString(3, pacote.getIdPacote());
             pstm.executeUpdate();
             System.out.println("Pacote Atualizado");
             fechar();
+            return true;
         } catch (SQLException ex) {
-            imprimeErro("Erro ao Atualizar um Pacote", ex.getMessage());
+            mensagem.imprimeErro("Erro ao Atualizar um Pacote", ex.getMessage());
+            return false;
         }
     }
 
     @Override
-    public void remover(Pacote pacote) {
+    public boolean remover(Object object) {
 
         String remover = "DELETE FROM pacote WHERE IdPacote = ?";
 
         conectar(remover);
         try {
+            Pacote pacote = (Pacote) object;
             pstm.setString(1, pacote.getIdPacote());
             pstm.execute();
             pstm.close();
+            return true;
         } catch (SQLException ex) {
-            imprimeErro("Erro ao Remover um Pacote", ex.getMessage());
+            mensagem.imprimeErro("Erro ao Remover um Pacote", ex.getMessage());
+            return false;
         }
     }
 
     @Override
-    public ArrayList<Pacote> buscarPacote() {
+    public ArrayList<Object> buscar() {
 
         String buscapacotes = "SELECT * FROM pacote";
-        ArrayList<Pacote> pacotes = new ArrayList<>();
+        ArrayList<Object> pacotes = new ArrayList<>();
         ResultSet result;
         conectar(buscapacotes);
         try {
@@ -155,8 +168,10 @@ public class PacoteDAO extends ConectionDAO implements InterfacePacoteDAO {
             return pacotes;
 
         } catch (SQLException ex) {
-            imprimeErro("Erro ao Buscar Vários Pacotes", ex.getMessage());
+            mensagem.imprimeErro("Erro ao Buscar Vários Pacotes", ex.getMessage());
         }
         return null;
     }
+
+   
 }

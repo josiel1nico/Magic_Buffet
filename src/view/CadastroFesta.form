@@ -104,7 +104,7 @@
                                                   <Component id="horaSpin" min="-2" pref="48" max="-2" attributes="0"/>
                                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                                   <Component id="minutosSpin" min="-2" pref="52" max="-2" attributes="0"/>
-                                                  <EmptySpace pref="27" max="32767" attributes="0"/>
+                                                  <EmptySpace pref="35" max="32767" attributes="0"/>
                                                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <Component id="estilo" alignment="0" min="-2" pref="205" max="-2" attributes="0"/>

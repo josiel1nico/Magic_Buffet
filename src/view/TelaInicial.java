@@ -5,6 +5,7 @@
 package view;
 
 import controler.Item;
+import controler.Pacote;
 import entidadesDAO.ItemDAO;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -199,7 +200,11 @@ public class TelaInicial extends javax.swing.JFrame {
     private void PACOTEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PACOTEActionPerformed
         DefaultTableModel modelo;     
         ItemDAO pacote = new ItemDAO();
-        ArrayList<Item> ListaPacotes = pacote.buscarItens();
+        ArrayList<Object> ListaPacotes = pacote.buscar();
+        ArrayList<Item> it = new ArrayList<>();
+        
+        for(Object p : ListaPacotes)
+            it.add((Item)p);
         
         modelo = new DefaultTableModel();                                
         modelo.addColumn("Item");        
@@ -207,8 +212,8 @@ public class TelaInicial extends javax.swing.JFrame {
         String Item;
         String ID;
         for (int i = 0; i < ListaPacotes.size(); i++) {
-              Item = ListaPacotes.get(i).getNomeItem();              
-              ID = ListaPacotes.get(i).getIdItem();
+              Item = it.get(i).getNomeItem();              
+              ID = it.get(i).getIdItem();
               String [] linha = {Item,ID};
               modelo.addRow(linha);
           }

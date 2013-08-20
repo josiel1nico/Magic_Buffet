@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import view.Mensagens;
 
 /**
  *
@@ -18,14 +19,14 @@ public abstract class ConectionDAO {
 
     protected Connection conn;
     protected PreparedStatement pstm;
-
+    private Mensagens mensagem = new Mensagens();
     protected void conectar(String conecta) {
 
         try {
             conn = new ConectionFactory().getConnection();
             pstm = conn.prepareStatement(conecta);
         } catch (SQLException ex) {
-            imprimeErro("Erro ao conectar", ex.getMessage());
+            mensagem.imprimeErro("Erro ao conectar", ex.getMessage());
         }
     }
 
@@ -38,14 +39,9 @@ public abstract class ConectionDAO {
                 conn.close();
             }
         } catch (Exception e) {
-            imprimeErro("Erro ao fechar conexão", e.getMessage());
+            mensagem.imprimeErro("Erro ao fechar conexão", e.getMessage());
         }
     }
 
-    protected void imprimeErro(String msg, String msgErro) {
-        JOptionPane.showMessageDialog(null, msg, "Erro crítico", 0);
-        System.err.println(msg);
-        System.out.println(msgErro);
-        System.exit(0);
-    }
+    
 }

@@ -4,21 +4,24 @@
  */
 package entidadesDAO;
 
-import InterfaceDAO.InterfacePessoaDAO;
+import InterfaceDAO.BuscaInterface;
+import InterfaceDAO.GenericInterface;
 import controler.Pessoa;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import view.Mensagens;
 
 /**
  *
  * @author Josiel e Andreza
  */
-public class PessoaDAO extends ConectionDAO implements InterfacePessoaDAO {
+public class PessoaDAO extends ConectionDAO implements GenericInterface, BuscaInterface {
 
+    private Mensagens mensagem = new Mensagens();
     
     @Override
-    public void criar(Pessoa pessoa) {
+    public boolean criar(Object object) {
 
         String SQL;
         SQL = "INSERT INTO pessoa (cpf,gerente_Login,pnome,rg,rua,numero,bairro,cep,tipoPessoa,telefone,cidade)"
@@ -26,6 +29,7 @@ public class PessoaDAO extends ConectionDAO implements InterfacePessoaDAO {
 
         conectar(SQL);
         try {
+            Pessoa pessoa = (Pessoa) object;
             pstm.setString(1, pessoa.getCpf());
             pstm.setString(2, pessoa.getGerenteLogin());
             pstm.setString(3, pessoa.getPnome());
@@ -39,17 +43,18 @@ public class PessoaDAO extends ConectionDAO implements InterfacePessoaDAO {
             pstm.setString(11, pessoa.getCidade());
             pstm.execute();
             pstm.close();
-
+            return true;
         } catch (SQLException ex) {
-            imprimeErro("Erro ao Cadastrar uma Pessoa", ex.getMessage());
+            mensagem.imprimeErro("Erro ao Cadastrar uma Pessoa", ex.getMessage());
+            return false;
         }
     }
 
     @Override
-    public Pessoa buscar(String cpf, String tipo) {
+    public Object buscar(String...args) {
 
-        String buscarPessoa = "SELECT * FROM pessoa WHERE cpf = '" + cpf +
-                "' AND TipoPessoa = '" + tipo + "'"; //busca apenas uma pessoa pelo CPF
+        String buscarPessoa = "SELECT * FROM pessoa WHERE cpf = '" + args[0] +
+                "' AND TipoPessoa = '" + args[1] + "'"; //busca apenas uma pessoa pelo CPF
         ResultSet result;
         Pessoa pessoa = new Pessoa();
         conectar(buscarPessoa);
@@ -71,7 +76,7 @@ public class PessoaDAO extends ConectionDAO implements InterfacePessoaDAO {
             }
         } catch (SQLException ex) {
             //System.err.println("CPF De Pessoa nao confere com dados do banco");
-            imprimeErro("Erro ao Buscar uma Pessoa", ex.getMessage());
+            mensagem.imprimeErro("Erro ao Buscar uma Pessoa", ex.getMessage());
         }
         fechar();
         return pessoa;
@@ -79,7 +84,7 @@ public class PessoaDAO extends ConectionDAO implements InterfacePessoaDAO {
 
     //Atualiza uma determinada pessoa
     @Override
-    public void atualizar(Pessoa pessoa) {
+    public boolean atualizar(Object object) {
 
         String atualizar = "UPDATE pessoa SET "
                 + "gerente_Login = ?,"
@@ -96,6 +101,7 @@ public class PessoaDAO extends ConectionDAO implements InterfacePessoaDAO {
 
         conectar(atualizar);
         try {
+            Pessoa pessoa = (Pessoa) object;
             pstm.setString(1, pessoa.getGerenteLogin());
             pstm.setString(2, pessoa.getPnome());
             pstm.setInt(3, pessoa.getRg());
@@ -112,30 +118,35 @@ public class PessoaDAO extends ConectionDAO implements InterfacePessoaDAO {
 
             System.out.println("Pessoa atualizada");
             fechar();
+            return true;
 
         } catch (SQLException ex) {
-            imprimeErro("Erro ao Atualizar Pessoas", ex.getMessage());
+            mensagem.imprimeErro("Erro ao Atualizar Pessoas", ex.getMessage());
+            return false;
         }
     }
 
     //REMOVE UMA PESSOA DO BANCO DE DADOS
     @Override
-    public void remover(Pessoa pessoa) {
+    public boolean remover(Object object) {
 
         String sql = "DELETE FROM pessoa WHERE CPF = ?";
         conectar(sql);
 
         try {
+            Pessoa pessoa = (Pessoa) object;
             pstm.setString(1, pessoa.getCpf());
             pstm.execute();
             pstm.close();
             System.out.println("Pessoa removida com sucesso");
+            return true;
         } catch (SQLException ex) {
-            imprimeErro("Erro ao Remover Pessoas", ex.getMessage());
+            mensagem.imprimeErro("Erro ao Remover Pessoas", ex.getMessage());
+            return false;
         }
     }
 
-    @Override
+    
     public ArrayList<Pessoa> buscarPessoas(String tipo) {
 
             String sql = "SELECT * FROM pessoa WHERE TipoPessoa = '"+ tipo + "'";
@@ -163,7 +174,7 @@ public class PessoaDAO extends ConectionDAO implements InterfacePessoaDAO {
             return pessoas;
 
         } catch (SQLException ex) {
-            imprimeErro("Erro ao Buscar Pessoas", ex.getMessage());
+            mensagem.imprimeErro("Erro ao Buscar Pessoas", ex.getMessage());
         }
         return null;
 
@@ -197,9 +208,11 @@ public class PessoaDAO extends ConectionDAO implements InterfacePessoaDAO {
             return pessoas;
 
         } catch (SQLException ex) {
-            imprimeErro("Erro ao Buscar Pessoas", ex.getMessage());
+            mensagem.imprimeErro("Erro ao Buscar Pessoas", ex.getMessage());
         }
         return null;
 
     }
+
+   
 }

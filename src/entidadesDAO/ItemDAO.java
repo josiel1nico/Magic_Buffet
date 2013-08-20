@@ -4,28 +4,33 @@
  */
 package entidadesDAO;
 
-import InterfaceDAO.InterfaceItemDAO;
+import InterfaceDAO.BuscaInterface;
+import InterfaceDAO.BuscaMultiplaInterface;
+import InterfaceDAO.GenericInterface;
 import controler.Item;
 import controler.Pacote;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import view.Mensagens;
 
 /**
  *
  * @author Josiel
  */
-public class ItemDAO extends ConectionDAO implements InterfaceItemDAO {
-
+public class ItemDAO extends ConectionDAO implements GenericInterface, BuscaMultiplaInterface,BuscaInterface {
+    
+    private Mensagens mensagem = new Mensagens();
 
     @Override
-    public void criar(Item item) {
+    public boolean criar(Object object) {
 
         String criar = "INSERT INTO item (idItem, nomeItem, quantidadeTotal, precoUnidade)"
                 + "VALUES (?,?,?,?)";
 
         conectar(criar);
-        try {
+        try { 
+            Item item = (Item) object;
             pstm.setString(1, item.getIdItem());
             pstm.setString(2, item.getNomeItem());
             pstm.setInt(3, item.getQuantidadeTotal());
@@ -33,16 +38,17 @@ public class ItemDAO extends ConectionDAO implements InterfaceItemDAO {
 
             pstm.execute();
             pstm.close();
-
+            return true;
         } catch (SQLException ex) {
-            imprimeErro("Erro ao Cadastrar um Item", ex.getMessage());
+            mensagem.imprimeErro("Erro ao Cadastrar um Item", ex.getMessage());
+            return false;
         }
 
     }
 
     @Override
-    public Item buscar(String idItem) {
-        String buscar = "SELECT * FROM item WHERE IdItem LIKE '" + idItem + "'";
+    public Item buscar(String...args) {
+        String buscar = "SELECT * FROM item WHERE IdItem LIKE '" + args[0] + "'";
         ResultSet result;
         conectar(buscar);
         Item item = new Item();
@@ -58,7 +64,7 @@ public class ItemDAO extends ConectionDAO implements InterfaceItemDAO {
                 item.setPrecoUnidade(result.getFloat("precoUnidade"));
             }
         } catch (SQLException ex) {
-            imprimeErro("Erro ao Buscar um Item", ex.getMessage());
+           mensagem.imprimeErro("Erro ao Buscar um Item", ex.getMessage());
         }
         fechar();
         return item;
@@ -82,7 +88,7 @@ public class ItemDAO extends ConectionDAO implements InterfaceItemDAO {
                 item.setPrecoUnidade(result.getFloat("precoUnidade"));
             }
         } catch (SQLException ex) {
-            imprimeErro("Erro ao Buscar um Item", ex.getMessage());
+            mensagem.imprimeErro("Erro ao Buscar um Item", ex.getMessage());
         }
         fechar();
         return item;
@@ -90,7 +96,7 @@ public class ItemDAO extends ConectionDAO implements InterfaceItemDAO {
     
     
     @Override
-    public void atualizar(Item item) {
+    public boolean atualizar(Object object) {
 
         String atualiza = "UPDATE item SET "
                 + "nomeItem = ?,"
@@ -101,6 +107,7 @@ public class ItemDAO extends ConectionDAO implements InterfaceItemDAO {
         conectar(atualiza);
 
         try {
+            Item item = (Item) object;
             pstm.setString(1, item.getNomeItem());
             pstm.setInt(2, item.getQuantidadeTotal());
             pstm.setFloat(3, item.getPrecoUnidade());
@@ -109,34 +116,39 @@ public class ItemDAO extends ConectionDAO implements InterfaceItemDAO {
             pstm.executeUpdate();
             System.out.println("Item Atualizado");
             fechar();
+            return true;
         } catch (SQLException ex) {
-            imprimeErro("Erro ao Atualizar um item", ex.getMessage());
+            mensagem.imprimeErro("Erro ao Atualizar um item", ex.getMessage());
+            return false;
         }
     }
 
     @Override
-    public void remover(Item item) {
+    public boolean remover(Object object) {
 
         String remover = "DELETE FROM item WHERE idItem = ?";
 
         conectar(remover);
 
         try {
+            Item item = (Item) object;
             pstm.setString(1, item.getIdItem());
             pstm.execute();
             pstm.close();
 
+            return true;
         } catch (SQLException ex) {
-            imprimeErro("Erro ao Remover um item", ex.getMessage());
+            mensagem.imprimeErro("Erro ao Remover um item", ex.getMessage());
+            return false;
         }
     }
 
     @Override
-    public ArrayList<Item> buscarItens() {
+    public ArrayList<Object> buscar() {
 
         String buscarItens = "SELECT * FROM item ";
         
-        ArrayList<Item> itens = new ArrayList<>();
+        ArrayList<Object> itens = new ArrayList<>();
         ResultSet result;
         conectar(buscarItens);
 
@@ -154,7 +166,7 @@ public class ItemDAO extends ConectionDAO implements InterfaceItemDAO {
             return itens;
             
         } catch (SQLException ex) {
-            imprimeErro("Erro ao Buscar um Item", ex.getMessage());
+            mensagem.imprimeErro("Erro ao Buscar um Item", ex.getMessage());
         }
         return null;      
     }
@@ -186,7 +198,7 @@ public class ItemDAO extends ConectionDAO implements InterfaceItemDAO {
             return itens;
             
         } catch (SQLException ex) {
-            imprimeErro("Erro ao Buscar um Item", ex.getMessage());
+            mensagem.imprimeErro("Erro ao Buscar um Item", ex.getMessage());
         }
         return null;      
     }

@@ -127,9 +127,9 @@ public class ResultadoTabela extends javax.swing.JFrame {
             ResultadoFesta result = new ResultadoFesta();
               FestaDAO festa = new FestaDAO();        
 
-                Festa f = festa.buscar(id);
+                Festa f = (Festa) festa.buscar(id);
                 PessoaDAO p = new PessoaDAO();
-                Pessoa pessoa = p.buscar(f.getPessoaCPF(), "CLIENTE");                
+                Pessoa pessoa = (Pessoa) p.buscar(f.getPessoaCPF(), "CLIENTE");                
                 result.cliente.setText(pessoa.getPnome());
                 result.cliente.setEditable(false);        
                 result.horario.setText(f.getHoraInicio().toString());
@@ -155,7 +155,7 @@ public class ResultadoTabela extends javax.swing.JFrame {
                      LocalizacaoDAO localizacao = new LocalizacaoDAO();
                      Localizacao localiz;
                      String cep = f.getLocal();
-                     localiz = localizacao.buscarCEP(cep);
+                     localiz = (Localizacao)localizacao.buscar(cep);
                      result.local.setText(localiz.getCEP() + " - " + localiz.getBairro()
                               + " - " + localiz.getRua());
                      
@@ -167,8 +167,12 @@ public class ResultadoTabela extends javax.swing.JFrame {
                 
                 
                 TemaDAO temas = new TemaDAO();
-                ArrayList<Tema> tema;
-                tema = temas.buscarTema();
+                ArrayList<Object> t = temas.buscar();
+                ArrayList<Tema> tema = new ArrayList<>();
+                
+                for(Object theme : t)
+                    tema.add((Tema) theme);
+                
                 String[] themes = new String[tema.size()];
                 String temaSelecionado = f.getTema();                
                 for (int i = 0; i < tema.size(); i++) {
@@ -192,7 +196,7 @@ public class ResultadoTabela extends javax.swing.JFrame {
         int linha = tabela.getSelectedRow();
         Object valueAt = tabela.getValueAt(linha, 1);
         String cpf = valueAt.toString(); 
-        Pessoa p = pessoa.buscar(cpf,tipoPessoa);
+        Pessoa p = (Pessoa) pessoa.buscar(cpf,tipoPessoa);
         Resultado result = new Resultado();
         
         result.setNome(p.getPnome());
@@ -227,7 +231,7 @@ public class ResultadoTabela extends javax.swing.JFrame {
             int linha = tabela.getSelectedRow();            
             Object valueAt = tabela.getValueAt(linha, 1);
             String cpf = valueAt.toString();
-            Pessoa p = pessoa.buscar(cpf,"CLIENTE");        
+            Pessoa p = (Pessoa) pessoa.buscar(cpf,"CLIENTE");        
             pessoa.remover(p);
             JOptionPane.showMessageDialog(this,"Cliente Removido");
             TelaBuscar tela = TelaBuscar.getInstance();
